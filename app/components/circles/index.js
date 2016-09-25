@@ -94,15 +94,7 @@ class Circles extends Component {
         { rows.map(this.createCircles) }
         <Key
           operations={ operations }
-          setOperation={
-            (name, operation) =>
-              this.setState({
-                operations: R.merge(
-                  operations,
-                  { [name]: operation },
-                ),
-              })
-          } />
+          setOperation={ this.setOperation } />
       </div>
     );
   }
@@ -124,6 +116,7 @@ class Circles extends Component {
               right: getValue(row[i + 1]),
             } }
             operations={ operations }
+            setOperation={ this.setOperation }
             setValue={ v => {
               const newCircle = R.assocPath(['dynamic', 'value'], v, rowData);
               const newRow = R.update(i, newCircle, row);
@@ -135,6 +128,14 @@ class Circles extends Component {
       </div>
     );
   }
+
+  setOperation = (name, operation) =>
+    this.setState({
+      operations: R.merge(
+        this.state.operations,
+        { [name]: operation },
+      ),
+    })
 }
 
 export default Circles;

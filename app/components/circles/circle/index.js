@@ -18,6 +18,7 @@ class Circle extends Component {
     neighbors: PropTypes.object,
     operations: PropTypes.object,
     petals: PropTypes.object,
+    setOperation: PropTypes.func.isRequired,
     setValue: PropTypes.func.isRequired,
     value: PropTypes.string,
   };
@@ -31,6 +32,7 @@ class Circle extends Component {
       data: { statik },
       neighbors,
       operations,
+      setOperation,
     } = this.props;
 
     const { displayValue } = this.state;
@@ -85,6 +87,7 @@ class Circle extends Component {
     const petalProps = {
       operations,
       neighbors,
+      setOperation,
       statikData: statik,
       parentValue: value,
     };
