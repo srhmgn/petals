@@ -1,0 +1,8 @@
+.circles {
+  margin: 60px auto;
+}
+
+.circles__row {
+  display: flex;
+  justify-content: center;
+}

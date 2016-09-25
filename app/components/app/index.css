@@ -1,7 +1,0 @@
-@define-mixin green {
-  color: green;
-}
-
-h1 {
-  @mixin green;
-}

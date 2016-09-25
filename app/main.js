@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/app';
+import Circles from './components/circles';
 
 ReactDOM.render(
-  <App />,
+  <Circles />,
   document.body.appendChild(document.createElement('div'))
 );
