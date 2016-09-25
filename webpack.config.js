@@ -14,7 +14,8 @@ module.exports = {
   entry: [
     'webpack/hot/dev-server',
     'webpack-dev-server/client?http://localhost:8080',
-    path.resolve(__dirname, 'app/main.js')
+    path.resolve(__dirname, 'app/main.js'),
+    path.resolve(__dirname, 'app/main.css')
   ],
   output: {
     path: __dirname + '/build',
@@ -41,8 +42,15 @@ module.exports = {
       failOnError: false,
     }),
   ],
-  postcss: [
-    require('postcss-cssnext'),
-    require('postcss-mixins'),
-  ],
+  postcss: function postcssInit(webpackInstance) {
+    return [
+      require('postcss-import')({
+      /* We need to assign postcss plugins inside this function
+         to pass webpackInstance to postcss-import. */
+        addDependencyTo: webpackInstance,
+      }),
+      require('postcss-cssnext'),
+      require('postcss-mixins'),
+    ];
+  },
 };
