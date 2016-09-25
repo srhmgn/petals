@@ -1,3 +1,21 @@
+/* stylelint-disable color-no-hex */
+
 :root {
-  --red: cyan;
+  --filter-static: alpha(30%);
+  --filter-error: alpha(50%);
+  --color-black: #000;
+  --color-white: #FFF;
+  --color-gray-dark: #2C3E50;
+  --color-gray-dark-static: color(var(--color-gray-dark) var(--filter-static));
+  --color-gray-light: #ECF0F1;
+  --color-purple: #8E44AD;
+  --color-purple-static: color(var(--color-purple) var(--filter-static));
+  --color-red: #C0392B;
+  --color-red-error: color(var(--color-red) var(--filter-error));
+  --color-green: #2ECC71;
+  --color-green-static: color(var(--color-green) var(--filter-static));
+  --color-yellow: #F1C40F;
+  --color-yellow-static: color(var(--color-yellow) var(--filter-static));
 }
+
+/* stylelint-enable color-no-hex */

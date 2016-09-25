@@ -36,6 +36,7 @@
     "eslint-loader": "^1.5.0",
     "eslint-plugin-import": "^1.9.2",
     "eslint-plugin-react": "latest",
+    "extract-text-webpack-plugin": "^1.0.1",
     "ghooks": "^1.0.3",
     "postcss-cssnext": "^2.8.0",
     "postcss-import": "^8.1.2",

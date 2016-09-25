@@ -1,3 +1,5 @@
+@import '../../../styles/_colors.css';
+
 .circle {
   border-radius: 50%;
   display: block;
@@ -16,14 +18,14 @@ input {
 
 .circle__right {
   align-items: center;
-  background: rgba(142, 68, 173, 1);
+  background-color: var(--color-purple);
   display: flex;
   left: calc(100% - 60px);
   z-index: 5;
 }
 
 .circle__right.neighbor--static:not(.neighbor--invalid) {
-  background: rgba(142, 68, 173, 0.2);
+  background-color: var(--color-purple-static);
 }
 
 .circle__right::after {
@@ -33,9 +35,9 @@ input {
 }
 
 .circle__bottom-left-int {
-  background: #2c3e50;
+  background-color: var(--color-gray-dark);
   bottom: calc(100% - 60px);
-  color: #ecf0f1;
+  color: var(--color-gray-light);
   display: flex;
   font-style: normal;
   font-weight: normal;
@@ -52,8 +54,8 @@ input {
 }
 
 .circle__bottom-int {
-  background: #2c3e50;
-  color: #ecf0f1;
+  background-color: var(--color-gray-dark);
+  color: var(--color-gray-light);
   display: flex;
   font-style: normal;
   font-weight: normal;
@@ -71,7 +73,7 @@ input {
 
 .circle__bottom-right {
   align-items: flex-start;
-  background: rgba(46, 204, 113, 1);
+  background-color: var(--color-green);
   display: flex;
   right: -70px;
   top: calc(100% - 60px);
@@ -79,7 +81,7 @@ input {
 }
 
 .circle__bottom-right.neighbor--static:not(.neighbor--invalid) {
-  background: rgba(46, 204, 113, 0.2);
+  background-color: var(--color-green-static);
 }
 
 .circle__bottom-right::after {
@@ -95,7 +97,7 @@ input {
 
 .circle__bottom-left {
   align-items: flex-start;
-  background: rgba(241, 196, 15, 1);
+  background-color: var(--color-yellow);
   display: flex;
   left: -70px;
   overflow: hidden;
@@ -104,7 +106,7 @@ input {
 }
 
 .circle__bottom-left.neighbor--static:not(.neighbor--invalid) {
-  background: rgba(241, 196, 15, 0.2);
+  background-color: var(--color-yellow-static);
 }
 
 .circle__bottom-left::after {
@@ -137,7 +139,7 @@ input {
 }
 
 .neighbor--invalid {
-  background-color: rgba(192, 57, 43, 0.6)
+  background-color: var(--color-red-error);
 }
 
 .circle__number:not(.circle__number--static),
@@ -146,7 +148,7 @@ input {
 }
 
 .circle__number--static {
-  color: rgba(52, 73, 94, 0.4);
+  color: var(--color-gray-dark-static);
 }
 
 .circle__number--static,

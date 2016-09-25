@@ -39,8 +39,8 @@ class Circles extends Component {
         },
         {
           statik: {
-            bottomLeft: getRandom(40),
-            right: getRandom(40),
+            bottomLeft: getRandom(18),
+            right: getRandom(18),
           },
           dynamic: {
             value: getRandom(),
@@ -56,7 +56,7 @@ class Circles extends Component {
       [
         {
           statik: {
-            bottomRight: getRandom(40),
+            bottomRight: getRandom(18),
           },
           dynamic: {
             value: getRandom(),

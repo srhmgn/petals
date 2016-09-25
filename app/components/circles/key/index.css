@@ -1,21 +1,23 @@
+@import '../../../styles/_colors.css';
+
 .u-key-list {
+  display: flex;
+  list-style-type: none;
   margin: 5px auto;
   padding: 0;
-  list-style-type: none;
-  display: flex;
 }
 
 .u-reset-button {
+  background-color: transparent;
+  border: none;
   font-size: 14px;
   margin: 0;
   padding: 0;
-  border: none;
-  background: transparent;
 }
 
 .key {
+  background-color: var(--color-gray-light);
   margin: 50px auto 0;
-  background-color: #eee;
   padding: 10px;
   width: 250px;
 }
@@ -25,19 +27,19 @@
 }
 
 .key__item button {
-  display: flex;
   align-items: center;
+  display: flex;
   width: 30px;
 }
 
 .key__item button::before {
-  display: block;
-  content: '';
-  height: 10px;
-  width: 10px;
+  background-color: var(--color-white);
   border-radius: 50%;
+  content: '';
+  display: block;
+  height: 10px;
   margin-right: 10px;
-  background-color: #fff;
+  width: 10px;
 }
 
 .key__item:not(:last-child) {
@@ -45,27 +47,27 @@
 }
 
 .key__item--selected {
-  background: #fff;
+  background-color: var(--color-white);
 }
 
 .key__item--current button::before {
-  background: #2c3e50;
+  background-color: var(--color-black);
 }
 
 .key__item--right button::before {
-  background: #8e44ad;
+  background-color: var(--color-purple);
 }
 
 .key__item--bottom-left button::before {
-  background: #f1c40f;
+  background-color: var(--color-yellow);
 }
 
 .key__item--bottom-right button::before {
-  background: #2ecc71;
+  background-color: var(--color-red);
 }
 
 .key__item--int button::before {
-  background: #2c3e50;
+  background-color: var(--color-gray-dark);
 }
 
 .key__options:not(.key__options--visible) {
