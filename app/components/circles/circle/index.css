@@ -68,7 +68,6 @@ input {
   position: absolute;
   text-align: center;
   width: 100%;
-  z-index: 20;
 }
 
 .neighbor--invalid {

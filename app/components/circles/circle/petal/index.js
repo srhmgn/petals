@@ -36,7 +36,8 @@ function Petal({
         'petal--invalid': isStaticProp && Number(dynamic) !== Number(statik),
         'petal--static': isStaticProp,
       }) }
-      data-content={ isStaticProp ? statik : dynamic }>
+      data-content={ isStaticProp ? statik : dynamic }
+      onClick={ () => { } }>
       { children }
     </span>
   );
