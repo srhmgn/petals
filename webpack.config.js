@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
+var StyleLintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = {
   devServer: {
@@ -22,8 +23,11 @@ module.exports = {
     filename: './bundle.js'
   },
   module: {
+    preLoaders: [
+      { test: /\.js$/, loader: 'eslint-loader' },
+    ],
     loaders:[
-      { test: /\.css$/, include: path.resolve(__dirname, 'app'), loader: 'style-loader!css-loader' },
+      { test: /\.css$/, include: path.resolve(__dirname, 'app'), loader: 'style-loader!css-loader!postcss-loader' },
       { test: /\.js?$/, include: path.resolve(__dirname, 'app'), exclude: /node_modules/, loader: 'babel-loader' },
     ]
   },
@@ -32,6 +36,16 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new OpenBrowserPlugin({ url: 'http://localhost:8080' })
-  ]
+    new OpenBrowserPlugin({ url: 'http://localhost:8080' }),
+    new StyleLintPlugin({
+      configFile: './.stylelintrc',
+      files: ['app/**/*.css'],
+      failOnError: false,
+    }),
+  ],
+  postcss: [
+    require('autoprefixer'),
+    require('postcss-cssnext'),
+    require('postcss-mixins'),
+  ],
 };
