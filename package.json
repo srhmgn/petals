@@ -15,11 +15,12 @@
   },
   "dependencies": {
     "babel-runtime": "6.x",
+    "classnames": "^2.2.5",
+    "ramda": "^0.22.1",
     "react": "15.x",
     "react-dom": "15.x"
   },
   "devDependencies": {
-    "autoprefixer": "^6.4.1",
     "babel-core": "6.x",
     "babel-eslint": "6.x",
     "babel-loader": "6.x",
@@ -32,13 +33,10 @@
     "css-loader": "~0.23.0",
     "cz-conventional-changelog": "^1.1.5",
     "eslint": "latest",
-    "eslint-config-airbnb": "latest",
     "eslint-loader": "^1.5.0",
     "eslint-plugin-import": "^1.9.2",
-    "eslint-plugin-jsx-a11y": "latest",
     "eslint-plugin-react": "latest",
     "ghooks": "^1.0.3",
-    "open-browser-webpack-plugin": "0.0.2",
     "postcss-cssnext": "^2.8.0",
     "postcss-loader": "^0.13.0",
     "postcss-mixins": "^5.2.0",

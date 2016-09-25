@@ -1,6 +1,5 @@
 var webpack = require('webpack');
 var path = require('path');
-var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 var StyleLintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = {
@@ -36,7 +35,6 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new OpenBrowserPlugin({ url: 'http://localhost:8080' }),
     new StyleLintPlugin({
       configFile: './.stylelintrc',
       files: ['app/**/*.css'],
@@ -44,7 +42,6 @@ module.exports = {
     }),
   ],
   postcss: [
-    require('autoprefixer'),
     require('postcss-cssnext'),
     require('postcss-mixins'),
   ],
