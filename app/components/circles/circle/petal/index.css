@@ -1,0 +1,98 @@
+@import '../../../../styles/_colors.css';
+
+@define-mixin circle {
+  border-radius: 50%;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.petal {
+  @mixin circle;
+}
+
+.petal::after {
+  content: attr(data-content);
+}
+
+.petal.petal--invalid {
+  background-color: var(--color-red-error);
+}
+
+.petal:not(.petal--static) {
+  color: black;
+}
+
+.petal--static {
+  font-style: italic;
+}
+
+/* right petal */
+
+.petal--right {
+  align-items: center;
+  background-color: var(--color-purple);
+  display: flex;
+  left: calc(100% - 60px);
+  z-index: 5;
+}
+
+.petal--right.petal--static:not(.petal--invalid) {
+  background-color: var(--color-purple-static);
+}
+
+.petal--right::after {
+  text-align: center;
+  width: 60px;
+}
+
+/* bottom right petal */
+
+.petal--bottom-right {
+  align-items: flex-start;
+  background-color: var(--color-green);
+  display: flex;
+  right: -70px;
+  top: calc(100% - 60px);
+  z-index: 10;
+}
+
+.petal--bottom-right.petal--static:not(.petal--invalid) {
+  background-color: var(--color-green-static);
+}
+
+.petal--bottom-right::after {
+  align-items: center;
+  display: flex;
+  height: 60px;
+  justify-content: center;
+  position: absolute;
+  right: 34px;
+  width: 100%;
+}
+
+/* bottom left petal */
+
+.petal--bottom-left {
+  align-items: flex-start;
+  background-color: var(--color-yellow);
+  display: flex;
+  left: -70px;
+  overflow: hidden;
+  top: calc(100% - 60px);
+  z-index: 15;
+}
+
+.petal--bottom-left.petal--static:not(.petal--invalid) {
+  background-color: var(--color-yellow-static);
+}
+
+.petal--bottom-left::after {
+  align-items: center;
+  display: flex;
+  height: 60px;
+  justify-content: center;
+  left: 34px;
+  position: absolute;
+  width: 100%;
+}

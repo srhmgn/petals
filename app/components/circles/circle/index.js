@@ -5,13 +5,19 @@ import cx from 'classnames';
 import { getValue, isStatic } from '../utils';
 import { OPERATIONS } from '../index';
 
+import Petal from './petal';
+
 import './index.css';
+
+// disable internal numbers for now/ever - they're ugly
+const SHOW_INT_NUMBERS = false;
 
 class Circle extends Component {
   static propTypes = {
     data: PropTypes.object,
     neighbors: PropTypes.object,
     operations: PropTypes.object,
+    petals: PropTypes.object,
     setValue: PropTypes.func.isRequired,
     value: PropTypes.string,
   };
@@ -29,7 +35,7 @@ class Circle extends Component {
 
     const { displayValue } = this.state;
     const value = this.getValue();
-    const { bottomLeft, bottomRight, left, right } = neighbors;
+    const { bottomLeft, bottomRight, left } = neighbors;
 
     const apply = (operation, ...args) => {
       let initialValue;
@@ -61,40 +67,27 @@ class Circle extends Component {
     const bottomLeftInt = doExist(bottomLeft, left) ? (
       <span
         className='circle__bottom-left-int u-is-circle'
-        data-content={ apply(operations.int, value, bottomLeft, left) }
+        data-content={ SHOW_INT_NUMBERS ?
+          apply(operations.int, value, bottomLeft, left) : null
+        }
         key={ 0 } />
     ) : null;
 
     const bottomInt = doExist(bottomRight, bottomLeft) ? (
       <span
         className='circle__bottom-int u-is-circle'
-        data-content={
-          apply(operations.int, value, bottomRight, bottomLeft)
+        data-content={ SHOW_INT_NUMBERS ?
+          apply(operations.int, value, bottomRight, bottomLeft) : null
         }
         key={ 1 } />
     ) : null;
 
-    const rightSpan = doExist(right) ?
-      this.getNeighbor({
-        className: 'circle__right u-is-circle',
-        dynamic: apply(operations.right, value, right),
-        statik: (statik && statik.right) ? statik.right : null,
-      }) : null;
-
-    const bottomLeftSpan = doExist(bottomLeft) ?
-      this.getNeighbor({
-        children: [bottomInt, bottomLeftInt],
-        className: 'circle__bottom-left u-is-circle',
-        dynamic: apply(operations.bottomLeft, value, bottomLeft),
-        statik: (statik && statik.bottomLeft) ? statik.bottomLeft : null,
-      }) : null;
-
-    const bottomRightSpan = doExist(bottomRight) ?
-      this.getNeighbor({
-        className: 'circle__bottom-right u-is-circle',
-        dynamic: apply(operations.bottomRight, value, bottomRight),
-        statik: (statik && statik.bottomRight) ? statik.bottomRight : null,
-      }) : null;
+    const petalProps = {
+      operations,
+      neighbors,
+      statikData: statik,
+      parentValue: value,
+    };
 
     const numberClassNames = cx({
       'circle__number': true,
@@ -103,10 +96,12 @@ class Circle extends Component {
 
     return (
       <span className='circle'>
-        <span className='u-is-circle' />
-        { rightSpan }
-        { bottomLeftSpan }
-        { bottomRightSpan }
+        <Petal name='bottomLeft' { ...petalProps }>
+          { bottomInt }
+          { bottomLeftInt }
+        </Petal>
+        <Petal name='bottomRight' { ...petalProps } />
+        <Petal name='right' { ...petalProps } />
         <input
           className={ numberClassNames }
           onBlur={ this.handleEvent }

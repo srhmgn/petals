@@ -16,24 +16,6 @@ input {
   font-size: 36px;
 }
 
-.circle__right {
-  align-items: center;
-  background-color: var(--color-purple);
-  display: flex;
-  left: calc(100% - 60px);
-  z-index: 5;
-}
-
-.circle__right.neighbor--static:not(.neighbor--invalid) {
-  background-color: var(--color-purple-static);
-}
-
-.circle__right::after {
-  content: attr(data-content);
-  text-align: center;
-  width: 60px;
-}
-
 .circle__bottom-left-int {
   background-color: var(--color-gray-dark);
   bottom: calc(100% - 60px);
@@ -69,55 +51,6 @@ input {
   text-align: center;
   top: 41px;
   width: 60px;
-}
-
-.circle__bottom-right {
-  align-items: flex-start;
-  background-color: var(--color-green);
-  display: flex;
-  right: -70px;
-  top: calc(100% - 60px);
-  z-index: 10;
-}
-
-.circle__bottom-right.neighbor--static:not(.neighbor--invalid) {
-  background-color: var(--color-green-static);
-}
-
-.circle__bottom-right::after {
-  align-items: center;
-  content: attr(data-content);
-  display: flex;
-  height: 60px;
-  justify-content: center;
-  position: absolute;
-  right: 34px;
-  width: 100%;
-}
-
-.circle__bottom-left {
-  align-items: flex-start;
-  background-color: var(--color-yellow);
-  display: flex;
-  left: -70px;
-  overflow: hidden;
-  top: calc(100% - 60px);
-  z-index: 15;
-}
-
-.circle__bottom-left.neighbor--static:not(.neighbor--invalid) {
-  background-color: var(--color-yellow-static);
-}
-
-.circle__bottom-left::after {
-  align-items: center;
-  content: attr(data-content);
-  display: flex;
-  height: 60px;
-  justify-content: center;
-  left: 34px;
-  position: absolute;
-  width: 100%;
 }
 
 .u-is-circle {
