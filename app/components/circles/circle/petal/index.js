@@ -46,7 +46,7 @@ function Petal({
         mousePos: [e.clientX, e.clientY ],
         name,
         parentIndex,
-      }) }>
+      }, e) }>
       { children }
     </span>
   );

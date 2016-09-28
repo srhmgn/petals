@@ -24,7 +24,7 @@ function Setter({
 
         if (
           name === 'int' &&
-          (operationName === 'SUBTRACT' || operationName === 'DIVIDE')
+          (operationName === 'SUBTRACT' || operationName === 'MODULO')
         ) return null;
 
         const setterClasses = cx({

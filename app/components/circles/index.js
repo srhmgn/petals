@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import R from 'ramda';
 
-import { getRandom, getValue } from './utils';
+import { getRows, getValue } from './utils';
 
 import Circle from './circle';
 import Setter from './setter';
@@ -21,6 +21,10 @@ export const OPERATIONS = {
     func: R.multiply,
     label: 'x',
   },
+  MODULO: {
+    func: R.modulo,
+    label: '%',
+  },
   DIVIDE: {
     func: R.divide,
     label: '÷',
@@ -29,55 +33,7 @@ export const OPERATIONS = {
 
 class Circles extends Component {
   state = {
-    rows: [
-      [
-        {
-          statik: {
-            value: getRandom(),
-          },
-          dynamic: {},
-        },
-        {
-          statik: {
-            bottomLeft: getRandom(18),
-            right: getRandom(18),
-          },
-          dynamic: {
-            value: getRandom(),
-          },
-        },
-        {
-          statik: {},
-          dynamic: {
-            value: getRandom(),
-          },
-        },
-      ],
-      [
-        {
-          statik: {
-            bottomRight: getRandom(18),
-          },
-          dynamic: {
-            value: getRandom(),
-          },
-        },
-        {
-          statik: {
-            value: getRandom(),
-          },
-          dynamic: {},
-        },
-      ],
-      [
-        {
-          statik: {
-            value: getRandom(),
-          },
-          dynamic: {},
-        },
-      ],
-    ],
+    rows: getRows(),
     operations: {
       right: OPERATIONS.ADD,
       bottomLeft: OPERATIONS.SUBTRACT,
@@ -88,10 +44,14 @@ class Circles extends Component {
   };
 
   render() {
-    const { openSetter, operations, rows } = this.state;
+    const {
+      openSetter,
+      operations,
+      rows,
+    } = this.state;
 
     return (
-      <div className='circles'>
+      <div className='circles' onClick={ (e) => this.setOpenSetter(null, e) }>
         { rows.map(this.createCircles) }
         { openSetter ?
           <Setter
@@ -122,7 +82,7 @@ class Circles extends Component {
             } }
             openSetter={ openSetter }
             operations={ operations }
-            setOpenSetter={ v => this.setState({ openSetter: v }) }
+            setOpenSetter={ this.setOpenSetter }
             setValue={ v => {
               const newCircle = R.assocPath(['dynamic', 'value'], v, rowData);
               const newRow = R.update(i, newCircle, row);
@@ -133,6 +93,11 @@ class Circles extends Component {
         ) }
       </div>
     );
+  }
+
+  setOpenSetter = (v, e) => {
+    this.setState({ openSetter: v });
+    e && e.stopPropagation();
   }
 
   setOperation = (name, operation) =>
