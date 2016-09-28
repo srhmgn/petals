@@ -2,7 +2,7 @@ import R from 'ramda';
 
 import { OPERATIONS } from './index';
 
-export function getRows(size = 4) {
+export function buildRows(size) {
   const rows = [];
 
   for (let i = size; i > 0; i--) {

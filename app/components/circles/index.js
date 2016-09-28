@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import R from 'ramda';
 
-import { getRows, getValue } from './utils';
+import { buildRows, getValue, apply, doExist } from './utils';
 
 import Circle from './circle';
+import Petal from './petal';
 import Setter from './setter';
 
 import './index.css';
+
+// disable internal numbers for now/ever - they're ugly
+// const SHOW_INT_NUMBERS = false;
 
 export const OPERATIONS = {
   ADD: {
@@ -33,64 +37,141 @@ export const OPERATIONS = {
 
 class Circles extends Component {
   state = {
-    rows: getRows(),
+    displaySize: 3,
+    openSetter: null,
     operations: {
       right: OPERATIONS.ADD,
       bottomLeft: OPERATIONS.SUBTRACT,
       bottomRight: OPERATIONS.MULTIPLY,
       int: OPERATIONS.ADD,
     },
-    openSetter: null,
+    rows: buildRows(3),
   };
 
   render() {
     const {
+      displaySize,
       openSetter,
       operations,
       rows,
     } = this.state;
 
+    this.petals = [];
+
+    const circles = rows.map(this.createCircles);
+    const won = R.all(R.propEq('isInvalid', false), this.petals);
+
     return (
       <div className='circles' onClick={ (e) => this.setOpenSetter(null, e) }>
-        { rows.map(this.createCircles) }
+        { won && <h2>You won!</h2> }
+        { circles }
         { openSetter ?
           <Setter
             key={ `${openSetter.name}${openSetter.parentIndex}` }
             openSetter={ openSetter }
             operations={ operations }
             setOperation={ this.setOperation } /> : null }
+        <h2>New game:</h2>
+        { displaySize }
+        <button
+          onClick={ () =>
+            this.setState({ displaySize: displaySize + 1 })
+          }>+</button>
+        <button
+          onClick={ () =>
+            this.setState({ displaySize: displaySize - 1 })
+          }>-</button>
+        <button
+          onClick={ () =>
+            this.setState({ rows: buildRows(displaySize) })
+          }>Go</button>
       </div>
     );
   }
 
+  getPetalProps = (name, petalProps) => {
+    const {
+      operations,
+      neighbors,
+      parentValue,
+      statikData,
+      ...props,
+    } = petalProps;
+
+    const neighborValue = neighbors[name];
+    if (!doExist(neighborValue)) return null;
+
+    const dynamic = apply(operations[name], parentValue, neighborValue);
+    const statik = (statikData && statikData[name]) ?
+      statikData[name] : null;
+    const isStatic = !R.isNil(statik);
+
+    return {
+      name,
+      isInvalid: isStatic && Number(dynamic) !== Number(statik),
+      isStatic,
+      contentValue: isStatic ? statik : dynamic,
+      ...props,
+    };
+  }
+
   createCircles = (row, rowIndex) => {
-    const { openSetter, operations, rows } = this.state;
+    const {
+      openSetter,
+      operations,
+      rows,
+    } = this.state;
     const nextRow = rows[rowIndex + 1];
 
     return (
       <div className='circles__row' key={ rowIndex }>
-        { row.map((rowData, i) =>
-          <Circle
-            data={ rowData }
-            index={ `${rowIndex}${i}` }
-            key={ i }
-            neighbors={ {
-              bottomLeft: nextRow && getValue(nextRow[i - 1]),
-              bottomRight: nextRow && getValue(nextRow[i]),
-              left: getValue(row[i - 1]),
-              right: getValue(row[i + 1]),
-            } }
-            openSetter={ openSetter }
-            operations={ operations }
-            setOpenSetter={ this.setOpenSetter }
-            setValue={ v => {
-              const newCircle = R.assocPath(['dynamic', 'value'], v, rowData);
-              const newRow = R.update(i, newCircle, row);
-              this.setState({
-                rows: R.update(rowIndex, newRow, rows),
-              });
-            } } />
-        ) }
+        { row.map((rowData, i) => {
+          const neighbors = {
+            bottomLeft: nextRow && getValue(nextRow[i - 1]),
+            bottomRight: nextRow && getValue(nextRow[i]),
+            left: getValue(row[i - 1]),
+            right: getValue(row[i + 1]),
+          };
+
+          const petalProps = {
+            openSetter,
+            operations,
+            neighbors,
+            parentIndex: `${rowIndex}${i}`,
+            parentValue: getValue(rowData),
+            setOpenSetter: this.setOpenSetter,
+            statikData: rowData.statik,
+          };
+
+          const rightPetal = this.getPetalProps('right', petalProps);
+
+          rightPetal && this.petals.push(rightPetal);
+
+          return (
+            <Circle
+              data={ rowData }
+              key={ i }
+              neighbors={ {
+                bottomLeft: nextRow && getValue(nextRow[i - 1]),
+                bottomRight: nextRow && getValue(nextRow[i]),
+                left: getValue(row[i - 1]),
+                right: getValue(row[i + 1]),
+              } }
+              openSetter={ openSetter }
+              operations={ operations }
+              setOpenSetter={ this.setOpenSetter }
+              setValue={ v => {
+                const newCircle = R.assocPath(['dynamic', 'value'], v, rowData);
+                const newRow = R.update(i, newCircle, row);
+                this.setState({
+                  rows: R.update(rowIndex, newRow, rows),
+                });
+              } }>
+              { rightPetal ?
+                <Petal { ...rightPetal } /> : null }
+            </Circle>
+          );
+        }) }
       </div>
     );
   }

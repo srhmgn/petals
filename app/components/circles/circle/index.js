@@ -1,26 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-import R from 'ramda';
 import cx from 'classnames';
 
 import { getValue, isStatic } from '../utils';
-import { OPERATIONS } from '../index';
-
-import Petal from './petal';
 
 import './index.css';
 
-// disable internal numbers for now/ever - they're ugly
-const SHOW_INT_NUMBERS = false;
-
 class Circle extends Component {
   static propTypes = {
-    data: PropTypes.object,
-    index: PropTypes.string.isRequired,
-    neighbors: PropTypes.object,
-    openSetter: PropTypes.object,
-    operations: PropTypes.object,
-    petals: PropTypes.object,
-    setOpenSetter: PropTypes.func.isRequired,
+    children: PropTypes.node,
+    data: PropTypes.object.isRequired,
     setValue: PropTypes.func.isRequired,
     value: PropTypes.string,
   };
@@ -30,73 +18,26 @@ class Circle extends Component {
   };
 
   render() {
-    const {
-      data: { statik },
-      index,
-      neighbors,
-      openSetter,
-      operations,
-      setOpenSetter,
-    } = this.props;
-
+    const { children } = this.props;
     const { displayValue } = this.state;
-    const value = this.getValue();
-    const { bottomLeft, bottomRight, left } = neighbors;
 
-    const apply = (operation, ...args) => {
-      let initialValue;
-      let finalArgs = args;
+    // const bottomLeftInt = doExist(bottomLeft, left) ? (
+    //   <span
+    //     className='circle__bottom-left-int u-is-circle'
+    //     data-content={ SHOW_INT_NUMBERS ?
+    //       apply(operations.int, value, bottomLeft, left) : null
+    //     }
+    //     key={ 0 } />
+    // ) : null;
 
-      switch (operation) {
-      case OPERATIONS.ADD:
-        initialValue = 0;
-        break;
-      case OPERATIONS.MULTIPLY:
-        initialValue = 1;
-        break;
-      case OPERATIONS.SUBTRACT:
-      case OPERATIONS.DIVIDE:
-        initialValue = R.max(...args);
-        finalArgs = [R.min(...args)];
-        break;
-      default:
-        return null;
-      }
-
-      return finalArgs.reduce((acc, n) => {
-        return operation.func(acc, Number(n));
-      }, initialValue);
-    };
-
-    const doExist = (...args) => R.none(R.isNil, args);
-
-    const bottomLeftInt = doExist(bottomLeft, left) ? (
-      <span
-        className='circle__bottom-left-int u-is-circle'
-        data-content={ SHOW_INT_NUMBERS ?
-          apply(operations.int, value, bottomLeft, left) : null
-        }
-        key={ 0 } />
-    ) : null;
-
-    const bottomInt = doExist(bottomRight, bottomLeft) ? (
-      <span
-        className='circle__bottom-int u-is-circle'
-        data-content={ SHOW_INT_NUMBERS ?
-          apply(operations.int, value, bottomRight, bottomLeft) : null
-        }
-        key={ 1 } />
-    ) : null;
-
-    const petalProps = {
-      openSetter,
-      operations,
-      neighbors,
-      parentIndex: index,
-      parentValue: value,
-      setOpenSetter,
-      statikData: statik,
-    };
+    // const bottomInt = doExist(bottomRight, bottomLeft) ? (
+    //   <span
+    //     className='circle__bottom-int u-is-circle'
+    //     data-content={ SHOW_INT_NUMBERS ?
+    //       apply(operations.int, value, bottomRight, bottomLeft) : null
+    //     }
+    //     key={ 1 } />
+    // ) : null;
 
     const numberClassNames = cx({
       'circle__number': true,
@@ -105,12 +46,7 @@ class Circle extends Component {
 
     return (
       <span className='circle'>
-        <Petal name='bottomLeft' { ...petalProps }>
-          { bottomInt }
-          { bottomLeftInt }
-        </Petal>
-        <Petal name='bottomRight' { ...petalProps } />
-        <Petal name='right' { ...petalProps } />
+        { children }
         <input
           className={ numberClassNames }
           onBlur={ this.handleEvent }
@@ -122,21 +58,21 @@ class Circle extends Component {
     );
   }
 
-  getNeighbor({ children, className, dynamic, statik }) {
-    const isStaticProp = !R.isNil(statik);
+  // getNeighbor({ children, className, dynamic, statik }) {
+  //   const isStaticProp = !R.isNil(statik);
 
-    return (
-      <span
-        className={ cx({
-          'neighbor': true,
-          'neighbor--invalid': isStaticProp && Number(dynamic) !== Number(statik),
-          'neighbor--static': isStaticProp,
-        }, className) }
-        data-content={ isStaticProp ? statik : dynamic }>
-        { children }
-      </span>
-    );
-  }
+  //   return (
+  //     <span
+  //       className={ cx({
+  //         'neighbor': true,
+  //         'neighbor--invalid': isStaticProp && Number(dynamic) !== Number(statik),
+  //         'neighbor--static': isStaticProp,
+  //       }, className) }
+  //       data-content={ isStaticProp ? statik : dynamic }>
+  //       { children }
+  //     </span>
+  //   );
+  // }
 
   getValue() {
     return getValue(this.props.data);
