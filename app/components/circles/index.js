@@ -10,7 +10,7 @@ import Setter from './setter';
 import './index.css';
 
 // disable internal numbers for now/ever - they're ugly
-// const SHOW_INT_NUMBERS = false;
+const SHOW_INT_NUMBERS = false;
 
 export const OPERATIONS = {
   ADD: {
@@ -115,6 +115,38 @@ class Circles extends Component {
     };
   }
 
+  getInts = (petalProps) => {
+    const {
+      operations,
+      neighbors,
+      parentValue,
+    } = petalProps;
+
+    if (!neighbors) return null;
+
+    const { bottomLeft, left, bottomRight } = neighbors;
+
+    const bottomLeftInt = doExist(bottomLeft, left) ? (
+      <span
+        className='circle__bottom-left-int u-is-circle'
+        data-content={ SHOW_INT_NUMBERS ?
+          apply(operations.int, parentValue, bottomLeft, left) : null
+        }
+        key={ 0 } />
+    ) : null;
+
+    const bottomInt = doExist(bottomRight, bottomLeft) ? (
+      <span
+        className='circle__bottom-int u-is-circle'
+        data-content={ SHOW_INT_NUMBERS ?
+          apply(operations.int, parentValue, bottomRight, bottomLeft) : null
+        }
+        key={ 1 } />
+    ) : null;
+
+    return [bottomLeftInt, bottomInt];
+  }
+
   createCircles = (row, rowIndex) => {
     const {
       openSetter,
@@ -144,8 +176,12 @@ class Circles extends Component {
           };
 
           const rightPetal = this.getPetalProps('right', petalProps);
+          const bottomLeftPetal = this.getPetalProps('bottomLeft', petalProps);
+          const bottomRightPetal = this.getPetalProps('bottomRight', petalProps);
 
           rightPetal && this.petals.push(rightPetal);
+          bottomLeftPetal && this.petals.push(bottomLeftPetal);
+          bottomRightPetal && this.petals.push(bottomRightPetal);
 
           return (
             <Circle
@@ -167,8 +203,12 @@ class Circles extends Component {
                   rows: R.update(rowIndex, newRow, rows),
                 });
               } }>
-              { rightPetal ?
-                <Petal { ...rightPetal } /> : null }
+              { rightPetal ? <Petal { ...rightPetal } /> : null }
+              { bottomLeftPetal ?
+                <Petal { ...bottomLeftPetal }>
+                  { this.getInts(petalProps) }
+                </Petal> : null }
+              { bottomRightPetal ? <Petal { ...bottomRightPetal } /> : null }
             </Circle>
           );
         }) }
