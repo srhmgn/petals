@@ -46,7 +46,7 @@ class Circles extends Component {
       bottomRight: OPERATIONS.MULTIPLY,
       int: OPERATIONS.ADD,
     },
-    rows: buildRows(2),
+    rows: buildRows(4),
   };
 
   render() {

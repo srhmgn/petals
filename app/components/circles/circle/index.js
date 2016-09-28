@@ -64,7 +64,7 @@ class Circle extends Component {
       this.setState({ displayValue: dynamic.value });
       break;
     case 'change':
-      if (!e.target.value.match(/^[1-9]*$/)) return;
+      if (!e.target.value.match(/^[1-9]?$/)) return;
       this.setState({ displayValue: e.target.value });
       if (e.target.value) setValue(e.target.value);
       break;
