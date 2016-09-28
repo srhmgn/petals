@@ -7,12 +7,18 @@ import { OPERATIONS } from '../index';
 import './index.css';
 
 function Setter({
-  name,
+  openSetter,
   operations,
   setOperation,
 }) {
+  const { mousePos, name } = openSetter;
+  const [left, top] = mousePos;
+
+  const finalLeft = document.body.clientWidth - left > 98 ?
+    left : left - 98;
+
   return (
-    <ul style={ { display: 'none' } }>
+    <ul className='setter' style={ { left: finalLeft, top } }>
       { R.keys(OPERATIONS).map((operationName, i) => {
         const currentLabel = operations[name].label;
 
@@ -21,14 +27,14 @@ function Setter({
           (operationName === 'SUBTRACT' || operationName === 'DIVIDE')
         ) return null;
 
-        const keyClasses = cx({
-          'key__item': true,
-          'key__item--current':
+        const setterClasses = cx({
+          'setter__item': true,
+          'setter__item--current':
             OPERATIONS[operationName].label === currentLabel,
         });
 
         return (
-          <li className={ keyClasses } key={ i }>
+          <li className={ setterClasses } key={ i }>
             <button
               className='u-reset-button'
               onClick={ () =>
@@ -47,7 +53,7 @@ function Setter({
 }
 
 Setter.propTypes = {
-  name: PropTypes.string.isRequired,
+  openSetter: PropTypes.object.isRequired,
   operations: PropTypes.object.isRequired,
   setOperation: PropTypes.func.isRequired,
 };

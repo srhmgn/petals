@@ -15,10 +15,12 @@ const SHOW_INT_NUMBERS = false;
 class Circle extends Component {
   static propTypes = {
     data: PropTypes.object,
+    index: PropTypes.string.isRequired,
     neighbors: PropTypes.object,
+    openSetter: PropTypes.object,
     operations: PropTypes.object,
     petals: PropTypes.object,
-    setOperation: PropTypes.func.isRequired,
+    setOpenSetter: PropTypes.func.isRequired,
     setValue: PropTypes.func.isRequired,
     value: PropTypes.string,
   };
@@ -30,9 +32,11 @@ class Circle extends Component {
   render() {
     const {
       data: { statik },
+      index,
       neighbors,
+      openSetter,
       operations,
-      setOperation,
+      setOpenSetter,
     } = this.props;
 
     const { displayValue } = this.state;
@@ -85,11 +89,13 @@ class Circle extends Component {
     ) : null;
 
     const petalProps = {
+      openSetter,
       operations,
       neighbors,
-      setOperation,
-      statikData: statik,
+      parentIndex: index,
       parentValue: value,
+      setOpenSetter,
+      statikData: statik,
     };
 
     const numberClassNames = cx({

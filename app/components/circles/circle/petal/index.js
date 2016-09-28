@@ -4,8 +4,6 @@ import cx from 'classnames';
 
 import { apply, doExist } from '../../utils';
 
-import Setter from '../../setter';
-
 import './index.css';
 
 const classMap = {
@@ -17,10 +15,12 @@ const classMap = {
 function Petal({
   children,
   name,
+  openSetter,
   operations,
   neighbors,
+  parentIndex,
   parentValue,
-  setOperation,
+  setOpenSetter,
   statikData,
 }) {
   const neighborValue = neighbors[name];
@@ -30,6 +30,8 @@ function Petal({
   const statik = (statikData && statikData[name]) ?
     statikData[name] : null;
   const isStaticProp = !R.isNil(statik);
+  const isOpen = openSetter && openSetter.name === name &&
+    openSetter.parentIndex === parentIndex;
 
   return (
     <span
@@ -40,12 +42,12 @@ function Petal({
         'petal--static': isStaticProp,
       }) }
       data-content={ isStaticProp ? statik : dynamic }
-      onClick={ () => { } }>
+      onClick={ (e) => setOpenSetter(isOpen ? null : {
+        mousePos: [e.clientX, e.clientY ],
+        name,
+        parentIndex,
+      }) }>
       { children }
-      <Setter
-        name={ name }
-        operations={ operations }
-        setOperation={ setOperation } />
     </span>
   );
 }
@@ -54,12 +56,14 @@ Petal.propTypes = {
   children: PropTypes.node,
   name: PropTypes.string.isRequired,
   neighbors: PropTypes.object.isRequired,
+  openSetter: PropTypes.object,
   operations: PropTypes.object.isRequired,
+  parentIndex: PropTypes.string.isRequired,
   parentValue: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
   ]).isRequired,
-  setOperation: PropTypes.func.isRequired,
+  setOpenSetter: PropTypes.func.isRequired,
   statikData: PropTypes.object.isRequired,
 };
 

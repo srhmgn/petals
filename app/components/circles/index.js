@@ -4,7 +4,7 @@ import R from 'ramda';
 import { getRandom, getValue } from './utils';
 
 import Circle from './circle';
-import Key from './key';
+import Setter from './setter';
 
 import './index.css';
 
@@ -84,23 +84,27 @@ class Circles extends Component {
       bottomRight: OPERATIONS.MULTIPLY,
       int: OPERATIONS.ADD,
     },
+    openSetter: null,
   };
 
   render() {
-    const { operations, rows } = this.state;
+    const { openSetter, operations, rows } = this.state;
 
     return (
       <div className='circles'>
         { rows.map(this.createCircles) }
-        <Key
-          operations={ operations }
-          setOperation={ this.setOperation } />
+        { openSetter ?
+          <Setter
+            key={ `${openSetter.name}${openSetter.parentIndex}` }
+            openSetter={ openSetter }
+            operations={ operations }
+            setOperation={ this.setOperation } /> : null }
       </div>
     );
   }
 
   createCircles = (row, rowIndex) => {
-    const { operations, rows } = this.state;
+    const { openSetter, operations, rows } = this.state;
     const nextRow = rows[rowIndex + 1];
 
     return (
@@ -108,6 +112,7 @@ class Circles extends Component {
         { row.map((rowData, i) =>
           <Circle
             data={ rowData }
+            index={ `${rowIndex}${i}` }
             key={ i }
             neighbors={ {
               bottomLeft: nextRow && getValue(nextRow[i - 1]),
@@ -115,8 +120,9 @@ class Circles extends Component {
               left: getValue(row[i - 1]),
               right: getValue(row[i + 1]),
             } }
+            openSetter={ openSetter }
             operations={ operations }
-            setOperation={ this.setOperation }
+            setOpenSetter={ v => this.setState({ openSetter: v }) }
             setValue={ v => {
               const newCircle = R.assocPath(['dynamic', 'value'], v, rowData);
               const newRow = R.update(i, newCircle, row);
