@@ -21,24 +21,6 @@ class Circle extends Component {
     const { children } = this.props;
     const { displayValue } = this.state;
 
-    // const bottomLeftInt = doExist(bottomLeft, left) ? (
-    //   <span
-    //     className='circle__bottom-left-int u-is-circle'
-    //     data-content={ SHOW_INT_NUMBERS ?
-    //       apply(operations.int, value, bottomLeft, left) : null
-    //     }
-    //     key={ 0 } />
-    // ) : null;
-
-    // const bottomInt = doExist(bottomRight, bottomLeft) ? (
-    //   <span
-    //     className='circle__bottom-int u-is-circle'
-    //     data-content={ SHOW_INT_NUMBERS ?
-    //       apply(operations.int, value, bottomRight, bottomLeft) : null
-    //     }
-    //     key={ 1 } />
-    // ) : null;
-
     const numberClassNames = cx({
       'circle__number': true,
       'circle__number--static': this.isStatic(),
@@ -57,22 +39,6 @@ class Circle extends Component {
       </span>
     );
   }
-
-  // getNeighbor({ children, className, dynamic, statik }) {
-  //   const isStaticProp = !R.isNil(statik);
-
-  //   return (
-  //     <span
-  //       className={ cx({
-  //         'neighbor': true,
-  //         'neighbor--invalid': isStaticProp && Number(dynamic) !== Number(statik),
-  //         'neighbor--static': isStaticProp,
-  //       }, className) }
-  //       data-content={ isStaticProp ? statik : dynamic }>
-  //       { children }
-  //     </span>
-  //   );
-  // }
 
   getValue() {
     return getValue(this.props.data);

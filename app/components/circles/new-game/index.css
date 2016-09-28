@@ -1,0 +1,35 @@
+@import '../../../styles/_colors.css';
+
+.new-game {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px auto 30px;
+  padding: 0;
+  width: 200px;
+}
+
+.new-game__size {
+  padding: 10px;
+}
+
+.new-game__size-btn {
+  color: var(--color-white);
+  background-color: var(--color-purple);
+  border: none;
+  border-radius: none;
+  font-size: 18px;
+  height: 30px;
+  width: 24px;
+}
+
+.new-game__size-btn[disabled] {
+  background-color: var(--color-purple-static);
+}
+
+.new-game__go {
+  background-color: var(--color-green);
+  border: none;
+  border-radius: none;
+  height: 30px;
+  font-size: 18px;
+}

@@ -1,0 +1,19 @@
+@import '../../../styles/_colors.css';
+
+.message {
+  background-color: var(--color-yellow);
+  height: 90px;
+  max-height: 90px;
+  overflow: hidden;
+  transition: 200ms max-height ease-in;
+  width: 100%;
+}
+
+.message:not(.message--visible) {
+  max-height: 0;
+}
+
+.message__title {
+  padding: 10px 0;
+  text-align: center;
+}

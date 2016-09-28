@@ -6,6 +6,8 @@ import { buildRows, getValue, apply, doExist } from './utils';
 import Circle from './circle';
 import Petal from './petal';
 import Setter from './setter';
+import NewGame from './new-game';
+import Message from './message';
 
 import './index.css';
 
@@ -37,7 +39,6 @@ export const OPERATIONS = {
 
 class Circles extends Component {
   state = {
-    displaySize: 3,
     openSetter: null,
     operations: {
       right: OPERATIONS.ADD,
@@ -45,12 +46,11 @@ class Circles extends Component {
       bottomRight: OPERATIONS.MULTIPLY,
       int: OPERATIONS.ADD,
     },
-    rows: buildRows(3),
+    rows: buildRows(2),
   };
 
   render() {
     const {
-      displaySize,
       openSetter,
       operations,
       rows,
@@ -58,12 +58,16 @@ class Circles extends Component {
 
     this.petals = [];
 
-    const circles = rows.map(this.createCircles);
+    const circles = rows.map(this.getCircles);
     const won = R.all(R.propEq('isInvalid', false), this.petals);
 
     return (
       <div className='circles' onClick={ (e) => this.setOpenSetter(null, e) }>
-        { won && <h2>You won!</h2> }
+        <Message title={ won ? 'You won!' : null } />
+        <NewGame
+          buildNewGame={ size =>
+            this.setState({ rows: buildRows(size) })
+          } />
         { circles }
         { openSetter ?
           <Setter
@@ -71,83 +75,11 @@ class Circles extends Component {
             openSetter={ openSetter }
             operations={ operations }
             setOperation={ this.setOperation } /> : null }
-        <h2>New game:</h2>
-        { displaySize }
-        <button
-          onClick={ () =>
-            this.setState({ displaySize: displaySize + 1 })
-          }>+</button>
-        <button
-          onClick={ () =>
-            this.setState({ displaySize: displaySize - 1 })
-          }>-</button>
-        <button
-          onClick={ () =>
-            this.setState({ rows: buildRows(displaySize) })
-          }>Go</button>
       </div>
     );
   }
 
-  getPetalProps = (name, petalProps) => {
-    const {
-      operations,
-      neighbors,
-      parentValue,
-      statikData,
-      ...props,
-    } = petalProps;
-
-    const neighborValue = neighbors[name];
-    if (!doExist(neighborValue)) return null;
-
-    const dynamic = apply(operations[name], parentValue, neighborValue);
-    const statik = (statikData && statikData[name]) ?
-      statikData[name] : null;
-    const isStatic = !R.isNil(statik);
-
-    return {
-      name,
-      isInvalid: isStatic && Number(dynamic) !== Number(statik),
-      isStatic,
-      contentValue: isStatic ? statik : dynamic,
-      ...props,
-    };
-  }
-
-  getInts = (petalProps) => {
-    const {
-      operations,
-      neighbors,
-      parentValue,
-    } = petalProps;
-
-    if (!neighbors) return null;
-
-    const { bottomLeft, left, bottomRight } = neighbors;
-
-    const bottomLeftInt = doExist(bottomLeft, left) ? (
-      <span
-        className='circle__bottom-left-int u-is-circle'
-        data-content={ SHOW_INT_NUMBERS ?
-          apply(operations.int, parentValue, bottomLeft, left) : null
-        }
-        key={ 0 } />
-    ) : null;
-
-    const bottomInt = doExist(bottomRight, bottomLeft) ? (
-      <span
-        className='circle__bottom-int u-is-circle'
-        data-content={ SHOW_INT_NUMBERS ?
-          apply(operations.int, parentValue, bottomRight, bottomLeft) : null
-        }
-        key={ 1 } />
-    ) : null;
-
-    return [bottomLeftInt, bottomInt];
-  }
-
-  createCircles = (row, rowIndex) => {
+  getCircles = (row, rowIndex) => {
     const {
       openSetter,
       operations,
@@ -214,6 +146,64 @@ class Circles extends Component {
         }) }
       </div>
     );
+  }
+
+  getPetalProps = (name, petalProps) => {
+    const {
+      operations,
+      neighbors,
+      parentValue,
+      statikData,
+      ...props,
+    } = petalProps;
+
+    const neighborValue = neighbors[name];
+    if (!doExist(neighborValue)) return null;
+
+    const dynamic = apply(operations[name], parentValue, neighborValue);
+    const statik = (statikData && statikData[name]) ?
+      statikData[name] : null;
+    const isStatic = !R.isNil(statik);
+
+    return {
+      name,
+      isInvalid: isStatic && Number(dynamic) !== Number(statik),
+      isStatic,
+      contentValue: isStatic ? statik : dynamic,
+      ...props,
+    };
+  }
+
+  getInts = (petalProps) => {
+    const {
+      operations,
+      neighbors,
+      parentValue,
+    } = petalProps;
+
+    if (!neighbors) return null;
+
+    const { bottomLeft, left, bottomRight } = neighbors;
+
+    const bottomLeftInt = doExist(bottomLeft, left) ? (
+      <span
+        className='circle__bottom-left-int u-is-circle'
+        data-content={ SHOW_INT_NUMBERS ?
+          apply(operations.int, parentValue, bottomLeft, left) : null
+        }
+        key={ 0 } />
+    ) : null;
+
+    const bottomInt = doExist(bottomRight, bottomLeft) ? (
+      <span
+        className='circle__bottom-int u-is-circle'
+        data-content={ SHOW_INT_NUMBERS ?
+          apply(operations.int, parentValue, bottomRight, bottomLeft) : null
+        }
+        key={ 1 } />
+    ) : null;
+
+    return [bottomLeftInt, bottomInt];
   }
 
   setOpenSetter = (v, e) => {
