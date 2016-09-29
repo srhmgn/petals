@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 
 import './index.css';
 
+import { DEFAULT_SIZE } from '../index';
+
 const MAX_SIZE = 5;
 const MIN_SIZE = 2;
 
@@ -11,7 +13,7 @@ class NewGame extends Component {
   };
 
   state = {
-    size: 3,
+    size: DEFAULT_SIZE,
   };
 
   render() {

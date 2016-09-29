@@ -2,39 +2,45 @@ import React, { Component } from 'react';
 import R from 'ramda';
 import uuid from 'node-uuid';
 
-import { buildRows, getValue, apply, doExist } from './utils';
+import {
+  apply,
+  doExist,
+  getValue,
+  setUpGame,
+} from './utils';
 
 import Circle from './circle';
+import Message from './message';
+import NewGame from './new-game';
 import Petal from './petal';
 import Setter from './setter';
-import NewGame from './new-game';
-import Message from './message';
 
 import './index.css';
 
 // disable internal numbers for now/ever - they're ugly
 const SHOW_INT_NUMBERS = false;
+export const DEFAULT_SIZE = 2;
 
 export const OPERATIONS = {
   ADD: {
     func: R.add,
     label: '+',
+    inverse: 'SUBTRACT',
   },
   SUBTRACT: {
     func: R.subtract,
     label: '-',
+    inverse: 'ADD',
   },
   MULTIPLY: {
     func: R.multiply,
     label: 'x',
-  },
-  MODULO: {
-    func: R.modulo,
-    label: '%',
+    inverse: 'DIVIDE',
   },
   DIVIDE: {
     func: R.divide,
     label: '÷',
+    inverse: 'MULTIPLY',
   },
 };
 
@@ -42,14 +48,11 @@ class Circles extends Component {
   state = {
     gameId: uuid.v4(),
     openSetter: null,
-    operations: {
-      right: OPERATIONS.ADD,
-      bottomLeft: OPERATIONS.SUBTRACT,
-      bottomRight: OPERATIONS.MULTIPLY,
-      int: OPERATIONS.ADD,
-    },
-    rows: buildRows(4),
   };
+
+  componentWillMount() {
+    this.setState(setUpGame());
+  }
 
   render() {
     const {
@@ -69,11 +72,11 @@ class Circles extends Component {
       <div className='circles' onClick={ (e) => this.setOpenSetter(null, e) }>
         <Message title={ won ? 'You won!' : null } />
         <NewGame
-          buildNewGame={ size =>
-            this.setState({
-              gameId: uuid.v4(),
-              rows: buildRows(size),
-            })
+          buildNewGame={ () =>
+            this.setState(R.merge(
+              { gameId: uuid.v4() },
+              setUpGame(),
+            ))
           } />
         { circles }
         { openSetter ?
@@ -174,11 +177,12 @@ class Circles extends Component {
     const isStatic = !R.isNil(statik);
 
     return {
-      contentValue: isStatic ? statik : dynamic,
+      contentValue: isStatic ? statik : '',
       debug: {
         dynamic,
         isDebugMode: this.isDebugMode,
         operationLabel: operations[name].label,
+        statik,
       },
       isStatic,
       isInvalid: isStatic && Number(dynamic) !== Number(statik),

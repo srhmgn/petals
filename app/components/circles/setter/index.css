@@ -10,7 +10,6 @@
   animation: fade-in 300ms ease-in;
   background-color: var(--color-gray-light);
   display: flex;
-  flex-wrap: wrap;
   list-style-type: none;
   margin: 0;
   padding: 0 5px;

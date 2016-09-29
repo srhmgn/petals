@@ -10,7 +10,7 @@ export function buildRows(size) {
       return {
         statik: getStatic(),
         dynamic: {
-          value: getRandom(),
+          value: '',
         },
       };
     }));
@@ -23,12 +23,23 @@ function getStatic() {
   const staticOdds = 4;
 
   const out = {
-    bottomLeft: oneIn(staticOdds) ? getRandom(18) : undefined,
-    bottomRight: oneIn(staticOdds) ? getRandom(18) : undefined,
-    right: oneIn(staticOdds) ? getRandom(18) : undefined,
+    bottomLeft: oneIn(staticOdds) ? getRandomPetalValue() : undefined,
+    bottomRight: oneIn(staticOdds) ? getRandomPetalValue() : undefined,
+    right: oneIn(staticOdds) ? getRandomPetalValue() : undefined,
   };
 
   return R.filter(R.identity, out);
+}
+
+const nonPrimes = R.range(19, 82).filter(n =>
+  R.any(x => {
+    return n % x === 0 && n / x <= 9;
+  }, R.range(2, 10))
+);
+
+function getRandomPetalValue() {
+  const list = R.concat(R.range(1, 19), nonPrimes);
+  return getRandomFromList(list);
 }
 
 function oneIn(max = 2) {
@@ -37,6 +48,10 @@ function oneIn(max = 2) {
 
 export function getRandom(max = 10) {
   const list = R.range(1, max);
+  return getRandomFromList(list);
+}
+
+export function getRandomFromList(list) {
   return list[Math.floor(Math.random() * list.length)];
 }
 
@@ -81,3 +96,122 @@ export const apply = (operation, ...args) => {
 
   return out.toFixed();
 };
+
+function getRandomOperation(except = []) {
+  const list = R.without(except, OPERATIONS);
+
+  return list[getRandomFromList(R.keys(list))];
+}
+
+function getValueAndStatik({ value, operation, tried = [] }) {
+  const newValue = getRandomFromList(
+    R.without(tried, R.range(1, 10))
+  );
+
+  const statik = operation.func(
+    Math.max(value, newValue),
+    Math.min(value, newValue)
+  );
+
+  if (statik % 1 === 0 && statik > 0) {
+    return { newValue, statik };
+  }
+
+  tried.push(newValue);
+
+  return getValueAndStatik({ value, operation, tried });
+}
+
+function getOperationAndStatic({ values, tried = [] }) {
+  const operation = getRandomOperation(tried);
+  const statik = operation.func(
+    Math.max(values[0], values[1]),
+    Math.min(values[0], values[1]),
+  );
+
+  // console.log(
+  //   'trying...',
+  //   values[0],
+  //   operation.label,
+  //   values[1],
+  //   '=',
+  //   statik,
+  // );
+
+  if (statik % 1 === 0 && statik > 0) {
+    return { statik, operation };
+  }
+
+  tried.push(operation);
+
+  return getOperationAndStatic({ values, tried });
+}
+
+export function setUpGame() {
+  const firstValue = getRandom();
+
+  const right = getRandomOperation();
+  const bottomRight = getRandomOperation();
+
+  const {
+    newValue: secondValue,
+    statik: firstStatikRight,
+  } = getValueAndStatik({ value: firstValue, operation: right });
+
+  const {
+    newValue: thirdValue,
+    statik: firstStatikBottomRight,
+  } = getValueAndStatik({ value: firstValue, operation: bottomRight });
+
+  const {
+    operation: bottomLeft,
+    statik: firstStatikBottomLeft,
+  } = getOperationAndStatic({ values: [secondValue, thirdValue] });
+
+  // console.log('-----');
+  // console.log(secondValue);
+  // console.log(right.label);
+  // console.log(firstValue);
+  // console.log(firstStatikRight);
+  // console.log('-----');
+  // console.log(thirdValue);
+  // console.log(bottomRight.label);
+  // console.log(firstValue);
+  // console.log(firstStatikBottomRight);
+  // console.log('-----');
+  // console.log(secondValue);
+  // console.log(bottomRight.label);
+  // console.log(thirdValue);
+  // console.log(firstStatikBottomLeft);
+
+  return {
+    rows: [
+      [
+        {
+          dynamic: { value: getRandom() },
+          statik: {
+            right: firstStatikRight,
+            bottomRight: firstStatikBottomRight,
+          },
+        },
+        {
+          dynamic: { value: getRandom() },
+          statik: {
+            bottomLeft: firstStatikBottomLeft,
+          },
+        },
+      ],
+      [
+        {
+          dynamic: { value: getRandom() },
+          statik: {},
+        },
+      ],
+    ],
+    operations: {
+      right: getRandomOperation(),
+      bottomLeft: false ? getRandomOperation() : bottomLeft, // for linting
+      bottomRight: getRandomOperation(),
+    },
+  };
+}

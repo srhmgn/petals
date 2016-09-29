@@ -18,6 +18,7 @@ function Petal({
     dynamic,
     isDebugMode,
     operationLabel,
+    statik,
   },
   name,
   openSetter,
@@ -37,7 +38,7 @@ function Petal({
       }) }
       data-content={
         isDebugMode ?
-          `${dynamic || ''}${operationLabel}${contentValue}` :
+          `${dynamic || ''}${operationLabel}${statik}` :
           contentValue
       }
       onClick={ (e) => setOpenSetter(isOpen ? null : {
