@@ -14,6 +14,11 @@ function Petal({
   contentValue,
   isInvalid,
   isStatic,
+  debug: {
+    dynamic,
+    isDebugMode,
+    operationLabel,
+  },
   name,
   openSetter,
   parentIndex,
@@ -30,7 +35,11 @@ function Petal({
         'petal--invalid': isInvalid,
         'petal--static': isStatic,
       }) }
-      data-content={ contentValue }
+      data-content={
+        isDebugMode ?
+          `${dynamic || ''}${operationLabel}${contentValue}` :
+          contentValue
+      }
       onClick={ (e) => setOpenSetter(isOpen ? null : {
         mousePos: [e.clientX, e.clientY ],
         name,
@@ -47,6 +56,7 @@ Petal.propTypes = {
     PropTypes.number,
     PropTypes.string,
   ]).isRequired,
+  debug: PropTypes.object.isRequired,
   isInvalid: PropTypes.bool.isRequired,
   isStatic: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,

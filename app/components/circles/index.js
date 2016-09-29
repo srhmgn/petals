@@ -58,6 +58,8 @@ class Circles extends Component {
       rows,
     } = this.state;
 
+    this.isDebugMode = document.location.search.match('debug');
+
     this.petals = [];
 
     const circles = rows.map(this.getCircles);
@@ -172,10 +174,15 @@ class Circles extends Component {
     const isStatic = !R.isNil(statik);
 
     return {
-      name,
-      isInvalid: isStatic && Number(dynamic) !== Number(statik),
-      isStatic,
       contentValue: isStatic ? statik : dynamic,
+      debug: {
+        dynamic,
+        isDebugMode: this.isDebugMode,
+        operationLabel: operations[name].label,
+      },
+      isStatic,
+      isInvalid: isStatic && Number(dynamic) !== Number(statik),
+      name,
       ...props,
     };
   }
