@@ -7,7 +7,7 @@
 }
 
 .setter {
-  animation: fade-in 300ms ease-in;
+  animation: fade-in 100ms ease-out;
   background-color: var(--color-gray-light);
   display: flex;
   list-style-type: none;
@@ -26,12 +26,9 @@
   padding: 0;
 }
 
-.setter__item {
-  padding: 5px;
-}
-
 .setter__item button {
   color: var(--color-gray-dark-static);
+  padding: 5px;
 }
 
 .setter__item--current button {
