@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import R from 'ramda';
+import uuid from 'node-uuid';
 
 import { buildRows, getValue, apply, doExist } from './utils';
 
@@ -39,6 +40,7 @@ export const OPERATIONS = {
 
 class Circles extends Component {
   state = {
+    gameId: uuid.v4(),
     openSetter: null,
     operations: {
       right: OPERATIONS.ADD,
@@ -66,7 +68,10 @@ class Circles extends Component {
         <Message title={ won ? 'You won!' : null } />
         <NewGame
           buildNewGame={ size =>
-            this.setState({ rows: buildRows(size) })
+            this.setState({
+              gameId: uuid.v4(),
+              rows: buildRows(size),
+            })
           } />
         { circles }
         { openSetter ?
@@ -84,11 +89,12 @@ class Circles extends Component {
       openSetter,
       operations,
       rows,
+      gameId,
     } = this.state;
     const nextRow = rows[rowIndex + 1];
 
     return (
-      <div className='circles__row' key={ rowIndex }>
+      <div className='circles__row' key={ `${gameId}${rowIndex}` }>
         { row.map((rowData, i) => {
           const neighbors = {
             bottomLeft: nextRow && getValue(nextRow[i - 1]),
@@ -118,7 +124,7 @@ class Circles extends Component {
           return (
             <Circle
               data={ rowData }
-              key={ i }
+              key={ `${gameId}${i}` }
               neighbors={ {
                 bottomLeft: nextRow && getValue(nextRow[i - 1]),
                 bottomRight: nextRow && getValue(nextRow[i]),
