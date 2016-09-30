@@ -170,21 +170,31 @@ export function setUpGame() {
     statik: firstStatikBottomLeft,
   } = getOperationAndStatic({ values: [secondValue, thirdValue] });
 
-  // console.log('-----');
-  // console.log(secondValue);
-  // console.log(right.label);
-  // console.log(firstValue);
-  // console.log(firstStatikRight);
-  // console.log('-----');
-  // console.log(thirdValue);
-  // console.log(bottomRight.label);
-  // console.log(firstValue);
-  // console.log(firstStatikBottomRight);
-  // console.log('-----');
-  // console.log(secondValue);
-  // console.log(bottomRight.label);
-  // console.log(thirdValue);
-  // console.log(firstStatikBottomLeft);
+  const {
+    newValue: fourthValue,
+    statik: secondStatikRight,
+  } = getValueAndStatik({ value: secondValue, operation: right });
+
+  console.log('-----');
+  console.log('2nd', secondValue);
+  console.log(right.label);
+  console.log('1st', firstValue);
+  console.log(firstStatikRight);
+  console.log('-----');
+  console.log('3rd', thirdValue);
+  console.log(bottomRight.label);
+  console.log('1st', firstValue);
+  console.log(firstStatikBottomRight);
+  console.log('-----');
+  console.log('2nd', secondValue);
+  console.log(bottomLeft.label);
+  console.log('3rd', thirdValue);
+  console.log(firstStatikBottomLeft);
+  console.log('-----');
+  console.log('2nd', secondValue);
+  console.log(right.label);
+  console.log('4th', fourthValue);
+  console.log(secondStatikRight);
 
   return {
     rows: [
@@ -192,18 +202,27 @@ export function setUpGame() {
         {
           dynamic: {},
           statik: {
-            right: firstStatikRight,
             bottomRight: firstStatikBottomRight,
+            right: firstStatikRight,
           },
         },
         {
           dynamic: {},
           statik: {
             bottomLeft: firstStatikBottomLeft,
+            right: secondStatikRight,
           },
+        },
+        {
+          dynamic: {},
+          statik: {},
         },
       ],
       [
+        {
+          dynamic: {},
+          statik: {},
+        },
         {
           dynamic: {},
           statik: {},
