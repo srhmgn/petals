@@ -171,7 +171,8 @@ class Circles extends Component {
     const neighborValue = neighbors[name];
     if (!doExist(neighborValue)) return null;
 
-    const dynamic = apply(operations[name], parentValue, neighborValue);
+    const dynamic = neighborValue ?
+      apply(operations[name], parentValue, neighborValue) : null;
     const statik = (statikData && statikData[name]) ?
       statikData[name] : null;
     const isStatic = !R.isNil(statik);

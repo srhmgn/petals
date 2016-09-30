@@ -60,7 +60,9 @@ export function getValue(data) {
 
   const { statik, dynamic } = data;
 
-  return isStatic(data) ? statik.value : dynamic.value;
+  if (isStatic(data)) return statik.value;
+
+  return dynamic ? (dynamic.value || 'EMPTY') : null;
 }
 
 export function isStatic({ statik }) {
@@ -188,14 +190,14 @@ export function setUpGame() {
     rows: [
       [
         {
-          dynamic: { value: getRandom() },
+          dynamic: {},
           statik: {
             right: firstStatikRight,
             bottomRight: firstStatikBottomRight,
           },
         },
         {
-          dynamic: { value: getRandom() },
+          dynamic: {},
           statik: {
             bottomLeft: firstStatikBottomLeft,
           },
@@ -203,15 +205,15 @@ export function setUpGame() {
       ],
       [
         {
-          dynamic: { value: getRandom() },
+          dynamic: {},
           statik: {},
         },
       ],
     ],
     operations: {
-      right: getRandomOperation(),
-      bottomLeft: false ? getRandomOperation() : bottomLeft, // for linting
-      bottomRight: getRandomOperation(),
+      right: OPERATIONS.ADD,
+      bottomLeft: true ? OPERATIONS.ADD : bottomLeft, // for linting
+      bottomRight: OPERATIONS.ADD,
     },
   };
 }

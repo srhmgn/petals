@@ -35,7 +35,7 @@ class Circle extends Component {
           onChange={ this.handleEvent }
           onFocus={ this.handleEvent }
           readOnly={ this.isStatic() }
-          value={ displayValue } />
+          value={ displayValue === 'EMPTY' ? '' : displayValue } />
       </span>
     );
   }
