@@ -37,9 +37,10 @@ const nonPrimes = R.range(19, 82).filter(n =>
   }, R.range(2, 10))
 );
 
+const PETAL_LIST = R.concat(R.range(1, 19), nonPrimes);
+
 function getRandomPetalValue() {
-  const list = R.concat(R.range(1, 19), nonPrimes);
-  return getRandomFromList(list);
+  return getRandomFromList(PETAL_LIST);
 }
 
 function oneIn(max = 2) {
@@ -72,6 +73,8 @@ export function isStatic({ statik }) {
 export const doExist = (...args) => R.none(R.isNil, args);
 
 export const apply = (operation, ...args) => {
+  if (args.some(R.equals('EMPTY'))) return null;
+
   let initialValue;
   let finalArgs = args;
 
@@ -131,15 +134,6 @@ function getOperationAndStatic({ values, tried = [] }) {
     Math.min(values[0], values[1]),
   );
 
-  // console.log(
-  //   'trying...',
-  //   values[0],
-  //   operation.label,
-  //   values[1],
-  //   '=',
-  //   statik,
-  // );
-
   if (statik % 1 === 0 && statik > 0) {
     return { statik, operation };
   }
@@ -147,6 +141,47 @@ function getOperationAndStatic({ values, tried = [] }) {
   tried.push(operation);
 
   return getOperationAndStatic({ values, tried });
+}
+
+export function getStatiks({ pairs }) {
+  const possibleStatiks = [];
+  const possibleNewValues = R.range(1, 10);
+
+  pairs.forEach(({ value, operation }) => {
+    // console.log(value);
+    // console.log(operation.label);
+
+    possibleStatiks.push(
+      possibleNewValues.map(newValue =>
+        apply(operation, newValue, value)
+      )
+    );
+  });
+
+  // console.log(possibleStatiks);
+
+  const valuesWithValidStatiks = R.range(1, 10).filter(value =>
+    possibleStatiks.every(statikList =>
+      R.contains(Number(statikList[value - 1]), PETAL_LIST)
+    )
+  );
+
+  if (valuesWithValidStatiks.length === 0) return {};
+
+  const value = getRandomFromList(valuesWithValidStatiks);
+
+  // console.log(valuesWithValidStatiks);
+
+  const out = {
+    secondStatikBottomRight: possibleStatiks[0][value - 1],
+    secondStatikBottomLeft: possibleStatiks[1][value - 1],
+    thirdStatikRight: possibleStatiks[2][value - 1],
+    fifthValue: value,
+  };
+
+  // console.log(out);
+
+  return out;
 }
 
 export function setUpGame() {
@@ -161,40 +196,46 @@ export function setUpGame() {
   } = getValueAndStatik({ value: firstValue, operation: right });
 
   const {
-    newValue: thirdValue,
+    newValue: fourthValue,
     statik: firstStatikBottomRight,
   } = getValueAndStatik({ value: firstValue, operation: bottomRight });
 
   const {
     operation: bottomLeft,
     statik: firstStatikBottomLeft,
-  } = getOperationAndStatic({ values: [secondValue, thirdValue] });
+  } = getOperationAndStatic({ values: [secondValue, fourthValue] });
 
   const {
-    newValue: fourthValue,
+    newValue: thirdValue,
     statik: secondStatikRight,
   } = getValueAndStatik({ value: secondValue, operation: right });
 
-  console.log('-----');
-  console.log('2nd', secondValue);
-  console.log(right.label);
-  console.log('1st', firstValue);
-  console.log(firstStatikRight);
-  console.log('-----');
-  console.log('3rd', thirdValue);
-  console.log(bottomRight.label);
-  console.log('1st', firstValue);
-  console.log(firstStatikBottomRight);
-  console.log('-----');
-  console.log('2nd', secondValue);
-  console.log(bottomLeft.label);
-  console.log('3rd', thirdValue);
-  console.log(firstStatikBottomLeft);
-  console.log('-----');
-  console.log('2nd', secondValue);
-  console.log(right.label);
-  console.log('4th', fourthValue);
-  console.log(secondStatikRight);
+  const {
+    secondStatikBottomRight,
+    secondStatikBottomLeft,
+    thirdStatikRight,
+    fifthValue,
+  } = getStatiks({
+    pairs: [
+      { value: secondValue, operation: bottomRight },
+      { value: thirdValue, operation: bottomLeft },
+      { value: fourthValue, operation: right },
+    ],
+  });
+
+  if (!fifthValue) {
+    // console.log('didnt work, starting over');
+    return setUpGame();
+  }
+
+  // console.log(
+  //   'right',
+  //   right.label,
+  //   'bottomleft',
+  //   bottomLeft.label,
+  //   'bottomRight',
+  //   bottomRight.label,
+  // );
 
   return {
     rows: [
@@ -210,18 +251,23 @@ export function setUpGame() {
           dynamic: {},
           statik: {
             bottomLeft: firstStatikBottomLeft,
+            bottomRight: secondStatikBottomRight,
             right: secondStatikRight,
           },
         },
         {
           dynamic: {},
-          statik: {},
+          statik: {
+            bottomLeft: secondStatikBottomLeft,
+          },
         },
       ],
       [
         {
           dynamic: {},
-          statik: {},
+          statik: {
+            right: thirdStatikRight,
+          },
         },
         {
           dynamic: {},
