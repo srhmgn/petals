@@ -11,6 +11,7 @@ class Circle extends Component {
     data: PropTypes.object.isRequired,
     setValue: PropTypes.func.isRequired,
     value: PropTypes.string,
+    won: PropTypes.bool.isRequired,
   };
 
   state = {
@@ -18,7 +19,7 @@ class Circle extends Component {
   };
 
   render() {
-    const { children } = this.props;
+    const { children, won } = this.props;
     const { displayValue } = this.state;
 
     const numberClassNames = cx({
@@ -34,7 +35,7 @@ class Circle extends Component {
           onBlur={ this.handleEvent }
           onChange={ this.handleEvent }
           onFocus={ this.handleEvent }
-          readOnly={ this.isStatic() }
+          readOnly={ won || this.isStatic() }
           value={ displayValue === 'EMPTY' ? '' : displayValue } />
       </span>
     );
@@ -52,9 +53,10 @@ class Circle extends Component {
     const {
       data: { dynamic },
       setValue,
+      won,
     } = this.props;
 
-    if (this.isStatic()) return;
+    if (won || this.isStatic()) return;
 
     switch (e.type) {
     case 'focus':

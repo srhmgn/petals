@@ -2,35 +2,6 @@ import R from 'ramda';
 
 import { OPERATIONS } from './index';
 
-// export function buildRows(size) {
-//   const rows = [];
-
-//   for (let i = size; i > 0; i--) {
-//     rows.push(R.range(0, i).map(() => {
-//       return {
-//         statik: getStatic(),
-//         dynamic: {
-//           value: '',
-//         },
-//       };
-//     }));
-//   }
-
-//   return rows;
-// }
-
-// function getStatic() {
-//   const staticOdds = 4;
-
-//   const out = {
-//     bottomLeft: oneIn(staticOdds) ? getRandomPetalValue() : undefined,
-//     bottomRight: oneIn(staticOdds) ? getRandomPetalValue() : undefined,
-//     right: oneIn(staticOdds) ? getRandomPetalValue() : undefined,
-//   };
-
-//   return R.filter(R.identity, out);
-// }
-
 const nonPrimes = R.range(19, 82).filter(n =>
   R.any(x => {
     return n % x === 0 && n / x <= 9;
@@ -38,14 +9,6 @@ const nonPrimes = R.range(19, 82).filter(n =>
 );
 
 const PETAL_LIST = R.concat(R.range(1, 19), nonPrimes);
-
-// function getRandomPetalValue() {
-//   return getRandomFromList(PETAL_LIST);
-// }
-
-// function oneIn(max = 2) {
-//   return getRandom(max) === 1;
-// }
 
 export function getRandom(max = 10) {
   const list = R.range(1, max);
@@ -218,7 +181,7 @@ function buildRows(rows, rowCount) {
   return buildRows(rows, rowCount - 1);
 }
 
-export function setUpGame(size = 4) {
+export function setUpGame(size) {
   /* eslint-disable no-console */
   console.log('setting up game');
   /* eslint-enable no-console */
@@ -240,7 +203,7 @@ export function setUpGame(size = 4) {
     sets: [
       { setCircle: rows[0][0], operationName: 'right' },
     ],
-  }) || setUpGame();
+  }) || setUpGame(size);
 
   setValueAndStatiks({
     circle: rows[1][0],
@@ -248,7 +211,7 @@ export function setUpGame(size = 4) {
     sets: [
       { setCircle: rows[0][0], operationName: 'bottomRight' },
     ],
-  }) || setUpGame();
+  }) || setUpGame(size);
 
   setBottomLeft({
     circle: rows[0][1],
@@ -258,111 +221,76 @@ export function setUpGame(size = 4) {
 
   // size = 3
 
-  setValueAndStatiks({
-    circle: rows[0][2],
-    operations,
-    sets: [
-      { setCircle: rows[0][1], operationName: 'right' },
-    ],
-  }) || setUpGame();
+  if (size >= 3) {
+    setValueAndStatiks({
+      circle: rows[0][2],
+      operations,
+      sets: [
+        { setCircle: rows[0][1], operationName: 'right' },
+      ],
+    }) || setUpGame(size);
 
-  setValueAndStatiks({
-    circle: rows[1][1],
-    operations,
-    sets: [
-      { setCircle: rows[0][1], operationName: 'bottomRight' },
-      { setCircle: rows[0][2], operationName: 'bottomLeft' },
-      { setCircle: rows[1][0], operationName: 'right' },
-    ],
-  }) || setUpGame();
+    setValueAndStatiks({
+      circle: rows[1][1],
+      operations,
+      sets: [
+        { setCircle: rows[0][1], operationName: 'bottomRight' },
+        { setCircle: rows[0][2], operationName: 'bottomLeft' },
+        { setCircle: rows[1][0], operationName: 'right' },
+      ],
+    }) || setUpGame(size);
 
-  setValueAndStatiks({
-    circle: rows[2][0],
-    operations,
-    sets: [
-      { setCircle: rows[1][0], operationName: 'bottomRight' },
-      { setCircle: rows[1][1], operationName: 'bottomLeft' },
-    ],
-  }) || setUpGame();
+    setValueAndStatiks({
+      circle: rows[2][0],
+      operations,
+      sets: [
+        { setCircle: rows[1][0], operationName: 'bottomRight' },
+        { setCircle: rows[1][1], operationName: 'bottomLeft' },
+      ],
+    }) || setUpGame(size);
+  }
 
   // size = 4
 
-  setValueAndStatiks({
-    circle: rows[0][3],
-    operations,
-    sets: [
-      { setCircle: rows[0][2], operationName: 'right' },
-      { setCircle: rows[0][2], operationName: 'bottomRight' },
-    ],
-  }) || setUpGame();
+  if (size >= 4) {
+    setValueAndStatiks({
+      circle: rows[0][3],
+      operations,
+      sets: [
+        { setCircle: rows[0][2], operationName: 'right' },
+        { setCircle: rows[0][2], operationName: 'bottomRight' },
+      ],
+    }) || setUpGame(size);
 
-  setValueAndStatiks({
-    circle: rows[1][2],
-    operations,
-    sets: [
-      { setCircle: rows[1][1], operationName: 'right' },
-      { setCircle: rows[0][2], operationName: 'bottomRight' },
-      { setCircle: rows[0][3], operationName: 'bottomLeft' },
-    ],
-  }) || setUpGame();
+    setValueAndStatiks({
+      circle: rows[1][2],
+      operations,
+      sets: [
+        { setCircle: rows[1][1], operationName: 'right' },
+        { setCircle: rows[0][2], operationName: 'bottomRight' },
+        { setCircle: rows[0][3], operationName: 'bottomLeft' },
+      ],
+    }) || setUpGame(size);
 
-  setValueAndStatiks({
-    circle: rows[2][1],
-    operations,
-    sets: [
-      { setCircle: rows[2][0], operationName: 'right' },
-      { setCircle: rows[1][1], operationName: 'bottomRight' },
-      { setCircle: rows[1][2], operationName: 'bottomLeft' },
-    ],
-  }) || setUpGame();
+    setValueAndStatiks({
+      circle: rows[2][1],
+      operations,
+      sets: [
+        { setCircle: rows[2][0], operationName: 'right' },
+        { setCircle: rows[1][1], operationName: 'bottomRight' },
+        { setCircle: rows[1][2], operationName: 'bottomLeft' },
+      ],
+    }) || setUpGame(size);
 
-  setValueAndStatiks({
-    circle: rows[3][0],
-    operations,
-    sets: [
-      { setCircle: rows[2][0], operationName: 'bottomRight' },
-      { setCircle: rows[2][1], operationName: 'bottomLeft' },
-    ],
-  }) || setUpGame();
-
-  // setValueAndStatiks({
-  //   circle: rows[0][4],
-  //   operations,
-  //   sets: [
-  //     { setCircle: rows[0][3], operationName: 'bottomLeft' },
-  //   ],
-  // }) || setUpGame();
-
-  // const {
-  //   value: fifthValue,
-  //   statiks: [
-  //     secondStatikBottomRight,
-  //     secondStatikBottomLeft,
-  //     thirdStatikRight,
-  //   ],
-  // } = getValueAndStatiks([
-  //   { value: secondValue, operation: bottomRight },
-  //   { value: thirdValue, operation: bottomLeft },
-  //   { value: fourthValue, operation: right },
-  // ]);
-
-  // const {
-  //   value: sixthValue,
-  //   statiks: [
-  //     thirdStatikBottomRight,
-  //     thirdStatikBottomLeft,
-  //   ],
-  // } = getValueAndStatiks([
-  //   { value: fourthValue, operation: bottomRight },
-  //   { value: fifthValue, operation: bottomLeft },
-  // ]);
-
-  // if (!fifthValue || !sixthValue) {
-  //   /* eslint-disable no-console */
-  //   console.log('didnt work, starting over');
-  //   /* eslint-enable no-console */
-  //   return setUpGame();
-  // }
+    setValueAndStatiks({
+      circle: rows[3][0],
+      operations,
+      sets: [
+        { setCircle: rows[2][0], operationName: 'bottomRight' },
+        { setCircle: rows[2][1], operationName: 'bottomLeft' },
+      ],
+    }) || setUpGame(size);
+  }
 
   return {
     rows: rows.map(row =>

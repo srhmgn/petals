@@ -51,7 +51,7 @@ class Circles extends Component {
   };
 
   componentWillMount() {
-    this.setState(setUpGame());
+    this.setState(setUpGame(DEFAULT_SIZE));
   }
 
   render() {
@@ -66,18 +66,22 @@ class Circles extends Component {
     this.petals = [];
 
     const circles = rows.map(this.getCircles);
-    const won = R.all(R.propEq('isInvalid', false), this.petals);
+
+    if (!this.won) {
+      this.won = R.all(R.propEq('isInvalid', false), this.petals);
+    }
 
     return (
       <div className='circles' onClick={ (e) => this.setOpenSetter(null, e) }>
-        <Message title={ won ? 'You won!' : null } />
+        <Message title={ this.won ? 'You won!' : null } />
         <NewGame
-          buildNewGame={ () =>
+          buildNewGame={ size => {
+            this.won = false;
             this.setState(R.merge(
               { gameId: uuid.v4() },
-              setUpGame(),
-            ))
-          } />
+              setUpGame(size),
+            ));
+          } } />
         { circles }
         { openSetter ?
           <Setter
@@ -145,7 +149,8 @@ class Circles extends Component {
                 this.setState({
                   rows: R.update(rowIndex, newRow, rows),
                 });
-              } }>
+              } }
+              won={ this.won }>
               { rightPetal ? <Petal { ...rightPetal } /> : null }
               { bottomLeftPetal ?
                 <Petal { ...bottomLeftPetal }>
@@ -223,6 +228,8 @@ class Circles extends Component {
 
     return [bottomLeftInt, bottomInt];
   }
+
+  won = false;
 
   setOpenSetter = (v, e) => {
     this.setState({ openSetter: v });

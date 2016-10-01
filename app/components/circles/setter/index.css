@@ -8,7 +8,7 @@
 
 .setter {
   animation: fade-in 100ms ease-out;
-  background-color: var(--color-gray-light);
+  background-color: var(--color-gray-dark);
   display: flex;
   list-style-type: none;
   margin: 0;
@@ -27,10 +27,10 @@
 }
 
 .setter__item button {
-  color: var(--color-gray-dark-static);
+  color: var(--color-gray-light);
   padding: 5px;
 }
 
 .setter__item--current button {
-  color: var(--color-gray-dark);
+  color: var(--color-gold);
 }

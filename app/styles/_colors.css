@@ -5,17 +5,19 @@
   --filter-error: alpha(50%);
   --color-black: #000;
   --color-white: #FFF;
+  --color-gray: #7F8C8D;
   --color-gray-dark: #2C3E50;
   --color-gray-dark-static: color(var(--color-gray-dark) var(--filter-static));
   --color-gray-light: #ECF0F1;
   --color-purple: #8E44AD;
   --color-purple-static: color(var(--color-purple) var(--filter-static));
   --color-red: #2C3E50;
-  --color-red-error: color(var(--color-red) var(--filter-error));
+  --color-red-error: color(var(--color-gray-dark) var(--filter-error));
   --color-green: #2ECC71;
   --color-green-static: color(var(--color-green) var(--filter-static));
   --color-yellow: #2980B9;
   --color-yellow-static: color(var(--color-yellow) var(--filter-static));
+  --color-gold: #F1C40F;
 }
 
 /* stylelint-enable color-no-hex */
