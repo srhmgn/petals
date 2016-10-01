@@ -6,10 +6,7 @@ import {
   apply,
   doExist,
   getValue,
-  setUpGame,
 } from '../../utils';
-
-import { DEFAULT_SIZE } from '../../constants';
 
 import Circle from '../circle';
 import Message from '../message';
@@ -24,6 +21,10 @@ const SHOW_INT_NUMBERS = false;
 
 class Board extends Component {
   static propTypes = {
+    buildRows: PropTypes.func.isRequired,
+    children: PropTypes.node,
+    operations: PropTypes.object.isRequired,
+    rows: PropTypes.array.isRequired,
     setWon: PropTypes.func.isRequired,
     won: PropTypes.bool.isRequired,
   };
@@ -33,57 +34,71 @@ class Board extends Component {
     openSetter: null,
   };
 
-  componentWillMount() {
-    this.setState(setUpGame(DEFAULT_SIZE));
-  }
+  // componentWillMount() {
+  //   this.props.buildRows(DEFAULT_SIZE);
+  // }
 
   render() {
-    const {
-      openSetter,
-      operations,
-      rows,
-    } = this.state;
-
-    this.isDebugMode = document.location.search.match('debug');
-
-    this.petals = [];
-
-    const circles = rows.map(this.getCircles);
-
-    if (!this.won) {
-      this.won = R.all(R.propEq('isInvalid', false), this.petals);
-      this.won && this.props.setWon(true);
-    }
 
     return (
-      <div className='circles' onClick={ (e) => this.setOpenSetter(null, e) }>
-        <Message title={ this.won ? 'You won!' : null } />
-        <NewGame
-          buildNewGame={ size => {
-            this.won = false;
-            this.setState(R.merge(
-              { gameId: uuid.v4() },
-              setUpGame(size),
-            ));
-          } } />
-        { circles }
-        { openSetter ?
-          <Setter
-            key={ `${openSetter.name}${openSetter.parentIndex}` }
-            openSetter={ openSetter }
-            operations={ operations }
-            setOperation={ this.setOperation } /> : null }
+      <div className='circles'>
+        { this.props.children }
       </div>
     );
+  //   const {
+  //     openSetter,
+  //   } = this.state;
+  //   const {
+  //     buildRows,
+  //     children,
+  //     operations,
+  //     setWon,
+  //     rows,
+  //     won,
+  //   } = this.props;
+
+  //   this.petals = [];
+
+  //   const circles = rows.map(this.getCircles);
+
+  //   if (!won) {
+  //     const didWin = R.all(R.propEq('isInvalid', false), this.petals);
+  //     didWin && setWon(true);
+  //   }
+
+  //   return (
+  //     <div className='circles' onClick={ (e) => this.setOpenSetter(null, e) }>
+  //       <Message title={ won ? 'You won!' : null } />
+  //       <NewGame
+  //         buildNewGame={ size => {
+  //           setWon(false);
+  //           this.setState(R.merge(
+  //             { gameId: uuid.v4() },
+  //             buildRows(size),
+  //           ));
+  //         } } />
+  //       { circles }
+  //       { children }
+  //       { openSetter ?
+  //         <Setter
+  //           key={ `${openSetter.name}${openSetter.parentIndex}` }
+  //           openSetter={ openSetter }
+  //           operations={ operations }
+  //           setOperation={ this.setOperation } /> : null }
+  //     </div>
+  //   );
   }
 
   getCircles = (row, rowIndex) => {
     const {
       openSetter,
-      operations,
-      rows,
       gameId,
     } = this.state;
+    const {
+      operations,
+      rows,
+      won,
+    } = this.props;
     const nextRow = rows[rowIndex + 1];
 
     return (
@@ -134,7 +149,7 @@ class Board extends Component {
                   rows: R.update(rowIndex, newRow, rows),
                 });
               } }
-              won={ this.won }>
+              won={ won }>
               { rightPetal ? <Petal { ...rightPetal } /> : null }
               { bottomLeftPetal ?
                 <Petal { ...bottomLeftPetal }>
@@ -213,8 +228,6 @@ class Board extends Component {
     return [bottomLeftInt, bottomInt];
   }
 
-  won = false;
-
   setOpenSetter = (v, e) => {
     this.setState({ openSetter: v });
     e && e.stopPropagation();
@@ -223,7 +236,7 @@ class Board extends Component {
   setOperation = (name, operation) =>
     this.setState({
       operations: R.merge(
-        this.state.operations,
+        this.props.operations,
         { [name]: operation },
       ),
     })

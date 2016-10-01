@@ -169,7 +169,7 @@ class Circle {
   }
 }
 
-function buildRows(rows, rowCount) {
+function buildRowShape(rows, rowCount) {
   if (rowCount === 0) return rows;
 
   const row = [];
@@ -178,10 +178,10 @@ function buildRows(rows, rowCount) {
   }, rowCount);
   rows.push(row);
 
-  return buildRows(rows, rowCount - 1);
+  return buildRowShape(rows, rowCount - 1);
 }
 
-export function setUpGame(size) {
+export function buildRows(size) {
   /* eslint-disable no-console */
   console.log('setting up game');
   /* eslint-enable no-console */
@@ -191,7 +191,7 @@ export function setUpGame(size) {
     bottomRight: getRandomOperation(),
   };
 
-  const rows = buildRows([], size);
+  const rows = buildRowShape([], size);
 
   rows[0][0].setValue(getRandom());
 
@@ -203,7 +203,7 @@ export function setUpGame(size) {
     sets: [
       { setCircle: rows[0][0], operationName: 'right' },
     ],
-  }) || setUpGame(size);
+  }) || buildRows(size);
 
   setValueAndStatiks({
     circle: rows[1][0],
@@ -211,7 +211,7 @@ export function setUpGame(size) {
     sets: [
       { setCircle: rows[0][0], operationName: 'bottomRight' },
     ],
-  }) || setUpGame(size);
+  }) || buildRows(size);
 
   setBottomLeft({
     circle: rows[0][1],
@@ -228,7 +228,7 @@ export function setUpGame(size) {
       sets: [
         { setCircle: rows[0][1], operationName: 'right' },
       ],
-    }) || setUpGame(size);
+    }) || buildRows(size);
 
     setValueAndStatiks({
       circle: rows[1][1],
@@ -238,7 +238,7 @@ export function setUpGame(size) {
         { setCircle: rows[0][2], operationName: 'bottomLeft' },
         { setCircle: rows[1][0], operationName: 'right' },
       ],
-    }) || setUpGame(size);
+    }) || buildRows(size);
 
     setValueAndStatiks({
       circle: rows[2][0],
@@ -247,7 +247,7 @@ export function setUpGame(size) {
         { setCircle: rows[1][0], operationName: 'bottomRight' },
         { setCircle: rows[1][1], operationName: 'bottomLeft' },
       ],
-    }) || setUpGame(size);
+    }) || buildRows(size);
   }
 
   // size = 4
@@ -260,7 +260,7 @@ export function setUpGame(size) {
         { setCircle: rows[0][2], operationName: 'right' },
         { setCircle: rows[0][2], operationName: 'bottomRight' },
       ],
-    }) || setUpGame(size);
+    }) || buildRows(size);
 
     setValueAndStatiks({
       circle: rows[1][2],
@@ -270,7 +270,7 @@ export function setUpGame(size) {
         { setCircle: rows[0][2], operationName: 'bottomRight' },
         { setCircle: rows[0][3], operationName: 'bottomLeft' },
       ],
-    }) || setUpGame(size);
+    }) || buildRows(size);
 
     setValueAndStatiks({
       circle: rows[2][1],
@@ -280,7 +280,7 @@ export function setUpGame(size) {
         { setCircle: rows[1][1], operationName: 'bottomRight' },
         { setCircle: rows[1][2], operationName: 'bottomLeft' },
       ],
-    }) || setUpGame(size);
+    }) || buildRows(size);
 
     setValueAndStatiks({
       circle: rows[3][0],
@@ -289,17 +289,10 @@ export function setUpGame(size) {
         { setCircle: rows[2][0], operationName: 'bottomRight' },
         { setCircle: rows[2][1], operationName: 'bottomLeft' },
       ],
-    }) || setUpGame(size);
+    }) || buildRows(size);
   }
 
-  return {
-    rows: rows.map(row =>
-      row.map(circle => circle.toObj())
-    ),
-    operations: {
-      right: OPERATIONS.ADD,
-      bottomLeft: OPERATIONS.ADD,
-      bottomRight: OPERATIONS.ADD,
-    },
-  };
+  return rows.map(row =>
+    row.map(circle => circle.toObj())
+  );
 }

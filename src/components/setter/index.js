@@ -7,11 +7,12 @@ import { OPERATIONS } from '../../constants';
 import './index.css';
 
 function Setter({
-  openSetter,
+  mousePos = [],
   operations,
+  petalName,
   setOperation,
 }) {
-  const { mousePos, name } = openSetter;
+  if (!petalName) return null;
   const [left, top] = mousePos;
 
   const finalLeft = document.body.clientWidth - left > 98 ?
@@ -20,10 +21,10 @@ function Setter({
   return (
     <ul className='setter' style={ { left: finalLeft, top } }>
       { R.keys(OPERATIONS).map((operationName, i) => {
-        const currentLabel = operations[name].label;
+        const currentLabel = operations[petalName].label;
 
         if (
-          name === 'int' &&
+          petalName === 'int' &&
           (operationName === 'SUBTRACT' || operationName === 'MODULO')
         ) return null;
 
@@ -39,7 +40,7 @@ function Setter({
               className='u-reset-button'
               onClick={ () =>
                 setOperation(
-                  name,
+                  petalName,
                   OPERATIONS[operationName],
                 )
               }>
@@ -53,7 +54,8 @@ function Setter({
 }
 
 Setter.propTypes = {
-  openSetter: PropTypes.object.isRequired,
+  mousePos: PropTypes.array,
+  petalName: PropTypes.string,
   operations: PropTypes.object.isRequired,
   setOperation: PropTypes.func.isRequired,
 };
