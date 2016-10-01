@@ -1,9 +1,10 @@
 @import '../../../styles/_colors.css';
 
 .message {
-  background-color: var(--color-yellow);
-  height: 90px;
-  max-height: 90px;
+  background-color: var(--color-white);
+  color: var(--color-yellow);
+  height: 70px;
+  max-height: 80px;
   overflow: hidden;
   transition: 200ms max-height ease-in;
   width: 100%;
@@ -14,6 +15,7 @@
 }
 
 .message__title {
-  padding: 10px 0;
+  padding: 10px 0 0;
   text-align: center;
+  text-transform: uppercase;
 }

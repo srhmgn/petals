@@ -9,6 +9,8 @@
 
 .petal {
   @mixin circle;
+  color: var(--color-white);
+  font-size: 17px;
 }
 
 .petal::after {
@@ -17,14 +19,6 @@
 
 .petal.petal--invalid {
   background-color: var(--color-red-error);
-}
-
-.petal:not(.petal--static) {
-  color: black;
-}
-
-.petal--static {
-  font-style: italic;
 }
 
 /* right petal */

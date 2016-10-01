@@ -30,6 +30,7 @@
   background-color: var(--color-green);
   border: none;
   border-radius: none;
+  color: var(--color-white);
   font-size: 18px;
   height: 30px;
 }
