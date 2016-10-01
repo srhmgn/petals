@@ -4,15 +4,16 @@ import cx from 'classnames';
 import './index.css';
 
 const classMap = {
+  bottom: 'bottom',
   bottomLeft: 'bottom-left',
   bottomRight: 'bottom-right',
   right: 'right',
 };
 
 function Petal({
-  children,
   closeSetter,
   contentValue,
+  ints,
   isInvalid,
   isStatic,
   name,
@@ -38,18 +39,22 @@ function Petal({
           parentIndex,
           petalName: name,
         }) }>
-      { children }
+      { ints.map(int =>
+        <span
+          className={ `petal__int petal__int-${classMap[int]}` }
+          key={ int } />
+      ) }
     </span>
   );
 }
 
 Petal.propTypes = {
-  children: PropTypes.node,
   closeSetter: PropTypes.func.isRequired,
   contentValue: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
   ]).isRequired,
+  ints: PropTypes.arrayOf(PropTypes.string),
   isInvalid: PropTypes.bool.isRequired,
   isStatic: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,

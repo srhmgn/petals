@@ -24,8 +24,17 @@ function getPetalProps(name, petalProps) {
     statikData[name] : null;
   const isStatic = !R.isNil(statik);
 
+  const ints = [];
+
+  if (name === 'bottomLeft') {
+    const { bottomLeft, left, bottomRight } = neighbors;
+    doExist(bottomLeft, left) && ints.push('bottomLeft');
+    doExist(bottomRight, bottomLeft) && ints.push('bottom');
+  }
+
   return {
     contentValue: isStatic ? statik : '',
+    ints,
     isStatic,
     isInvalid: isStatic && Number(dynamic) !== Number(statik),
     name,

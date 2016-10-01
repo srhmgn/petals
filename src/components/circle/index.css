@@ -16,50 +16,6 @@ input {
   font-size: 36px;
 }
 
-.circle__bottom-left-int {
-  background-color: var(--color-gray-dark);
-  bottom: calc(100% - 60px);
-  color: var(--color-gray-light);
-  display: flex;
-  font-style: normal;
-  font-weight: normal;
-  justify-content: flex-end;
-  left: calc(130px - 100%);
-}
-
-.circle__bottom-left-int::after {
-  bottom: 41px;
-  content: attr(data-content);
-  position: absolute;
-  text-align: center;
-  width: 60px;
-}
-
-.circle__bottom-int {
-  background-color: var(--color-gray-dark);
-  color: var(--color-gray-light);
-  display: flex;
-  font-style: normal;
-  font-weight: normal;
-  justify-content: flex-start;
-  left: 140px;
-}
-
-.circle__bottom-int::after {
-  content: attr(data-content);
-  position: absolute;
-  text-align: center;
-  top: 41px;
-  width: 60px;
-}
-
-.u-is-circle {
-  border-radius: 50%;
-  height: 100%;
-  position: absolute;
-  width: 100%;
-}
-
 .circle__number {
   background-color: transparent;
   border: none;

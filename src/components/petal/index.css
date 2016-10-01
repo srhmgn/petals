@@ -90,3 +90,19 @@
   position: absolute;
   width: 100%;
 }
+
+/* int */
+
+.petal__int {
+  @mixin circle;
+  background-color: var(--color-gray-dark);
+}
+
+.petal__int-bottom-left {
+  bottom: calc(100% - 60px);
+  left: calc(130px - 100%);
+}
+
+.petal__int-bottom {
+  left: 140px;
+}
