@@ -1,8 +1,3 @@
-.circles {
+.board {
   margin: 0 auto;
-}
-
-.circles__row {
-  display: flex;
-  justify-content: center;
 }

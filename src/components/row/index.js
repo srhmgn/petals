@@ -2,16 +2,16 @@ import React, { PropTypes } from 'react';
 
 import './index.css';
 
-function Board({ children }) {
+function Row({ children }) {
   return (
-    <div className='board'>
+    <div className='row'>
       { children }
     </div>
   );
 }
 
-Board.propTypes = {
+Row.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default Board;
+export default Row;

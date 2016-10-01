@@ -5,13 +5,13 @@ import * as actions from '../actions';
 import connector from '../selectors';
 import { DEFAULT_SIZE } from '../constants';
 
+import Board from '../components/board';
 import Circle from '../components/circle';
 import Message from '../components/message';
 import NewGame from '../components/new-game';
 import Petal from '../components/petal';
+import Row from '../components/row';
 import Setter from '../components/setter';
-
-import '../components/Board/index.css';
 
 class Game extends PureComponent {
   componentWillMount() {
@@ -32,11 +32,11 @@ class Game extends PureComponent {
     } = this.props;
 
     return (
-      <div className='circles' key={ gameId }>
+      <Board key={ gameId }>
         <Message title={ won ? 'You won!' : null } />
         <NewGame buildRows={ buildRows } />
         { circleProps.map((circleRow, rowIndex) =>
-          <div className='circles__row' key={ rowIndex }>
+          <Row key={ rowIndex }>
             { circleRow.map((circle, circleIndex) =>
               <Circle
                 key={ circleIndex }
@@ -58,12 +58,12 @@ class Game extends PureComponent {
                 ) }
               </Circle>
             ) }
-          </div>
+          </Row>
         ) }
         <Setter
           setOperation={ setOperation }
           { ...setterProps } />
-      </div>
+      </Board>
     );
   }
 }
