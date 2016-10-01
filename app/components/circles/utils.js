@@ -199,7 +199,9 @@ class Circle {
   toObj() {
     return {
       statik: this.statik,
-      dynamic: {},
+      dynamic: {
+        // value: this.value,
+      },
     };
   }
 }
@@ -216,7 +218,7 @@ function buildRows(rows, rowCount) {
   return buildRows(rows, rowCount - 1);
 }
 
-export function setUpGame(size = 3) {
+export function setUpGame(size = 4) {
   /* eslint-disable no-console */
   console.log('setting up game');
   /* eslint-enable no-console */
@@ -229,6 +231,8 @@ export function setUpGame(size = 3) {
   const rows = buildRows([], size);
 
   rows[0][0].setValue(getRandom());
+
+  // size = 2
 
   setValueAndStatiks({
     circle: rows[0][1],
@@ -251,6 +255,8 @@ export function setUpGame(size = 3) {
     neighbor: rows[1][0],
     operations,
   });
+
+  // size = 3
 
   setValueAndStatiks({
     circle: rows[0][2],
@@ -278,6 +284,54 @@ export function setUpGame(size = 3) {
       { setCircle: rows[1][1], operationName: 'bottomLeft' },
     ],
   }) || setUpGame();
+
+  // size = 4
+
+  setValueAndStatiks({
+    circle: rows[0][3],
+    operations,
+    sets: [
+      { setCircle: rows[0][2], operationName: 'right' },
+      { setCircle: rows[0][2], operationName: 'bottomRight' },
+    ],
+  }) || setUpGame();
+
+  setValueAndStatiks({
+    circle: rows[1][2],
+    operations,
+    sets: [
+      { setCircle: rows[1][1], operationName: 'right' },
+      { setCircle: rows[0][2], operationName: 'bottomRight' },
+      { setCircle: rows[0][3], operationName: 'bottomLeft' },
+    ],
+  }) || setUpGame();
+
+  setValueAndStatiks({
+    circle: rows[2][1],
+    operations,
+    sets: [
+      { setCircle: rows[2][0], operationName: 'right' },
+      { setCircle: rows[1][1], operationName: 'bottomRight' },
+      { setCircle: rows[1][2], operationName: 'bottomLeft' },
+    ],
+  }) || setUpGame();
+
+  setValueAndStatiks({
+    circle: rows[3][0],
+    operations,
+    sets: [
+      { setCircle: rows[2][0], operationName: 'bottomRight' },
+      { setCircle: rows[2][1], operationName: 'bottomLeft' },
+    ],
+  }) || setUpGame();
+
+  // setValueAndStatiks({
+  //   circle: rows[0][4],
+  //   operations,
+  //   sets: [
+  //     { setCircle: rows[0][3], operationName: 'bottomLeft' },
+  //   ],
+  // }) || setUpGame();
 
   // const {
   //   value: fifthValue,
