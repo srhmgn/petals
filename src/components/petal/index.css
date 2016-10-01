@@ -1,4 +1,4 @@
-@import '../../../styles/_colors';
+@import '../../styles/_colors';
 
 @define-mixin circle {
   border-radius: 50%;

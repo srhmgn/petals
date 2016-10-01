@@ -1,6 +1,6 @@
 import R from 'ramda';
 
-import { OPERATIONS } from './index';
+import { OPERATIONS } from './constants';
 
 const nonPrimes = R.range(19, 82).filter(n =>
   R.any(x => {

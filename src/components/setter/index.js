@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import R from 'ramda';
 import cx from 'classnames';
 
-import { OPERATIONS } from '../index';
+import { OPERATIONS } from '../../constants';
 
 import './index.css';
 

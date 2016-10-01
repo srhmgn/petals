@@ -2,12 +2,12 @@
   "name": "react-babel-webpack-boilerplate",
   "version": "1.2.2",
   "description": "",
-  "main": "app/main.js",
+  "main": "src/main.js",
   "scripts": {
-    "lint": "eslint 'app/**/*.js' && stylelint 'app/**/*.css'",
+    "lint": "eslint 'src/**/*.js' && stylelint 'src/**/*.css'",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "start": "webpack-dev-server --devtool eval --progress --hot --content-base app",
+    "start": "webpack-dev-server --devtool eval --progress --hot --content-base src",
     "deploy": "NODE_ENV=production webpack -p --config webpack.production.config.js",
     "deploy-windows": "SET NODE_ENV=production & webpack -p --config webpack.production.config.js",
     "validate": "npm ls",
@@ -19,7 +19,9 @@
     "node-uuid": "^1.4.7",
     "ramda": "^0.22.1",
     "react": "15.x",
-    "react-dom": "15.x"
+    "react-dom": "15.x",
+    "react-redux": "^4.4.5",
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "babel-core": "6.x",
@@ -43,6 +45,7 @@
     "postcss-import": "^8.1.2",
     "postcss-loader": "^0.13.0",
     "postcss-mixins": "^5.2.0",
+    "redux-devtools": "^3.3.1",
     "style-loader": "~0.13.0",
     "stylelint": "^7.3.1",
     "stylelint-webpack-plugin": "^0.3.1",

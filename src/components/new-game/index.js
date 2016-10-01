@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import './index.css';
 
-import { DEFAULT_SIZE } from '../index';
+import { DEFAULT_SIZE } from '../../constants';
 
 const MAX_SIZE = 5;
 const MIN_SIZE = 2;

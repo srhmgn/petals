@@ -7,44 +7,22 @@ import {
   doExist,
   getValue,
   setUpGame,
-} from './utils';
+} from '../../utils';
 
-import Circle from './circle';
-import Message from './message';
-import NewGame from './new-game';
-import Petal from './petal';
-import Setter from './setter';
+import { DEFAULT_SIZE } from '../../constants';
+
+import Circle from '../circle';
+import Message from '../message';
+import NewGame from '../new-game';
+import Petal from '../petal';
+import Setter from '../setter';
 
 import './index.css';
 
 // disable internal numbers for now/ever - they're ugly
 const SHOW_INT_NUMBERS = false;
-export const DEFAULT_SIZE = 2;
 
-export const OPERATIONS = {
-  ADD: {
-    func: R.add,
-    label: '+',
-    inverse: 'SUBTRACT',
-  },
-  SUBTRACT: {
-    func: R.subtract,
-    label: '-',
-    inverse: 'ADD',
-  },
-  MULTIPLY: {
-    func: R.multiply,
-    label: 'x',
-    inverse: 'DIVIDE',
-  },
-  DIVIDE: {
-    func: R.divide,
-    label: '÷',
-    inverse: 'MULTIPLY',
-  },
-};
-
-class Circles extends Component {
+class Board extends Component {
   state = {
     gameId: uuid.v4(),
     openSetter: null,
@@ -245,4 +223,4 @@ class Circles extends Component {
     })
 }
 
-export default Circles;
+export default Board;

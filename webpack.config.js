@@ -8,13 +8,13 @@ module.exports = {
     hot: true,
     inline: true,
     progress: true,
-    contentBase: './app',
+    contentBase: './src',
     port: 8080
   },
   entry: [
     'webpack/hot/dev-server',
     'webpack-dev-server/client?http://localhost:8080',
-    path.resolve(__dirname, 'app/main.js')
+    path.resolve(__dirname, 'src/main.js')
   ],
   output: {
     path: __dirname + '/build',
@@ -26,8 +26,8 @@ module.exports = {
       { test: /\.js$/, loader: 'eslint-loader' },
     ],
     loaders:[
-      { test: /\.css$/, include: path.resolve(__dirname, 'app'), loader: 'style-loader!css-loader!postcss-loader' },
-      { test: /\.js?$/, include: path.resolve(__dirname, 'app'), exclude: /node_modules/, loader: 'babel-loader' },
+      { test: /\.css$/, include: path.resolve(__dirname, 'src'), loader: 'style-loader!css-loader!postcss-loader' },
+      { test: /\.js?$/, include: path.resolve(__dirname, 'src'), exclude: /node_modules/, loader: 'babel-loader' },
     ]
   },
   resolve: {
@@ -37,7 +37,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new StyleLintPlugin({
       configFile: './.stylelintrc',
-      files: ['app/**/*.css'],
+      files: ['src/**/*.css'],
       failOnError: false,
     }),
   ],

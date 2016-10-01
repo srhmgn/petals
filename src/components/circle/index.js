@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
 
-import { getValue, isStatic } from '../utils';
+import { getValue, isStatic } from '../../utils';
 
 import './index.css';
 
