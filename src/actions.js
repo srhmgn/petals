@@ -1,10 +1,3 @@
-/* won */
-
-export const setWon = won => ({
-  type: 'SET_WON',
-  won,
-});
-
 /* operation */
 
 export const setOperation = props => ({

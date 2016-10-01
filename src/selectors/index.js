@@ -5,7 +5,6 @@ import { apply, doExist, getValue } from '../utils';
 
 const selectOperations = R.prop('operations');
 const selectRows = R.prop('rows');
-const selectWon = R.prop('won');
 
 function getPetalProps(name, petalProps) {
   const {
@@ -34,12 +33,11 @@ function getPetalProps(name, petalProps) {
   };
 }
 
-const circleProps = createSelector(
+const selectCircleProps = createSelector(
   selectOperations,
   selectRows,
-  selectWon,
   R.prop('setter'),
-  (operations, rows, won, setter) =>
+  (operations, rows, setter) =>
     rows.map((row, rowIndex) => {
       const nextRow = rows[rowIndex + 1];
       return row.map((circle, circleIndex) => {
@@ -64,7 +62,6 @@ const circleProps = createSelector(
             getPetalProps('bottomLeft', basePetalProps),
             getPetalProps('bottomRight', basePetalProps),
           ],
-          won,
         };
       });
     })
@@ -79,8 +76,19 @@ const selectSetterProps = createSelector(
   })
 );
 
+const selectWon = createSelector(
+  selectCircleProps,
+  circleProps =>
+    circleProps.every(row =>
+      row.every(({ petals }) =>
+        petals.every(petal => !petal || !petal.isInvalid)
+      )
+    )
+);
+
 export default createStructuredSelector({
-  circleProps: circleProps,
+  circleProps: selectCircleProps,
+  gameId: R.prop('gameId'),
   operations: selectOperations,
   rows: selectRows,
   setterProps: selectSetterProps,

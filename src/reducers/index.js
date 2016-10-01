@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux';
 
+import gameId from './game-id';
 import operations from './operations';
 import rows from './rows';
 import setter from './setter';
-import won from './won';
 
 const petals = combineReducers({
+  gameId,
   operations,
   rows,
   setter,
-  won,
 });
 
 export default petals;

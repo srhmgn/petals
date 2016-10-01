@@ -9,7 +9,7 @@ const MIN_SIZE = 2;
 
 class NewGame extends Component {
   static propTypes = {
-    buildNewGame: PropTypes.func.isRequired,
+    buildRows: PropTypes.func.isRequired,
   };
 
   state = {
@@ -17,7 +17,7 @@ class NewGame extends Component {
   };
 
   render() {
-    const { buildNewGame } = this.props;
+    const { buildRows } = this.props;
     const { size } = this.state;
 
     const canIncrement = size + 1 <= MAX_SIZE;
@@ -42,7 +42,7 @@ class NewGame extends Component {
         </div>
         <button
           className='new-game__go'
-          onClick={ () => buildNewGame(size) }>New game</button>
+          onClick={ () => buildRows(size) }>New game</button>
       </div>
     );
   }

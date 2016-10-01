@@ -6,6 +6,8 @@ import connector from '../selectors';
 import { DEFAULT_SIZE } from '../constants';
 
 import Circle from '../components/circle';
+import Message from '../components/message';
+import NewGame from '../components/new-game';
 import Petal from '../components/petal';
 import Setter from '../components/setter';
 
@@ -18,16 +20,21 @@ class Game extends PureComponent {
 
   render() {
     const {
+      buildRows,
       circleProps,
       closeSetter,
+      gameId,
       openSetter,
       setOperation,
       setRowCircle,
       setterProps,
+      won,
     } = this.props;
 
     return (
-      <div className='circles'>
+      <div className='circles' key={ gameId }>
+        <Message title={ won ? 'You won!' : null } />
+        <NewGame buildRows={ buildRows } />
         { circleProps.map((circleRow, rowIndex) =>
           <div className='circles__row' key={ rowIndex }>
             { circleRow.map((circle, circleIndex) =>
@@ -39,6 +46,7 @@ class Game extends PureComponent {
                     rowIndex,
                     value,
                   }) }
+                won={ won }
                 { ...circle }>
                 { circle.petals.map((petal, petalIndex) =>
                   petal ?
@@ -64,6 +72,7 @@ Game.propTypes = {
   buildRows: PropTypes.func.isRequired,
   circleProps: PropTypes.array.isRequired,
   closeSetter: PropTypes.func.isRequired,
+  gameId: PropTypes.number.isRequired,
   openSetter: PropTypes.func.isRequired,
   operations: PropTypes.object.isRequired,
   rows: PropTypes.array.isRequired,
