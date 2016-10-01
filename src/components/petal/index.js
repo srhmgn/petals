@@ -11,16 +11,17 @@ const classMap = {
 
 function Petal({
   children,
+  closeSetter,
   contentValue,
   isInvalid,
   isStatic,
   name,
   openSetter,
   parentIndex,
-  setOpenSetter,
+  setter,
 }) {
-  const isOpen = openSetter && openSetter.name === name &&
-    openSetter.parentIndex === parentIndex;
+  const isOpen = setter && setter.petalName === name &&
+    setter.parentIndex === parentIndex;
 
   return (
     <span
@@ -31,11 +32,12 @@ function Petal({
         'petal--static': isStatic,
       }) }
       data-content={ contentValue }
-      onClick={ (e) => setOpenSetter(isOpen ? null : {
-        mousePos: [e.clientX, e.clientY ],
-        name,
-        parentIndex,
-      }, e) }>
+      onClick={ (e) => isOpen ?
+        closeSetter() : openSetter({
+          mousePos: [e.clientX, e.clientY ],
+          parentIndex,
+          petalName: name,
+        }) }>
       { children }
     </span>
   );
@@ -43,6 +45,7 @@ function Petal({
 
 Petal.propTypes = {
   children: PropTypes.node,
+  closeSetter: PropTypes.func.isRequired,
   contentValue: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
@@ -50,9 +53,9 @@ Petal.propTypes = {
   isInvalid: PropTypes.bool.isRequired,
   isStatic: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
-  openSetter: PropTypes.object,
+  openSetter: PropTypes.func.isRequired,
   parentIndex: PropTypes.string.isRequired,
-  setOpenSetter: PropTypes.func.isRequired,
+  setter: PropTypes.object,
 };
 
 export default Petal;

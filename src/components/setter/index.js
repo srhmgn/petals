@@ -39,10 +39,9 @@ function Setter({
             <button
               className='u-reset-button'
               onClick={ () =>
-                setOperation(
-                  petalName,
-                  OPERATIONS[operationName],
-                )
+                setOperation({
+                  [petalName]: OPERATIONS[operationName],
+                })
               }>
               { OPERATIONS[operationName].label }
             </button>
@@ -55,8 +54,8 @@ function Setter({
 
 Setter.propTypes = {
   mousePos: PropTypes.array,
-  petalName: PropTypes.string,
   operations: PropTypes.object.isRequired,
+  petalName: PropTypes.string,
   setOperation: PropTypes.func.isRequired,
 };
 

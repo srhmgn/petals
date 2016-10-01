@@ -38,7 +38,8 @@ const circleProps = createSelector(
   selectOperations,
   selectRows,
   selectWon,
-  (operations, rows, won) =>
+  R.prop('setter'),
+  (operations, rows, won, setter) =>
     rows.map((row, rowIndex) => {
       const nextRow = rows[rowIndex + 1];
       return row.map((circle, circleIndex) => {
@@ -52,6 +53,7 @@ const circleProps = createSelector(
           operations,
           parentIndex: `${rowIndex}${circleIndex}`,
           parentValue: getValue(circle),
+          setter,
           statikData: circle.statik,
         };
 
@@ -78,9 +80,9 @@ const selectSetterProps = createSelector(
 );
 
 export default createStructuredSelector({
+  circleProps: circleProps,
   operations: selectOperations,
   rows: selectRows,
   setterProps: selectSetterProps,
   won: selectWon,
-  circleProps: circleProps,
 });
