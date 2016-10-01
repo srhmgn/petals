@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { setWon } from '../actions';
 
 import Board from '../components/board';
 
-const Game = ({ won, onSetWon }) => {
+function Game({ won, onSetWon }) {
   return (
     <Board setWon={ onSetWon } won={ won } />
   );
+}
+
+Game.propTypes = {
+  onSetWon: PropTypes.func.isRequired,
+  won: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
