@@ -108,25 +108,6 @@ function getRandomOperation(except = []) {
   return list[getRandomFromList(R.keys(list))];
 }
 
-function getValueAndStatik({ value, operation, tried = [] }) {
-  const newValue = getRandomFromList(
-    R.without(tried, R.range(1, 10))
-  );
-
-  const statik = operation.func(
-    Math.max(value, newValue),
-    Math.min(value, newValue)
-  );
-
-  if (statik % 1 === 0 && statik > 0) {
-    return { newValue, statik };
-  }
-
-  tried.push(newValue);
-
-  return getValueAndStatik({ value, operation, tried });
-}
-
 function getOperationAndStatic({ values, tried = [] }) {
   const operation = getRandomOperation(tried);
   const statik = operation.func(
@@ -143,22 +124,17 @@ function getOperationAndStatic({ values, tried = [] }) {
   return getOperationAndStatic({ values, tried });
 }
 
-export function getStatiks({ pairs }) {
+export function getValueAndStatiks(pairs) {
   const possibleStatiks = [];
   const possibleNewValues = R.range(1, 10);
 
   pairs.forEach(({ value, operation }) => {
-    // console.log(value);
-    // console.log(operation.label);
-
     possibleStatiks.push(
       possibleNewValues.map(newValue =>
         apply(operation, newValue, value)
       )
     );
   });
-
-  // console.log(possibleStatiks);
 
   const valuesWithValidStatiks = R.range(1, 10).filter(value =>
     possibleStatiks.every(statikList =>
@@ -170,14 +146,10 @@ export function getStatiks({ pairs }) {
 
   const value = getRandomFromList(valuesWithValidStatiks);
 
-  const out = {
+  return {
     value,
     statiks: possibleStatiks.map(s => s[value - 1]),
   };
-
-  // console.log(out);
-
-  return out;
 }
 
 export function setUpGame() {
@@ -187,14 +159,22 @@ export function setUpGame() {
   const bottomRight = getRandomOperation();
 
   const {
-    newValue: secondValue,
-    statik: firstStatikRight,
-  } = getValueAndStatik({ value: firstValue, operation: right });
+    value: secondValue,
+    statiks: [
+      firstStatikRight,
+    ],
+  } = getValueAndStatiks([
+    { value: firstValue, operation: right },
+  ]);
 
   const {
-    newValue: fourthValue,
-    statik: firstStatikBottomRight,
-  } = getValueAndStatik({ value: firstValue, operation: bottomRight });
+    value: fourthValue,
+    statiks: [
+      firstStatikBottomRight,
+    ],
+  } = getValueAndStatiks([
+    { value: firstValue, operation: bottomRight },
+  ]);
 
   const {
     operation: bottomLeft,
@@ -202,9 +182,13 @@ export function setUpGame() {
   } = getOperationAndStatic({ values: [secondValue, fourthValue] });
 
   const {
-    newValue: thirdValue,
-    statik: secondStatikRight,
-  } = getValueAndStatik({ value: secondValue, operation: right });
+    value: thirdValue,
+    statiks: [
+      secondStatikRight,
+    ],
+  } = getValueAndStatiks([
+    { value: secondValue, operation: right },
+  ]);
 
   const {
     value: fifthValue,
@@ -213,13 +197,11 @@ export function setUpGame() {
       secondStatikBottomLeft,
       thirdStatikRight,
     ],
-  } = getStatiks({
-    pairs: [
-      { value: secondValue, operation: bottomRight },
-      { value: thirdValue, operation: bottomLeft },
-      { value: fourthValue, operation: right },
-    ],
-  });
+  } = getValueAndStatiks([
+    { value: secondValue, operation: bottomRight },
+    { value: thirdValue, operation: bottomLeft },
+    { value: fourthValue, operation: right },
+  ]);
 
   const {
     value: sixthValue,
@@ -227,12 +209,10 @@ export function setUpGame() {
       thirdStatikBottomRight,
       thirdStatikBottomLeft,
     ],
-  } = getStatiks({
-    pairs: [
-      { value: fourthValue, operation: bottomRight },
-      { value: fifthValue, operation: bottomLeft },
-    ],
-  });
+  } = getValueAndStatiks([
+    { value: fourthValue, operation: bottomRight },
+    { value: fifthValue, operation: bottomLeft },
+  ]);
 
   if (!fifthValue || !sixthValue) {
     /* eslint-disable no-console */
