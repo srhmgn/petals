@@ -99,7 +99,7 @@ export const apply = (operation, ...args) => {
     return operation.func(acc, Number(n));
   }, initialValue);
 
-  return out.toFixed();
+  return out;
 };
 
 function getRandomOperation(except = []) {
@@ -170,13 +170,9 @@ export function getStatiks({ pairs }) {
 
   const value = getRandomFromList(valuesWithValidStatiks);
 
-  // console.log(valuesWithValidStatiks);
-
   const out = {
-    secondStatikBottomRight: possibleStatiks[0][value - 1],
-    secondStatikBottomLeft: possibleStatiks[1][value - 1],
-    thirdStatikRight: possibleStatiks[2][value - 1],
-    fifthValue: value,
+    value,
+    statiks: possibleStatiks.map(s => s[value - 1]),
   };
 
   // console.log(out);
@@ -211,10 +207,12 @@ export function setUpGame() {
   } = getValueAndStatik({ value: secondValue, operation: right });
 
   const {
-    secondStatikBottomRight,
-    secondStatikBottomLeft,
-    thirdStatikRight,
-    fifthValue,
+    value: fifthValue,
+    statiks: [
+      secondStatikBottomRight,
+      secondStatikBottomLeft,
+      thirdStatikRight,
+    ],
   } = getStatiks({
     pairs: [
       { value: secondValue, operation: bottomRight },
@@ -223,19 +221,25 @@ export function setUpGame() {
     ],
   });
 
-  if (!fifthValue) {
-    // console.log('didnt work, starting over');
+  const {
+    value: sixthValue,
+    statiks: [
+      thirdStatikBottomRight,
+      thirdStatikBottomLeft,
+    ],
+  } = getStatiks({
+    pairs: [
+      { value: fourthValue, operation: bottomRight },
+      { value: fifthValue, operation: bottomLeft },
+    ],
+  });
+
+  if (!fifthValue || !sixthValue) {
+    /* eslint-disable no-console */
+    console.log('didnt work, starting over');
+    /* eslint-enable no-console */
     return setUpGame();
   }
-
-  // console.log(
-  //   'right',
-  //   right.label,
-  //   'bottomleft',
-  //   bottomLeft.label,
-  //   'bottomRight',
-  //   bottomRight.label,
-  // );
 
   return {
     rows: [
@@ -266,9 +270,18 @@ export function setUpGame() {
         {
           dynamic: {},
           statik: {
+            bottomRight: thirdStatikBottomRight,
             right: thirdStatikRight,
           },
         },
+        {
+          dynamic: {},
+          statik: {
+            bottomLeft: thirdStatikBottomLeft,
+          },
+        },
+      ],
+      [
         {
           dynamic: {},
           statik: {},
@@ -277,7 +290,7 @@ export function setUpGame() {
     ],
     operations: {
       right: OPERATIONS.ADD,
-      bottomLeft: true ? OPERATIONS.ADD : bottomLeft, // for linting
+      bottomLeft: OPERATIONS.ADD,
       bottomRight: OPERATIONS.ADD,
     },
   };
