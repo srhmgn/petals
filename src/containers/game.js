@@ -27,16 +27,24 @@ class Game extends PureComponent {
       openSetter,
       setOperation,
       setRowCircle,
+      setSize,
       setterProps,
+      size,
       won,
     } = this.props;
 
     return (
       <Board key={ gameId }>
         <Message title={ won ? 'You won!' : null } />
-        <NewGame buildRows={ buildRows } />
+
+        <NewGame
+          buildRows={ buildRows }
+          setSize={ setSize }
+          size={ size } />
+
         { circleProps.map((circleRow, rowIndex) =>
           <Row key={ rowIndex }>
+
             { circleRow.map((circle, circleIndex) =>
               <Circle
                 key={ circleIndex }
@@ -48,6 +56,7 @@ class Game extends PureComponent {
                   }) }
                 won={ won }
                 { ...circle }>
+
                 { circle.petals.map((petal, petalIndex) =>
                   petal ?
                     <Petal
@@ -55,11 +64,14 @@ class Game extends PureComponent {
                       key={ petalIndex }
                       openSetter={ openSetter }
                       { ...petal } /> : null
+
                 ) }
               </Circle>
             ) }
+
           </Row>
         ) }
+
         <Setter
           setOperation={ setOperation }
           { ...setterProps } />
@@ -78,7 +90,9 @@ Game.propTypes = {
   rows: PropTypes.array.isRequired,
   setOperation: PropTypes.func.isRequired,
   setRowCircle: PropTypes.func.isRequired,
+  setSize: PropTypes.func.isRequired,
   setterProps: PropTypes.object.isRequired,
+  size: PropTypes.number.isRequired,
   won: PropTypes.bool.isRequired,
 };
 
@@ -88,6 +102,7 @@ const mapDispatchToProps = ({
   openSetter: actions.openSetter,
   setOperation: actions.setOperation,
   setRowCircle: actions.setRowCircle,
+  setSize: actions.setSize,
 });
 
 export default connect(

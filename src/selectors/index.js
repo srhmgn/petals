@@ -80,7 +80,7 @@ const selectSetterProps = createSelector(
   selectOperations,
   R.prop('setter'),
   (operations, setterProps) => ({
-    operations, // TODO
+    operations,
     ...setterProps,
   })
 );
@@ -101,5 +101,6 @@ export default createStructuredSelector({
   operations: selectOperations,
   rows: selectRows,
   setterProps: selectSetterProps,
+  size: R.prop('size'),
   won: selectWon,
 });

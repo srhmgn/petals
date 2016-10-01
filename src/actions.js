@@ -27,3 +27,10 @@ export const setRowCircle = props => ({
   type: 'SET_ROW_CIRCLE',
   ...props,
 });
+
+/* size */
+
+export const setSize = size => ({
+  type: 'SET_SIZE',
+  size,
+});
