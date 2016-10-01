@@ -70,27 +70,6 @@ function getRandomOperation(except = []) {
   return list[getRandomFromList(R.keys(list))];
 }
 
-// const {
-//   operation: bottomLeft,
-//   statik: firstStatikBottomLeft,
-// } = getOperationAndStatic({ values: [secondValue, thirdValue] });
-
-// function setOperationAndStatic({ values, tried = [] }) {
-//   const operation = getRandomOperation(tried);
-//   const statik = operation.func(
-//     Math.max(values[0], values[1]),
-//     Math.min(values[0], values[1]),
-//   );
-
-//   if (statik % 1 === 0 && statik > 0) {
-//     return { statik, operation };
-//   }
-
-//   tried.push(operation);
-
-//   return getOperationAndStatic({ values, tried });
-// }
-
 function setBottomLeft({ circle, operations, neighbor, tried = [] }) {
   const operation = getRandomOperation(tried);
   const values = [circle.getValue(), neighbor.getValue()];
