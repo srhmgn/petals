@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import R from 'ramda';
 import uuid from 'node-uuid';
 
@@ -23,6 +23,11 @@ import './index.css';
 const SHOW_INT_NUMBERS = false;
 
 class Board extends Component {
+  static propTypes = {
+    setWon: PropTypes.func.isRequired,
+    won: PropTypes.bool.isRequired,
+  };
+
   state = {
     gameId: uuid.v4(),
     openSetter: null,
@@ -47,6 +52,7 @@ class Board extends Component {
 
     if (!this.won) {
       this.won = R.all(R.propEq('isInvalid', false), this.petals);
+      this.won && this.props.setWon(true);
     }
 
     return (

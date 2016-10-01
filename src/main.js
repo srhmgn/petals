@@ -1,13 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Game from './containers/game';
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
-import reducer from './reducers';
+import createLogger from 'redux-logger';
 
+import Game from './containers/game';
+import reducer from './reducers';
 import './main.css';
 
-const store = createStore(reducer);
+const logger = createLogger();
+const store = createStore(
+  reducer,
+  applyMiddleware(logger),
+);
 
 ReactDOM.render(
   <Provider store={store}>

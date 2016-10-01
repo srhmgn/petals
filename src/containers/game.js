@@ -5,10 +5,21 @@ import { setWon } from '../actions';
 
 import Board from '../components/board';
 
-const Game = ({ dispatch }) => {
+const Game = ({ won, onSetWon }) => {
   return (
-    <Board />
+    <Board setWon={ onSetWon } won={ won } />
   );
 };
 
-export default connect()(Game);
+const mapStateToProps = (state) => ({
+  won: state.won,
+});
+
+const mapDispatchToProps = ({
+  onSetWon: setWon,
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Game);
