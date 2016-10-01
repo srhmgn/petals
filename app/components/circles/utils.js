@@ -216,7 +216,7 @@ function buildRows(rows, rowCount) {
   return buildRows(rows, rowCount - 1);
 }
 
-export function setUpGame(size = 2) {
+export function setUpGame(size = 3) {
   /* eslint-disable no-console */
   console.log('setting up game');
   /* eslint-enable no-console */
@@ -252,41 +252,32 @@ export function setUpGame(size = 2) {
     operations,
   });
 
-  // console.log(rows);
+  setValueAndStatiks({
+    circle: rows[0][2],
+    operations,
+    sets: [
+      { setCircle: rows[0][1], operationName: 'right' },
+    ],
+  }) || setUpGame();
 
-  // const notAllRowsHaveValues = rows.some(row =>
-  //   row.some(circle => circle.getValue());
-  // );
+  setValueAndStatiks({
+    circle: rows[1][1],
+    operations,
+    sets: [
+      { setCircle: rows[0][1], operationName: 'bottomRight' },
+      { setCircle: rows[0][2], operationName: 'bottomLeft' },
+      { setCircle: rows[1][0], operationName: 'right' },
+    ],
+  }) || setUpGame();
 
-  // if (notAllRowsHaveValues) {
-  //   /* eslint-disable no-console */
-  //   console.log('didnt work, starting over');
-  //   /* eslint-enable no-console */
-  //   return setUpGame();
-  // }
-
-  // const {
-  //   value: thirdValue,
-  //   statiks: [
-  //     firstStatikBottomRight,
-  //   ],
-  // } = getValueAndStatiks([
-  //   { value: firstValue, operation: bottomRight },
-  // ]);
-
-  // const {
-  //   operation: bottomLeft,
-  //   statik: firstStatikBottomLeft,
-  // } = getOperationAndStatic({ values: [secondValue, thirdValue] });
-
-  // const {
-  //   value: thirdValue,
-  //   statiks: [
-  //     secondStatikRight,
-  //   ],
-  // } = getValueAndStatiks([
-  //   { value: secondValue, operation: right },
-  // ]);
+  setValueAndStatiks({
+    circle: rows[2][0],
+    operations,
+    sets: [
+      { setCircle: rows[1][0], operationName: 'bottomRight' },
+      { setCircle: rows[1][1], operationName: 'bottomLeft' },
+    ],
+  }) || setUpGame();
 
   // const {
   //   value: fifthValue,
