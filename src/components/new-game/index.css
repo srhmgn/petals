@@ -13,24 +13,23 @@
 }
 
 .new-game__size-btn {
-  background-color: var(--color-purple);
+  background-color: var(--color-new-game);
   border: none;
   border-radius: none;
-  color: var(--color-white);
+  color: var(--color-black);
   font-size: 18px;
   height: 30px;
   width: 24px;
 }
 
 .new-game__size-btn[disabled] {
-  background-color: var(--color-purple-static);
+  background-color: var(--color-new-game-invalid);
 }
 
 .new-game__go {
-  background-color: var(--color-green);
+  background-color: var(--color-new-game);
   border: none;
   border-radius: none;
-  color: var(--color-white);
   font-size: 18px;
   height: 30px;
 }

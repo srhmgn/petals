@@ -8,6 +8,7 @@ import './index.css';
 class Circle extends Component {
   static propTypes = {
     children: PropTypes.node,
+    closeSetter: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,
     setValue: PropTypes.func.isRequired,
     value: PropTypes.string,
@@ -51,12 +52,15 @@ class Circle extends Component {
 
   handleEvent = (e) => {
     const {
+      closeSetter,
       data: { dynamic },
       setValue,
       won,
     } = this.props;
 
     if (won || this.isStatic()) return;
+
+    closeSetter();
 
     switch (e.type) {
     case 'focus':

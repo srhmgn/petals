@@ -13,7 +13,7 @@
 }
 
 input {
-  font-size: 36px;
+  font-size: 20px;
 }
 
 .circle__number {
@@ -26,20 +26,7 @@ input {
   width: 100%;
 }
 
-.neighbor--invalid {
-  background-color: var(--color-red-error);
-}
-
-.circle__number:not(.circle__number--static),
-.neighbor:not(.neighbor--static) {
-  color: black;
-}
-
-.circle__number--static {
-  color: var(--color-gray-dark-static);
-}
-
-.circle__number--static,
-.neighbor--static {
-  font-style: italic;
+.circle__number,
+.neighbor {
+  color: var(--color-black);
 }

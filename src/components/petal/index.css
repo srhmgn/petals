@@ -9,30 +9,26 @@
 
 .petal {
   @mixin circle;
-  color: var(--color-white);
-  font-size: 17px;
+  color: var(--color-black);
+  font-size: 20px;
 }
 
 .petal::after {
   content: attr(data-content);
 }
 
-.petal.petal--invalid {
-  background-color: var(--color-red-error);
-}
-
 /* right petal */
 
 .petal--right {
   align-items: center;
-  background-color: var(--color-purple);
+  background-color: var(--color-right);
   display: flex;
   left: calc(100% - 60px);
   z-index: 5;
 }
 
-.petal--right.petal--static:not(.petal--invalid) {
-  background-color: var(--color-purple-static);
+.petal--right.petal--invalid {
+  background-color: var(--color-right-invalid);
 }
 
 .petal--right::after {
@@ -44,15 +40,15 @@
 
 .petal--bottom-right {
   align-items: flex-start;
-  background-color: var(--color-green);
+  background-color: var(--color-bottom-right);
   display: flex;
   right: -70px;
   top: calc(100% - 60px);
   z-index: 10;
 }
 
-.petal--bottom-right.petal--static:not(.petal--invalid) {
-  background-color: var(--color-green-static);
+.petal--bottom-right.petal--invalid {
+  background-color: var(--color-bottom-right-invalid);
 }
 
 .petal--bottom-right::after {
@@ -69,7 +65,7 @@
 
 .petal--bottom-left {
   align-items: flex-start;
-  background-color: var(--color-yellow);
+  background-color: var(--color-bottom-left);
   display: flex;
   left: -70px;
   overflow: hidden;
@@ -77,8 +73,8 @@
   z-index: 15;
 }
 
-.petal--bottom-left.petal--static:not(.petal--invalid) {
-  background-color: var(--color-yellow-static);
+.petal--bottom-left.petal--invalid {
+  background-color: var(--color-bottom-left-invalid);
 }
 
 .petal--bottom-left::after {

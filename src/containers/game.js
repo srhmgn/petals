@@ -47,6 +47,7 @@ class Game extends PureComponent {
 
             { circleRow.map((circle, circleIndex) =>
               <Circle
+                closeSetter={ closeSetter }
                 key={ circleIndex }
                 setValue={ value =>
                   setRowCircle({

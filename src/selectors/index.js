@@ -6,6 +6,8 @@ import { apply, doExist, getValue } from '../utils';
 const selectOperations = R.prop('operations');
 const selectRows = R.prop('rows');
 
+const SHOW_INTS = false;
+
 function getPetalProps(name, petalProps) {
   const {
     operations,
@@ -26,7 +28,7 @@ function getPetalProps(name, petalProps) {
 
   const ints = [];
 
-  if (name === 'bottomLeft') {
+  if (name === 'bottomLeft' && SHOW_INTS) {
     const { bottomLeft, left, bottomRight } = neighbors;
     doExist(bottomLeft, left) && ints.push('bottomLeft');
     doExist(bottomRight, bottomLeft) && ints.push('bottom');

@@ -12,7 +12,7 @@
   display: flex;
   list-style-type: none;
   margin: 0;
-  padding: 0 5px;
+  padding: 0;
   position: absolute;
   z-index: 20;
 }
@@ -20,10 +20,17 @@
 .u-reset-button {
   background-color: transparent;
   border: none;
-  font-family: Arial;
   font-size: 24px;
   margin: 0;
   padding: 0;
+}
+
+.setter__item:first-child button {
+  padding-left: 10px;
+}
+
+.setter__item:last-child button {
+  padding-right: 10px;
 }
 
 .setter__item button {
@@ -32,5 +39,5 @@
 }
 
 .setter__item--current button {
-  color: var(--color-gold);
+  color: var(--color-new-game);
 }

@@ -1,6 +1,6 @@
 import R from 'ramda';
 
-export const DEFAULT_SIZE = 2;
+export const DEFAULT_SIZE = 3;
 
 export const OPERATIONS = {
   ADD: {
