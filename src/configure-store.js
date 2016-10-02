@@ -3,10 +3,13 @@ import createLogger from 'redux-logger';
 import reducer from './reducers';
 
 export default function configureStore() {
-  const logger = createLogger();
+  const logger = createLogger({
+    collapsed: true,
+  });
 
-  return createStore(
-    reducer,
-    applyMiddleware(logger),
-  );
+  return (process.env.NODE_ENV !== 'production') ?
+    createStore(
+      reducer,
+      applyMiddleware(logger),
+    ) : createStore(reducer);
 }

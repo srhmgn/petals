@@ -34,10 +34,10 @@
 }
 
 .setter__item button {
-  color: var(--color-gray-light);
+  color: var(--color-controls);
   padding: 5px;
 }
 
 .setter__item--current button {
-  color: var(--color-controls);
+  color: var(--color-gray-light);
 }

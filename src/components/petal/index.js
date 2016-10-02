@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import './index.css';
 
-const classMap = {
+export const petalClassMap = {
   bottom: 'bottom',
   bottomLeft: 'bottom-left',
   bottomRight: 'bottom-right',
@@ -28,7 +28,7 @@ function Petal({
     <span
       className={ cx({
         'petal': true,
-        [`petal--${classMap[name]}`]: true,
+        [`petal--${petalClassMap[name]}`]: true,
         'petal--invalid': isInvalid,
         'petal--static': isStatic,
       }) }
@@ -41,7 +41,7 @@ function Petal({
         }) }>
       { ints.map(int =>
         <span
-          className={ `petal__int petal__int-${classMap[int]}` }
+          className={ `petal__int petal__int-${petalClassMap[int]}` }
           key={ int } />
       ) }
     </span>

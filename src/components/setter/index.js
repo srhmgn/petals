@@ -11,6 +11,7 @@ class Setter extends PureComponent {
     activeIndex: PropTypes.number,
     closeSetter: PropTypes.func.isRequired,
     mousePos: PropTypes.array,
+    opener: PropTypes.object,
     parentIndex: PropTypes.string,
     petalName: PropTypes.string,
     setOperation: PropTypes.func.isRequired,
@@ -76,7 +77,7 @@ class Setter extends PureComponent {
     const {
       activeIndex,
       closeSetter,
-      parentIndex,
+      opener,
       petalName,
       setOperation,
     } = this.props;
@@ -91,13 +92,7 @@ class Setter extends PureComponent {
       nextOperation = R.values(OPERATIONS)[activeIndex - 1];
       break;
     case 'Escape':
-      console.log(parentIndex);
-      const [, rowIndex, circleIndex] =
-        parentIndex.match(/row(\d+)-circle(\d+)/);
-      const circleInput = document
-        .querySelectorAll('.row')[rowIndex]
-        .querySelectorAll('.circle__number')[circleIndex];
-      circleInput.focus();
+      opener && opener.focus();
       closeSetter();
       break;
     default:

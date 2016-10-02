@@ -8,7 +8,7 @@ export default function(state = [], action) {
     return buildRows(action.size);
   case 'SET_ROW_CIRCLE':
     return getUpdatedRow(state, action);
-  case 'CLEAR_ROW_VALUES':
+  case 'RESET_GAME':
     return state.map(row =>
       row.map(circle => R.assocPath(['dynamic'], {}, circle))
     );

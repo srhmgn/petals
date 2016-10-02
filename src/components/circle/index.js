@@ -2,9 +2,16 @@ import React, { PureComponent, PropTypes } from 'react';
 import cx from 'classnames';
 import R from 'ramda';
 
+import { petalClassMap } from '../petal';
 import { getValue, isStatic } from '../../utils';
 
 import './index.css';
+
+const MOUSE_POS_MAP = {
+  right: [50, 80],
+  bottomLeft: [150, 12],
+  bottomRight: [80, 12],
+};
 
 class Circle extends PureComponent {
   static propTypes = {
@@ -23,6 +30,10 @@ class Circle extends PureComponent {
     displayValue: this.getValue(),
   };
 
+  componentDidMount() {
+    window.setInterval(this.checkKeyEvents, 150);
+  }
+
   componentWillReceiveProps(newProps) {
     if (R.equals(newProps.data.dynamic, {})) {
       this.setState({ displayValue: 'EMPTY' });
@@ -39,7 +50,10 @@ class Circle extends PureComponent {
     });
 
     return (
-      <span className='circle' id={ `circle${circleIndex}` }>
+      <span
+        className='circle'
+        id={ `circle${circleIndex}` }
+        ref={ c => { this.component = c; } }>
         { children }
         <input
           className={ numberClassNames }
@@ -63,21 +77,17 @@ class Circle extends PureComponent {
 
   handleEvent = (e) => {
     const {
-      circleIndex,
       closeSetter,
       data: { dynamic },
-      openSetter,
-      rowIndex,
       setValue,
       won,
     } = this.props;
 
     if (won || this.isStatic()) return;
 
-    closeSetter();
-
     switch (e.type) {
     case 'focus':
+      closeSetter();
       this.setState({ displayValue: '' });
       break;
     case 'blur':
@@ -89,59 +99,125 @@ class Circle extends PureComponent {
       if (e.target.value) setValue(e.target.value);
       break;
     case 'keydown':
-      if (e.shiftKey) {
-        this.focusOnPetal(e, rowIndex, circleIndex, openSetter);
-      } else {
-        this.focusOnNeighboringField(e.key, rowIndex, circleIndex);
-      }
+      this.keys.push(e.key);
+      this.shiftKey = e.shiftKey;
       break;
     default:
       return;
     }
   }
 
-  focusOnPetal = (e, rowIndex, circleIndex, openSetter) => {
-    switch (e.key) {
-    case 'ArrowRight':
-      const rightPetal =
-        e.target.parentNode.querySelector('.petal--right');
-      const dimensions =
-        rightPetal && rightPetal.getBoundingClientRect();
+  checkKeyEvents = () => {
+    if (!this.keys.length) return;
+    const firstTwoKeys = this.keys.slice(0, 2);
 
-      dimensions && openSetter({
-        petalName: 'right',
-        parentIndex: `row${rowIndex}-circle${circleIndex}`,
+    this.shiftKey ? this.openSetterForPetal(firstTwoKeys) :
+        this.focusOnNeighboringField(firstTwoKeys);
+
+    this.keys = [];
+    this.shiftKey = false;
+  }
+
+  openSetterForPetal = (keys) => {
+    const {
+      circleIndex,
+      openSetter,
+      rowIndex,
+    } = this.props;
+
+    const input = this.component.querySelector('.circle__number');
+
+    function openSetterAndBlurInput(petalName, parentRow, parentCircle) {
+      const petal = document.querySelector(
+        `#row${parentRow} #circle${parentCircle} .petal--${petalClassMap[petalName]}`
+      );
+
+      if (!petal) return;
+
+      const dimensions = petal.getBoundingClientRect();
+
+      openSetter({
+        petalName,
+        parentIndex: `row${parentRow}-circle${parentCircle}`,
+        opener: input,
         mousePos: [
-          dimensions.left + 50,
-          dimensions.top + 80,
+          dimensions.left + MOUSE_POS_MAP[petalName][0],
+          dimensions.top + MOUSE_POS_MAP[petalName][1],
         ],
       });
-      e.target.blur();
-      break;
-    default:
-      break;
+
+      input.blur();
+    }
+
+    if (R.contains('ArrowUp', keys) && R.contains('ArrowRight', keys)) {
+      openSetterAndBlurInput(
+        'bottomLeft',
+        rowIndex - 1,
+        circleIndex + 1,
+      );
+    } else if (R.contains('ArrowDown', keys) && R.contains('ArrowLeft', keys)) {
+      openSetterAndBlurInput(
+        'bottomLeft',
+        rowIndex,
+        circleIndex,
+      );
+    } else if (R.contains('ArrowUp', keys) && R.contains('ArrowLeft', keys)) {
+      openSetterAndBlurInput(
+        'bottomRight',
+        rowIndex - 1,
+        circleIndex,
+      );
+    } else if (R.contains('ArrowDown', keys) && R.contains('ArrowRight', keys)) {
+      openSetterAndBlurInput(
+        'bottomRight',
+        rowIndex,
+        circleIndex,
+      );
+    } else if (R.contains('ArrowRight', keys)) {
+      openSetterAndBlurInput(
+        'right',
+        rowIndex,
+        circleIndex,
+      );
+    } else if (R.contains('ArrowLeft', keys)) {
+      openSetterAndBlurInput(
+        'right',
+        rowIndex,
+        circleIndex - 1,
+      );
     }
   }
 
-  focusOnNeighboringField = (key, rowIndex, circleIndex) => {
+  focusOnNeighboringField = (keys) => {
+    const {
+      circleIndex,
+      rowIndex,
+    } = this.props;
+
     const selectors = [];
 
-    switch (key) {
-    case 'ArrowRight':
+    if (R.contains('ArrowDown', keys)) {
+      const bottomRight = `#row${rowIndex + 1} #circle${circleIndex}`;
+      const bottomLeft = `#row${rowIndex + 1} #circle${circleIndex - 1}`;
+
+      if (R.contains('ArrowRight', keys)) {
+        selectors.push(bottomRight);
+      } else if (R.contains('ArrowLeft', keys)) {
+        selectors.push(bottomLeft);
+      } else {
+        selectors.push(bottomRight);
+        selectors.push(bottomLeft);
+      }
+    } else if (R.contains('ArrowUp', keys)) {
+      if (R.contains('ArrowRight', keys)) {
+        selectors.push(`#row${rowIndex - 1} #circle${circleIndex + 1}`);
+      } else {
+        selectors.push(`#row${rowIndex - 1} #circle${circleIndex}`);
+      }
+    } else if (R.contains('ArrowRight', keys)) {
       selectors.push(`#row${rowIndex} #circle${circleIndex + 1}`);
-      break;
-    case 'ArrowLeft':
+    } else if (R.contains('ArrowLeft', keys)) {
       selectors.push(`#row${rowIndex} #circle${circleIndex - 1}`);
-      break;
-    case 'ArrowDown':
-      selectors.push(`#row${rowIndex + 1} #circle${circleIndex}`);
-      selectors.push(`#row${rowIndex + 1} #circle${circleIndex - 1}`);
-      break;
-    case 'ArrowUp':
-      selectors.push(`#row${rowIndex - 1} #circle${circleIndex}`);
-      break;
-    default:
-      break;
     }
 
     selectors.some(selector => {
@@ -154,6 +230,9 @@ class Circle extends PureComponent {
       return false;
     });
   }
+
+  keys = [];
+  shiftKey = false;
 }
 
 export default Circle;

@@ -22,7 +22,7 @@ class Game extends PureComponent {
     const {
       buildRows,
       circleProps,
-      clearValues,
+      resetGame,
       closeSetter,
       gameId,
       openSetter,
@@ -40,7 +40,7 @@ class Game extends PureComponent {
 
         <Controls
           buildRows={ buildRows }
-          reset={ clearValues }
+          reset={ resetGame }
           setSize={ setSize }
           size={ size } />
 
@@ -92,11 +92,11 @@ class Game extends PureComponent {
 Game.propTypes = {
   buildRows: PropTypes.func.isRequired,
   circleProps: PropTypes.array.isRequired,
-  clearValues: PropTypes.func.isRequired,
   closeSetter: PropTypes.func.isRequired,
   gameId: PropTypes.number.isRequired,
   openSetter: PropTypes.func.isRequired,
   operations: PropTypes.object.isRequired,
+  resetGame: PropTypes.func.isRequired,
   rows: PropTypes.array.isRequired,
   setOperation: PropTypes.func.isRequired,
   setRowCircle: PropTypes.func.isRequired,
@@ -108,7 +108,7 @@ Game.propTypes = {
 
 const mapDispatchToProps = ({
   buildRows: actions.buildRows,
-  clearValues: actions.clearValues,
+  resetGame: actions.resetGame,
   closeSetter: actions.closeSetter,
   openSetter: actions.openSetter,
   setOperation: actions.setOperation,

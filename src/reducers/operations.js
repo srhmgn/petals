@@ -12,6 +12,8 @@ export default function(state = INITIAL_STATE, { type, ...newOp }) {
   switch (type) {
   case 'SET_OPERATION':
     return R.merge(state, newOp);
+  case 'RESET_GAME':
+    return INITIAL_STATE;
   default:
     return state;
   }

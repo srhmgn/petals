@@ -28,8 +28,8 @@ export const setRowCircle = props => ({
   ...props,
 });
 
-export const clearValues = () => ({
-  type: 'CLEAR_ROW_VALUES',
+export const resetGame = () => ({
+  type: 'RESET_GAME',
 });
 
 /* size */
