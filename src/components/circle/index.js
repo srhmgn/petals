@@ -32,6 +32,15 @@ class Circle extends PureComponent {
 
   componentDidMount() {
     window.setInterval(this.checkKeyEvents, 150);
+
+    const {
+      circleIndex,
+      rowIndex,
+    } = this.props;
+
+    if (circleIndex === 0 && rowIndex === 0) {
+      this.component.querySelector('.circle__number').focus();
+    }
   }
 
   componentWillReceiveProps(newProps) {
