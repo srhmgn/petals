@@ -10,13 +10,7 @@ export default function(state = [], action) {
     return getUpdatedRow(state, action);
   case 'CLEAR_ROW_VALUES':
     return state.map(row =>
-      row.map(circle =>
-        R.assocPath(
-          ['dynamic'],
-          {},
-          circle,
-        )
-      )
+      row.map(circle => R.assocPath(['dynamic'], {}, circle))
     );
   default:
     return state;

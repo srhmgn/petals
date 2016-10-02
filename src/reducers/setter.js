@@ -1,3 +1,11 @@
-export default function(state = null, { type, ...props }) {
-  return type === 'OPEN_SETTER' ? props : null;
+export default function(state = null, action) {
+  const { type, isKeyboardAction, ...props } = action;
+  switch (type) {
+  case 'OPEN_SETTER':
+    return props;
+  case 'SET_OPERATION':
+    return isKeyboardAction ? state : null;
+  default:
+    return null;
+  }
 }

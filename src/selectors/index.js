@@ -2,6 +2,7 @@ import R from 'ramda';
 import { createSelector, createStructuredSelector } from 'reselect';
 
 import { apply, doExist, getValue } from '../utils';
+import { OPERATIONS } from '../constants';
 
 const selectOperations = R.prop('operations');
 const selectRows = R.prop('rows');
@@ -60,7 +61,7 @@ const selectCircleProps = createSelector(
             right: getValue(row[circleIndex + 1]),
           },
           operations,
-          parentIndex: `${rowIndex}${circleIndex}`,
+          parentIndex: `row${rowIndex}-circle${circleIndex}`,
           parentValue: getValue(circle),
           setter,
           statikData: circle.statik,
@@ -81,10 +82,22 @@ const selectCircleProps = createSelector(
 const selectSetterProps = createSelector(
   selectOperations,
   R.prop('setter'),
-  (operations, setterProps) => ({
-    operations,
-    ...setterProps,
-  })
+  (operations, setterProps) => {
+    let activeIndex;
+
+    if (setterProps) {
+      const currentLabel = operations[setterProps.petalName].label;
+      activeIndex = R.findIndex(
+        R.propEq('label', currentLabel),
+        R.values(OPERATIONS),
+      );
+    }
+
+    return {
+      activeIndex,
+      ...setterProps,
+    };
+  }
 );
 
 const selectWon = createSelector(

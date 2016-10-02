@@ -45,14 +45,17 @@ class Game extends PureComponent {
           size={ size } />
 
         { circleProps.map((circleRow, rowIndex) =>
-          <Row key={ rowIndex }>
+          <Row key={ rowIndex } rowIndex={ rowIndex }>
 
             { circleRow.map((circle, circleIndex) =>
               <Circle
+                circleIndex={ circleIndex }
                 closeSetter={
                   () => setterProps.mousePos && closeSetter()
                 }
                 key={ circleIndex }
+                openSetter={ openSetter }
+                rowIndex={ rowIndex }
                 setValue={ value =>
                   setRowCircle({
                     circleIndex,
@@ -78,6 +81,7 @@ class Game extends PureComponent {
         ) }
 
         <Setter
+          closeSetter={ closeSetter }
           setOperation={ setOperation }
           { ...setterProps } />
       </Board>
