@@ -28,6 +28,10 @@ export const setRowCircle = props => ({
   ...props,
 });
 
+export const clearValues = () => ({
+  type: 'CLEAR_ROW_VALUES',
+});
+
 /* size */
 
 export const setSize = size => ({

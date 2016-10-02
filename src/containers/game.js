@@ -7,8 +7,8 @@ import { DEFAULT_SIZE } from '../constants';
 
 import Board from '../components/board';
 import Circle from '../components/circle';
+import Controls from '../components/controls';
 import Message from '../components/message';
-import NewGame from '../components/new-game';
 import Petal from '../components/petal';
 import Row from '../components/row';
 import Setter from '../components/setter';
@@ -22,6 +22,7 @@ class Game extends PureComponent {
     const {
       buildRows,
       circleProps,
+      clearValues,
       closeSetter,
       gameId,
       openSetter,
@@ -37,8 +38,9 @@ class Game extends PureComponent {
       <Board key={ gameId }>
         <Message title={ won ? 'You won!' : null } />
 
-        <NewGame
+        <Controls
           buildRows={ buildRows }
+          reset={ clearValues }
           setSize={ setSize }
           size={ size } />
 
@@ -47,7 +49,9 @@ class Game extends PureComponent {
 
             { circleRow.map((circle, circleIndex) =>
               <Circle
-                closeSetter={ closeSetter }
+                closeSetter={
+                  () => setterProps.mousePos && closeSetter()
+                }
                 key={ circleIndex }
                 setValue={ value =>
                   setRowCircle({
@@ -84,6 +88,7 @@ class Game extends PureComponent {
 Game.propTypes = {
   buildRows: PropTypes.func.isRequired,
   circleProps: PropTypes.array.isRequired,
+  clearValues: PropTypes.func.isRequired,
   closeSetter: PropTypes.func.isRequired,
   gameId: PropTypes.number.isRequired,
   openSetter: PropTypes.func.isRequired,
@@ -99,6 +104,7 @@ Game.propTypes = {
 
 const mapDispatchToProps = ({
   buildRows: actions.buildRows,
+  clearValues: actions.clearValues,
   closeSetter: actions.closeSetter,
   openSetter: actions.openSetter,
   setOperation: actions.setOperation,

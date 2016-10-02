@@ -1,19 +1,19 @@
 @import '../../styles/_colors';
 
-.new-game {
+.controls {
   display: flex;
   justify-content: space-between;
   margin: 20px auto 40px;
   padding: 0;
-  width: 200px;
+  width: 300px;
 }
 
-.new-game__size {
+.controls__size {
   padding: 10px;
 }
 
-.new-game__size-btn {
-  background-color: var(--color-new-game);
+.controls__size-btn {
+  background-color: var(--color-controls);
   border: none;
   border-radius: none;
   color: var(--color-black);
@@ -22,12 +22,12 @@
   width: 24px;
 }
 
-.new-game__size-btn[disabled] {
-  background-color: var(--color-new-game-invalid);
+.controls__size-btn[disabled] {
+  background-color: var(--color-controls-invalid);
 }
 
-.new-game__go {
-  background-color: var(--color-new-game);
+.controls__btn {
+  background-color: var(--color-controls);
   border: none;
   border-radius: none;
   font-size: 18px;

@@ -39,5 +39,5 @@
 }
 
 .setter__item--current button {
-  color: var(--color-new-game);
+  color: var(--color-controls);
 }

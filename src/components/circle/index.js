@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
+import R from 'ramda';
 
 import { getValue, isStatic } from '../../utils';
 
@@ -18,6 +19,12 @@ class Circle extends Component {
   state = {
     displayValue: this.getValue(),
   };
+
+  componentWillReceiveProps(newProps) {
+    if (R.equals(newProps.data.dynamic, {})) {
+      this.setState({ displayValue: 'EMPTY' });
+    }
+  }
 
   render() {
     const { children, won } = this.props;
