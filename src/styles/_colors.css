@@ -13,7 +13,7 @@
   --color-bottom-right-invalid: color(var(--color-bottom-right) var(--filter-invalid));
   --color-bottom-left: #2980B9;
   --color-bottom-left-invalid: color(var(--color-bottom-left) var(--filter-invalid));
-  --color-controls: #7F8C8D;
+  --color-controls: #95A5A6;
   --color-controls-invalid: color(var(--color-controls) var(--filter-invalid));
 }
 
