@@ -1,3 +1,5 @@
+@import '../../styles/_colors';
+
 .test-wrapper {
   display: flex;
   justify-content: center;
@@ -23,7 +25,7 @@
 }
 
 .test-petal--right {
-  fill: magenta;
+  fill: var(--color-right);
   transform: translate(140px, 30px);
 }
 
@@ -32,7 +34,7 @@
 }
 
 .test-petal--bottom-left {
-  fill: cyan;
+  fill: var(--color-bottom-left);
   transform: translate(142px, 190px) rotate(120deg);
 }
 
@@ -41,7 +43,7 @@
 }
 
 .test-petal--bottom-right {
-  fill: purple;
+  fill: var(--color-bottom-right);
   transform: translate(180px, 120px) rotate(60deg);
 }
 
