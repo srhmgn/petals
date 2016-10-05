@@ -1,40 +1,53 @@
-import React, { } from 'react';
+import React, { Component } from 'react';
 
 import './index.css';
 
-function Test() {
-  return (
-    <div className='test-wrapper'>
-      <span className='test-svg-wrapper'>
+class Test extends Component {
+  render() {
+    return (
+      <div className='test-wrapper'>
         <svg
           className='test-circle-svg'
           viewBox='0 0 200 200'
           xmlns='http://www.w3.org/2000/svg'>
-          <circle className='test-petal--right' cx='100' cy='100' r='100'/>
-          <circle className='test-circle' cx='100' cy='100' r='100'/>
+          <Petal
+            className='test-petal--right'
+            onClick={ () => { console.log('right') } } />
+          <Petal
+            className='test-petal--bottom-right'
+            onClick={ () => { console.log('bottomright') } } />
         </svg>
-      </span>
-      <span className='test-svg-wrapper'>
         <svg
           className='test-circle-svg'
           viewBox='0 0 200 200'
           xmlns='http://www.w3.org/2000/svg'>
-          <circle className='test-circle' cx='100' cy='100' r='100'/>
-          <circle className='test-petal--right' cx='100' cy='100' r='100'/>
-          <circle className='test-petal--bottom-left' cx='100' cy='100' r='100'/>
+          <Petal
+            className='test-petal--right'
+            onClick={ () => { console.log('right') } } />
+          <Petal
+            className='test-petal--bottom-right'
+            onClick={ () => { console.log('bottomright') } } />
+          <Petal
+            className='test-petal--bottom-left'
+            onClick={ () => { console.log('bottomleft') } } />
         </svg>
-      </span>
-      <span className='test-svg-wrapper'>
         <svg
           className='test-circle-svg'
           viewBox='0 0 200 200'
           xmlns='http://www.w3.org/2000/svg'>
-          <circle className='test-circle' cx='100' cy='100' r='100'/>
-          <circle className='test-petal--bottom-left' cx='100' cy='100' r='100'/>
+          <Petal
+            className='test-petal--bottom-left'
+            onClick={ () => { console.log('bottomleft') } } />
         </svg>
-      </span>
-    </div>
-  );
+      </div>
+    );
+  }
+}
+
+function Petal(props) {
+  return <path
+          d='M0,69.17C0.64,44,9.55,21.33,27,2c2.33-2.59,3.71-2.71,6.21-.07C60.79,31.06,68,76.31,50.72,112.36a121.29,121.29,0,0,1-17.31,26.09c-2.44,2.88-4,2.94-6.56.05C9.39,119,.35,96.2,0,69.17Z'
+          { ...props } />
 }
 
 export default Test;

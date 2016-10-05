@@ -4,18 +4,17 @@
   margin: 60px auto;
 }
 
-.test-svg-wrapper {
+.test-path-svg {
+  height: 200px;
+  width: 200px;
+}
+
+.test-circle-svg {
   border-radius: 50%;
   height: 200px;
   margin: -30px;
   overflow: hidden;
   width: 200px;
-}
-
-.test-circle-svg {
-  width: 200px;
-  height: 200px;
-  overflow: hidden;
 }
 
 .test-circle {
@@ -25,7 +24,7 @@
 
 .test-petal--right {
   fill: magenta;
-  transform: translateX(141px);
+  transform: translate(140px, 30px);
 }
 
 .test-petal--right:hover {
@@ -34,9 +33,18 @@
 
 .test-petal--bottom-left {
   fill: cyan;
-  transform: translate(-70px, 140px);
+  transform: translate(142px, 190px) rotate(120deg);
 }
 
 .test-petal--bottom-left:hover {
   fill: green;
+}
+
+.test-petal--bottom-right {
+  fill: purple;
+  transform: translate(180px, 120px) rotate(60deg);
+}
+
+.test-petal--bottom-right:hover {
+  fill: gold;
 }
