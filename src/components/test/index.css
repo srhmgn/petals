@@ -1,0 +1,42 @@
+.test-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 60px auto;
+}
+
+.test-svg-wrapper {
+  border-radius: 50%;
+  height: 200px;
+  margin: -30px;
+  overflow: hidden;
+  width: 200px;
+}
+
+.test-circle-svg {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.test-circle {
+  fill: transparent;
+  pointer-events: none;
+}
+
+.test-petal--right {
+  fill: magenta;
+  transform: translateX(141px);
+}
+
+.test-petal--right:hover {
+  fill: yellow;
+}
+
+.test-petal--bottom-left {
+  fill: cyan;
+  transform: translate(-70px, 140px);
+}
+
+.test-petal--bottom-left:hover {
+  fill: green;
+}

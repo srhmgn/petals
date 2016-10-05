@@ -12,6 +12,7 @@ import Message from '../components/message';
 import Petal from '../components/petal';
 import Row from '../components/row';
 import Setter from '../components/setter';
+import Test from '../components/test';
 
 class Game extends PureComponent {
   componentWillMount() {
@@ -36,6 +37,7 @@ class Game extends PureComponent {
 
     return (
       <Board key={ gameId }>
+        <Test />
         <Message title={ won ? 'You won!' : null } />
 
         <Controls
