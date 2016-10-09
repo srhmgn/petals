@@ -10,6 +10,7 @@ function Controls({
   reset,
   setSize,
   size,
+  toggleInstructions,
 }) {
   const canIncrement = size + 1 <= MAX_SIZE;
   const canDecrement = size - 1 >= MIN_SIZE;
@@ -39,6 +40,10 @@ function Controls({
       <button
         className='controls__btn'
         onClick={ reset }>Reset</button>
+
+      <button
+        className='controls__btn'
+        onClick={ toggleInstructions }>?</button>
     </div>
   );
 }
@@ -48,6 +53,7 @@ Controls.propTypes = {
   reset: PropTypes.func.isRequired,
   setSize: PropTypes.func.isRequired,
   size: PropTypes.number.isRequired,
+  toggleInstructions: PropTypes.func.isRequired,
 };
 
 export default Controls;

@@ -19,11 +19,11 @@ class Circle extends PureComponent {
     circleIndex: PropTypes.number.isRequired,
     closeSetter: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,
+    isDisabled: PropTypes.bool.isRequired,
     openSetter: PropTypes.func.isRequired,
     rowIndex: PropTypes.number.isRequired,
     setValue: PropTypes.func.isRequired,
     value: PropTypes.string,
-    won: PropTypes.bool.isRequired,
   };
 
   state = {
@@ -50,12 +50,13 @@ class Circle extends PureComponent {
   }
 
   render() {
-    const { children, circleIndex, won } = this.props;
+    const { children, circleIndex, isDisabled } = this.props;
     const { displayValue } = this.state;
 
     const numberClassNames = cx({
       'circle__number': true,
       'circle__number--static': this.isStatic(),
+      'circle__number--disabled': isDisabled,
     });
 
     return (
@@ -79,7 +80,7 @@ class Circle extends PureComponent {
           onChange={ this.handleEvent }
           onFocus={ this.handleEvent }
           onKeyDown={ this.handleEvent }
-          readOnly={ won || this.isStatic() }
+          readOnly={ isDisabled || this.isStatic() }
           value={ displayValue === 'EMPTY' ? '' : displayValue } />
       </span>
     );
@@ -106,10 +107,10 @@ class Circle extends PureComponent {
       closeSetter,
       data: { dynamic },
       setValue,
-      won,
+      isDisabled,
     } = this.props;
 
-    if (won || this.isStatic()) return;
+    if (isDisabled || this.isStatic()) return;
 
     switch (e.type) {
     case 'focus':

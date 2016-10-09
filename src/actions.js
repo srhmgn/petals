@@ -38,3 +38,14 @@ export const setSize = size => ({
   type: 'SET_SIZE',
   size,
 });
+
+/* instructions */
+
+export const toggleInstructions = () => ({
+  type: 'TOGGLE_INSTRUCTIONS',
+});
+
+export const setInstructionStep = step => ({
+  type: 'SET_INSTRUCTIONS_STEP',
+  step,
+});

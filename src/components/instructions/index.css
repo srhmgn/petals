@@ -1,0 +1,74 @@
+@import '../../styles/_colors';
+
+.instructions {
+  background-color: var(--color-white);
+  height: 400px;
+  max-height: 400px;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+  transition: 200ms max-height ease-in;
+  width: 100%;
+  z-index: 20;
+}
+
+.instructions:not(.instructions--visible) {
+  max-height: 0;
+}
+
+.instructions__inner {
+  padding: 40px;
+  position: relative;
+}
+
+.instructions__circle,
+.instructions__data-group {
+  align-items: center;
+  display: flex;
+  height: 100px;
+  justify-content: center;
+}
+
+.instructions__close-btn {
+  margin-left: 10px;
+}
+
+.instructions__data {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  margin: 0 10px;
+  position: relative;
+}
+
+.instructions__data-value {
+  font-size: 20px;
+  position: absolute;
+}
+
+.instructions__data-svg {
+  fill: var(--color-right-invalid);
+  height: 100%;
+}
+
+.instructions--step-4 .instructions__data-svg {
+  fill: var(--color-right);
+}
+
+.instructions__setter-svg {
+  height: 40px;
+  position: absolute;
+  top: -5px;
+  transform: translateX(60%);
+}
+
+.instructions__data-group--small {
+  margin: 0 20px;
+  transform: scale(0.5);
+}
+
+.instructions__text {
+  margin: 20px auto;
+  width: 350px;
+}

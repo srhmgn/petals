@@ -8,6 +8,8 @@ import { DEFAULT_SIZE } from '../constants';
 import Board from '../components/board';
 import Circle from '../components/circle';
 import Controls from '../components/controls';
+import GameWrapper from '../components/game-wrapper';
+import Instructions from '../components/instructions';
 import Message from '../components/message';
 import Petal from '../components/petal';
 import PetalText from '../components/petal-text';
@@ -26,26 +28,35 @@ class Game extends PureComponent {
       resetGame,
       closeSetter,
       gameId,
+      instructions,
+      isDisabled,
       openSetter,
+      setInstructionStep,
       setOperation,
       setRowCircle,
       setSize,
       setterProps,
       size,
+      toggleInstructions,
       won,
     } = this.props;
 
     return (
-      <Board>
+      <GameWrapper>
         <Message isBanner won={ won } />
         <Message title='petals' />
 
-        <div key={ gameId }>
+        <Instructions
+          setStep={ setInstructionStep }
+          toggleInstructions={ toggleInstructions }
+          { ...instructions } />
+        <Board key={ gameId }>
           <Controls
             buildRows={ buildRows }
             reset={ resetGame }
             setSize={ setSize }
-            size={ size } />
+            size={ size }
+            toggleInstructions={ toggleInstructions } />
 
           { circleProps.map((circleRow, rowIndex) =>
             <Row key={ rowIndex } rowIndex={ rowIndex }>
@@ -56,6 +67,7 @@ class Game extends PureComponent {
                   closeSetter={
                     () => setterProps.mousePos && closeSetter()
                   }
+                  isDisabled={ isDisabled }
                   key={ circleIndex }
                   openSetter={ openSetter }
                   rowIndex={ rowIndex }
@@ -65,7 +77,6 @@ class Game extends PureComponent {
                       rowIndex,
                       value,
                     }) }
-                  won={ won }
                   { ...circle }>
 
                   { circle.petals.map((petal, petalIndex) =>
@@ -90,8 +101,8 @@ class Game extends PureComponent {
             closeSetter={ closeSetter }
             setOperation={ setOperation }
             { ...setterProps } />
-        </div>
-      </Board>
+        </Board>
+      </GameWrapper>
     );
   }
 }
@@ -101,15 +112,19 @@ Game.propTypes = {
   circleProps: PropTypes.array.isRequired,
   closeSetter: PropTypes.func.isRequired,
   gameId: PropTypes.number.isRequired,
+  instructions: PropTypes.object.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
   openSetter: PropTypes.func.isRequired,
   operations: PropTypes.object.isRequired,
   resetGame: PropTypes.func.isRequired,
   rows: PropTypes.array.isRequired,
+  setInstructionStep: PropTypes.func.isRequired,
   setOperation: PropTypes.func.isRequired,
   setRowCircle: PropTypes.func.isRequired,
   setSize: PropTypes.func.isRequired,
   setterProps: PropTypes.object.isRequired,
   size: PropTypes.number.isRequired,
+  toggleInstructions: PropTypes.func.isRequired,
   won: PropTypes.bool.isRequired,
 };
 
@@ -118,9 +133,11 @@ const mapDispatchToProps = ({
   resetGame: actions.resetGame,
   closeSetter: actions.closeSetter,
   openSetter: actions.openSetter,
+  setInstructionStep: actions.setInstructionStep,
   setOperation: actions.setOperation,
   setRowCircle: actions.setRowCircle,
   setSize: actions.setSize,
+  toggleInstructions: actions.toggleInstructions,
 });
 
 export default connect(

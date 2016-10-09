@@ -77,11 +77,19 @@ const selectWon = createSelector(
     )
 );
 
+const selectInstructions = R.prop('instructions');
+
+const selectIsDisabled = createSelector(
+  selectInstructions,
+  selectWon,
+  ({ isVisible }, won) => isVisible || won
+);
+
 const selectSetterProps = createSelector(
   selectOperations,
   R.prop('setter'),
-  selectWon,
-  (operations, setterProps, won) => {
+  selectIsDisabled,
+  (operations, setterProps, isDisabled) => {
     let activeIndex;
 
     const { petalName, ...otherSetterProps } = setterProps || {};
@@ -96,7 +104,7 @@ const selectSetterProps = createSelector(
 
     return {
       activeIndex,
-      petalName: won ? null : petalName,
+      petalName: isDisabled ? null : petalName,
       ...otherSetterProps,
     };
   }
@@ -106,6 +114,8 @@ export default createStructuredSelector({
   circleProps: selectCircleProps,
   gameId: R.prop('gameId'),
   operations: selectOperations,
+  instructions: selectInstructions,
+  isDisabled: selectIsDisabled,
   rows: selectRows,
   setterProps: selectSetterProps,
   size: R.prop('size'),
