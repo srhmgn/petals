@@ -12,6 +12,16 @@
   width: 200px;
 }
 
+.circle__svg {
+  border-radius: 50%;
+  height: 200px;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  width: 200px;
+  z-index: 10;
+}
+
 input {
   font-size: 20px;
 }

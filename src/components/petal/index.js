@@ -31,15 +31,14 @@ function Petal({
         'petal--invalid': isInvalid,
       }) }
       d={ petalPath }
-      onClick={ (e) => {
-        console.log('petal');
+      onClick={ (e) =>
         isOpen ?
           closeSetter() : openSetter({
             mousePos: [e.clientX, e.clientY ],
             parentIndex,
             petalName: name,
-          });
-      } } />
+          })
+      } />
   );
 }
 

@@ -4,10 +4,6 @@
   pointer-events: all;
 }
 
-.petal__text {
-  fill: var(--color-black);
-}
-
 .petal--right {
   fill: var(--color-right);
   transform: translate(140px, 30px);

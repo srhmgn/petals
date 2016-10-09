@@ -64,7 +64,7 @@ class Circle extends PureComponent {
         id={ `circle${circleIndex}` }
         ref={ c => { this.component = c; } }>
         <svg
-          className='test-circle-svg'
+          className='circle__svg'
           onClick={ (e) =>
             e.target === e.currentTarget &&
               this.focusInput()
@@ -89,16 +89,16 @@ class Circle extends PureComponent {
     return getValue(this.props.data);
   }
 
-  isStatic() {
-    return isStatic(this.props.data);
+  getInput = () => {
+    return this.component.querySelector('.circle__number');
   }
 
   focusInput = () => {
     this.getInput().focus();
   }
 
-  getInput = () => {
-    return this.component.querySelector('.circle__number');
+  isStatic() {
+    return isStatic(this.props.data);
   }
 
   handleEvent = (e) => {
