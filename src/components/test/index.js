@@ -6,39 +6,69 @@ class Test extends Component {
   render() {
     return (
       <div className='test-wrapper'>
-        <svg
-          className='test-circle-svg'
-          viewBox='0 0 200 200'
-          xmlns='http://www.w3.org/2000/svg'>
-          <Petal
-            className='test-petal--right'
-            onClick={ () => { console.log('right') } } />
-          <Petal
-            className='test-petal--bottom-right'
-            onClick={ () => { console.log('bottomright') } } />
-        </svg>
-        <svg
-          className='test-circle-svg'
-          viewBox='0 0 200 200'
-          xmlns='http://www.w3.org/2000/svg'>
-          <Petal
-            className='test-petal--right'
-            onClick={ () => { console.log('right') } } />
-          <Petal
-            className='test-petal--bottom-right'
-            onClick={ () => { console.log('bottomright') } } />
-          <Petal
-            className='test-petal--bottom-left'
-            onClick={ () => { console.log('bottomleft') } } />
-        </svg>
-        <svg
-          className='test-circle-svg'
-          viewBox='0 0 200 200'
-          xmlns='http://www.w3.org/2000/svg'>
-          <Petal
-            className='test-petal--bottom-left'
-            onClick={ () => { console.log('bottomleft') } } />
-        </svg>
+        <div className='test-row'>
+          <svg
+            className='test-circle-svg'
+            viewBox='0 0 200 200'
+            xmlns='http://www.w3.org/2000/svg'>
+          </svg>
+        </div>
+        <div className='test-row'>
+          <svg
+            className='test-circle-svg'
+            viewBox='0 0 200 200'
+            xmlns='http://www.w3.org/2000/svg'>
+            <Petal
+              className='test-petal--right'
+              onClick={ () => { console.log('right') } } />
+            <Petal
+              className='test-petal--bottom-right'
+              onClick={ () => { console.log('bottomright') } } />
+          </svg>
+          <svg
+            className='test-circle-svg'
+            viewBox='0 0 200 200'
+            xmlns='http://www.w3.org/2000/svg'>
+            <Petal
+              className='test-petal--bottom-left'
+              onClick={ () => { console.log('bottomleft') } } />
+          </svg>
+        </div>
+        <div className='test-row'>
+          <svg
+            className='test-circle-svg'
+            viewBox='0 0 200 200'
+            xmlns='http://www.w3.org/2000/svg'>
+            <Petal
+              className='test-petal--right'
+              onClick={ () => { console.log('right') } } />
+            <Petal
+              className='test-petal--bottom-right'
+              onClick={ () => { console.log('bottomright') } } />
+          </svg>
+          <svg
+            className='test-circle-svg'
+            viewBox='0 0 200 200'
+            xmlns='http://www.w3.org/2000/svg'>
+            <Petal
+              className='test-petal--right'
+              onClick={ () => { console.log('right') } } />
+            <Petal
+              className='test-petal--bottom-left'
+              onClick={ () => { console.log('bottomleft') } } />
+            <Petal
+              className='test-petal--bottom-right'
+              onClick={ () => { console.log('bottomright') } } />
+          </svg>
+          <svg
+            className='test-circle-svg'
+            viewBox='0 0 200 200'
+            xmlns='http://www.w3.org/2000/svg'>
+            <Petal
+              className='test-petal--bottom-left'
+              onClick={ () => { console.log('bottomleft') } } />
+          </svg>
+        </div>
       </div>
     );
   }

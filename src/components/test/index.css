@@ -1,9 +1,16 @@
 @import '../../styles/_colors';
 
 .test-wrapper {
-  display: flex;
-  justify-content: center;
   margin: 60px auto;
+  width: 540px;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.test-row {
+  flex-wrap: wrap;
+  justify-content: center;
+  display: flex;
 }
 
 .test-path-svg {
