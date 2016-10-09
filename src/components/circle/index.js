@@ -8,9 +8,9 @@ import { getValue, isStatic } from '../../utils';
 import './index.css';
 
 const MOUSE_POS_MAP = {
-  right: [50, 80],
-  bottomLeft: [150, 12],
-  bottomRight: [80, 12],
+  right: [50, 53],
+  bottomLeft: [95, 30],
+  bottomRight: [95, 30],
 };
 
 class Circle extends PureComponent {

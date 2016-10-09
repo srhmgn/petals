@@ -45,11 +45,6 @@ class Setter extends PureComponent {
         style={ { left: finalLeft, top } }
         tabIndex='-1'>
         { R.keys(OPERATIONS).map((operationName, i) => {
-          if (
-            petalName === 'int' &&
-            (operationName === 'SUBTRACT' || operationName === 'MODULO')
-          ) return null;
-
           const setterClasses = cx({
             'setter__item': true,
             'setter__item--current': i === activeIndex,
