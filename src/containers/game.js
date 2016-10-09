@@ -37,7 +37,6 @@ class Game extends PureComponent {
 
     return (
       <Board key={ gameId }>
-        <Test />
         <Message title={ won ? 'You won!' : null } />
 
         <Controls
@@ -46,6 +45,7 @@ class Game extends PureComponent {
           setSize={ setSize }
           size={ size } />
 
+        { false && <Test /> }
         { circleProps.map((circleRow, rowIndex) =>
           <Row key={ rowIndex } rowIndex={ rowIndex }>
 
@@ -68,13 +68,20 @@ class Game extends PureComponent {
                 { ...circle }>
 
                 { circle.petals.map((petal, petalIndex) =>
-                  petal ?
+                  !!petal && [
                     <Petal
                       closeSetter={ closeSetter }
                       key={ petalIndex }
                       openSetter={ openSetter }
-                      { ...petal } /> : null
-
+                      { ...petal } />,
+                    <text
+                      className='petal__text'
+                      key={ `${petalIndex}-text` }
+                      x='160'
+                      y='100'>
+                      { petal.contentValue }
+                    </text>,
+                  ]
                 ) }
               </Circle>
             ) }
@@ -89,6 +96,12 @@ class Game extends PureComponent {
       </Board>
     );
   }
+}
+
+function TestPetal(props) {
+  return <path
+          d='M0,69.17C0.64,44,9.55,21.33,27,2c2.33-2.59,3.71-2.71,6.21-.07C60.79,31.06,68,76.31,50.72,112.36a121.29,121.29,0,0,1-17.31,26.09c-2.44,2.88-4,2.94-6.56.05C9.39,119,.35,96.2,0,69.17Z'
+          { ...props } />
 }
 
 Game.propTypes = {

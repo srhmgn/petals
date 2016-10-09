@@ -3,6 +3,8 @@ import cx from 'classnames';
 
 import './index.css';
 
+const petalPath = 'M0,69.17C0.64,44,9.55,21.33,27,2c2.33-2.59,3.71-2.71,6.21-.07C60.79,31.06,68,76.31,50.72,112.36a121.29,121.29,0,0,1-17.31,26.09c-2.44,2.88-4,2.94-6.56.05C9.39,119,.35,96.2,0,69.17Z';
+
 export const petalClassMap = {
   bottom: 'bottom',
   bottomLeft: 'bottom-left',
@@ -12,10 +14,7 @@ export const petalClassMap = {
 
 function Petal({
   closeSetter,
-  contentValue,
-  ints,
   isInvalid,
-  isStatic,
   name,
   openSetter,
   parentIndex,
@@ -25,38 +24,28 @@ function Petal({
     setter.parentIndex === parentIndex;
 
   return (
-    <span
+    <path
       className={ cx({
         'petal': true,
         [`petal--${petalClassMap[name]}`]: true,
         'petal--invalid': isInvalid,
-        'petal--static': isStatic,
       }) }
-      data-content={ contentValue }
-      onClick={ (e) => isOpen ?
-        closeSetter() : openSetter({
-          mousePos: [e.clientX, e.clientY ],
-          parentIndex,
-          petalName: name,
-        }) }>
-      { ints.map(int =>
-        <span
-          className={ `petal__int petal__int-${petalClassMap[int]}` }
-          key={ int } />
-      ) }
-    </span>
+      d={ petalPath }
+      onClick={ (e) => {
+        console.log('petal');
+        isOpen ?
+          closeSetter() : openSetter({
+            mousePos: [e.clientX, e.clientY ],
+            parentIndex,
+            petalName: name,
+          });
+      } } />
   );
 }
 
 Petal.propTypes = {
   closeSetter: PropTypes.func.isRequired,
-  contentValue: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]).isRequired,
-  ints: PropTypes.arrayOf(PropTypes.string),
   isInvalid: PropTypes.bool.isRequired,
-  isStatic: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   openSetter: PropTypes.func.isRequired,
   parentIndex: PropTypes.string.isRequired,

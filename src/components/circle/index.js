@@ -39,7 +39,7 @@ class Circle extends PureComponent {
     } = this.props;
 
     if (circleIndex === 0 && rowIndex === 0) {
-      this.component.querySelector('.circle__number').focus();
+      this.focusInput();
     }
   }
 
@@ -63,7 +63,16 @@ class Circle extends PureComponent {
         className='circle'
         id={ `circle${circleIndex}` }
         ref={ c => { this.component = c; } }>
-        { children }
+        <svg
+          className='test-circle-svg'
+          onClick={ (e) =>
+            e.target === e.currentTarget &&
+              this.focusInput()
+          }
+          viewBox='0 0 200 200'
+          xmlns='http://www.w3.org/2000/svg'>
+          { children }
+        </svg>
         <input
           className={ numberClassNames }
           onBlur={ this.handleEvent }
@@ -82,6 +91,14 @@ class Circle extends PureComponent {
 
   isStatic() {
     return isStatic(this.props.data);
+  }
+
+  focusInput = () => {
+    this.getInput().focus();
+  }
+
+  getInput = () => {
+    return this.component.querySelector('.circle__number');
   }
 
   handleEvent = (e) => {
@@ -134,7 +151,7 @@ class Circle extends PureComponent {
       rowIndex,
     } = this.props;
 
-    const input = this.component.querySelector('.circle__number');
+    const input = this.getInput();
 
     function openSetterAndBlurInput(petalName, parentRow, parentCircle) {
       const petal = document.querySelector(

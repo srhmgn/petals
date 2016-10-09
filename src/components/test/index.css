@@ -1,10 +1,11 @@
 @import '../../styles/_colors';
 
 .test-wrapper {
-  margin: 60px auto;
   width: 540px;
-  display: flex;
-  flex-direction: column-reverse;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
 }
 
 .test-row {
@@ -21,9 +22,11 @@
 .test-circle-svg {
   border-radius: 50%;
   height: 200px;
-  margin: -30px;
   overflow: hidden;
   width: 200px;
+  position: absolute;
+  z-index: 10;
+  pointer-events: none;
 }
 
 .test-circle {

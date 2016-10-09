@@ -1,104 +1,52 @@
 @import '../../styles/_colors';
 
-@define-mixin circle {
-  border-radius: 50%;
-  height: 100%;
-  position: absolute;
-  width: 100%;
-}
-
 .petal {
-  @mixin circle;
-  color: var(--color-black);
-  font-size: 20px;
+  pointer-events: all;
 }
 
-.petal::after {
-  content: attr(data-content);
+.petal__text {
+  fill: var(--color-black);
 }
-
-/* right petal */
 
 .petal--right {
-  align-items: center;
-  background-color: var(--color-right);
-  display: flex;
-  left: calc(100% - 60px);
-  z-index: 5;
+  fill: var(--color-right);
+  transform: translate(140px, 30px);
 }
 
 .petal--right.petal--invalid {
-  background-color: var(--color-right-invalid);
-}
+  fill: var(--color-right-invalid);
 
-.petal--right::after {
-  text-align: center;
-  width: 60px;
+  &:hover {
+    fill: color(var(--color-right-invalid) tint(20%));
+  }
 }
 
 /* bottom right petal */
 
 .petal--bottom-right {
-  align-items: flex-start;
-  background-color: var(--color-bottom-right);
-  display: flex;
-  right: -70px;
-  top: calc(100% - 60px);
-  z-index: 10;
+  fill: var(--color-bottom-right);
+  transform: translate(180px, 120px) rotate(60deg);
 }
 
 .petal--bottom-right.petal--invalid {
-  background-color: var(--color-bottom-right-invalid);
-}
+  fill: var(--color-bottom-right-invalid);
 
-.petal--bottom-right::after {
-  align-items: center;
-  display: flex;
-  height: 60px;
-  justify-content: center;
-  position: absolute;
-  right: 34px;
-  width: 100%;
+  &:hover {
+    fill: color(var(--color-bottom-right-invalid) tint(20%));
+  }
 }
 
 /* bottom left petal */
 
 .petal--bottom-left {
-  align-items: flex-start;
-  background-color: var(--color-bottom-left);
-  display: flex;
-  left: -70px;
-  overflow: hidden;
-  top: calc(100% - 60px);
-  z-index: 15;
+  fill: var(--color-bottom-left);
+  transform: translate(142px, 190px) rotate(120deg);
 }
 
 .petal--bottom-left.petal--invalid {
-  background-color: var(--color-bottom-left-invalid);
-}
+  fill: var(--color-bottom-left-invalid);
 
-.petal--bottom-left::after {
-  align-items: center;
-  display: flex;
-  height: 60px;
-  justify-content: center;
-  left: 34px;
-  position: absolute;
-  width: 100%;
-}
-
-/* int */
-
-.petal__int {
-  @mixin circle;
-  background-color: var(--color-gray-dark);
-}
-
-.petal__int-bottom-left {
-  bottom: calc(100% - 60px);
-  left: calc(130px - 100%);
-}
-
-.petal__int-bottom {
-  left: 140px;
+  &:hover {
+    fill: color(var(--color-bottom-left-invalid) tint(20%));
+  }
 }

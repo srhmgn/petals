@@ -11,6 +11,34 @@ class Test extends Component {
             className='test-circle-svg'
             viewBox='0 0 200 200'
             xmlns='http://www.w3.org/2000/svg'>
+            <Petal
+              className='test-petal--right'
+              onClick={ () => { console.log('right') } } />
+            <Petal
+              className='test-petal--bottom-right'
+              onClick={ () => { console.log('bottomright') } } />
+          </svg>
+          <svg
+            className='test-circle-svg'
+            viewBox='0 0 200 200'
+            xmlns='http://www.w3.org/2000/svg'>
+            <Petal
+              className='test-petal--right'
+              onClick={ () => { console.log('right') } } />
+            <Petal
+              className='test-petal--bottom-left'
+              onClick={ () => { console.log('bottomleft') } } />
+            <Petal
+              className='test-petal--bottom-right'
+              onClick={ () => { console.log('bottomright') } } />
+          </svg>
+          <svg
+            className='test-circle-svg'
+            viewBox='0 0 200 200'
+            xmlns='http://www.w3.org/2000/svg'>
+            <Petal
+              className='test-petal--bottom-left'
+              onClick={ () => { console.log('bottomleft') } } />
           </svg>
         </div>
         <div className='test-row'>
@@ -39,34 +67,6 @@ class Test extends Component {
             className='test-circle-svg'
             viewBox='0 0 200 200'
             xmlns='http://www.w3.org/2000/svg'>
-            <Petal
-              className='test-petal--right'
-              onClick={ () => { console.log('right') } } />
-            <Petal
-              className='test-petal--bottom-right'
-              onClick={ () => { console.log('bottomright') } } />
-          </svg>
-          <svg
-            className='test-circle-svg'
-            viewBox='0 0 200 200'
-            xmlns='http://www.w3.org/2000/svg'>
-            <Petal
-              className='test-petal--right'
-              onClick={ () => { console.log('right') } } />
-            <Petal
-              className='test-petal--bottom-left'
-              onClick={ () => { console.log('bottomleft') } } />
-            <Petal
-              className='test-petal--bottom-right'
-              onClick={ () => { console.log('bottomright') } } />
-          </svg>
-          <svg
-            className='test-circle-svg'
-            viewBox='0 0 200 200'
-            xmlns='http://www.w3.org/2000/svg'>
-            <Petal
-              className='test-petal--bottom-left'
-              onClick={ () => { console.log('bottomleft') } } />
           </svg>
         </div>
       </div>
