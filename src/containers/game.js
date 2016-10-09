@@ -36,58 +36,61 @@ class Game extends PureComponent {
     } = this.props;
 
     return (
-      <Board key={ gameId }>
-        <Message title={ won ? 'You won!' : null } />
+      <Board>
+        <Message isBanner won={ won } />
+        <Message title='petals' />
 
-        <Controls
-          buildRows={ buildRows }
-          reset={ resetGame }
-          setSize={ setSize }
-          size={ size } />
+        <div key={ gameId }>
+          <Controls
+            buildRows={ buildRows }
+            reset={ resetGame }
+            setSize={ setSize }
+            size={ size } />
 
-        { circleProps.map((circleRow, rowIndex) =>
-          <Row key={ rowIndex } rowIndex={ rowIndex }>
+          { circleProps.map((circleRow, rowIndex) =>
+            <Row key={ rowIndex } rowIndex={ rowIndex }>
 
-            { circleRow.map((circle, circleIndex) =>
-              <Circle
-                circleIndex={ circleIndex }
-                closeSetter={
-                  () => setterProps.mousePos && closeSetter()
-                }
-                key={ circleIndex }
-                openSetter={ openSetter }
-                rowIndex={ rowIndex }
-                setValue={ value =>
-                  setRowCircle({
-                    circleIndex,
-                    rowIndex,
-                    value,
-                  }) }
-                won={ won }
-                { ...circle }>
+              { circleRow.map((circle, circleIndex) =>
+                <Circle
+                  circleIndex={ circleIndex }
+                  closeSetter={
+                    () => setterProps.mousePos && closeSetter()
+                  }
+                  key={ circleIndex }
+                  openSetter={ openSetter }
+                  rowIndex={ rowIndex }
+                  setValue={ value =>
+                    setRowCircle({
+                      circleIndex,
+                      rowIndex,
+                      value,
+                    }) }
+                  won={ won }
+                  { ...circle }>
 
-                { circle.petals.map((petal, petalIndex) =>
-                  !!petal && [
-                    <Petal
-                      closeSetter={ closeSetter }
-                      key={ petalIndex }
-                      openSetter={ openSetter }
-                      { ...petal } />,
-                    <PetalText
-                      key={ `${petalIndex}-text` }
-                      { ...petal } />,
-                  ]
-                ) }
-              </Circle>
-            ) }
+                  { circle.petals.map((petal, petalIndex) =>
+                    !!petal && [
+                      <Petal
+                        closeSetter={ closeSetter }
+                        key={ petalIndex }
+                        openSetter={ openSetter }
+                        { ...petal } />,
+                      <PetalText
+                        key={ `${petalIndex}-text` }
+                        { ...petal } />,
+                    ]
+                  ) }
+                </Circle>
+              ) }
 
-          </Row>
-        ) }
+            </Row>
+          ) }
 
-        <Setter
-          closeSetter={ closeSetter }
-          setOperation={ setOperation }
-          { ...setterProps } />
+          <Setter
+            closeSetter={ closeSetter }
+            setOperation={ setOperation }
+            { ...setterProps } />
+        </div>
       </Board>
     );
   }

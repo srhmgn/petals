@@ -67,27 +67,6 @@ const selectCircleProps = createSelector(
     })
 );
 
-const selectSetterProps = createSelector(
-  selectOperations,
-  R.prop('setter'),
-  (operations, setterProps) => {
-    let activeIndex;
-
-    if (setterProps) {
-      const currentLabel = operations[setterProps.petalName].label;
-      activeIndex = R.findIndex(
-        R.propEq('label', currentLabel),
-        R.values(OPERATIONS),
-      );
-    }
-
-    return {
-      activeIndex,
-      ...setterProps,
-    };
-  }
-);
-
 const selectWon = createSelector(
   selectCircleProps,
   circleProps =>
@@ -96,6 +75,31 @@ const selectWon = createSelector(
         petals.every(petal => !petal || !petal.isInvalid)
       )
     )
+);
+
+const selectSetterProps = createSelector(
+  selectOperations,
+  R.prop('setter'),
+  selectWon,
+  (operations, setterProps, won) => {
+    let activeIndex;
+
+    const { petalName, ...otherSetterProps } = setterProps || {};
+
+    if (setterProps) {
+      const currentLabel = operations[petalName].label;
+      activeIndex = R.findIndex(
+        R.propEq('label', currentLabel),
+        R.values(OPERATIONS),
+      );
+    }
+
+    return {
+      activeIndex,
+      petalName: won ? null : petalName,
+      ...otherSetterProps,
+    };
+  }
 );
 
 export default createStructuredSelector({

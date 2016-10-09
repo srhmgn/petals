@@ -2,6 +2,7 @@
 
 :root {
   --filter-invalid: tint(50%);
+  --color-blue: #2980B9;
   --color-black: #000;
   --color-white: #FFF;
   --color-gray: #7F8C8D;
@@ -11,7 +12,7 @@
   --color-right-invalid: color(var(--color-right) var(--filter-invalid));
   --color-bottom-right: #2ECC71;
   --color-bottom-right-invalid: color(var(--color-bottom-right) var(--filter-invalid));
-  --color-bottom-left: #2980B9;
+  --color-bottom-left: var(--color-blue);
   --color-bottom-left-invalid: color(var(--color-bottom-left) var(--filter-invalid));
   --color-controls: #95A5A6;
   --color-controls-invalid: var(--color-gray-light);

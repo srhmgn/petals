@@ -2,11 +2,24 @@
   font-size: 20px;
   position: absolute;
   text-align: center;
+  width: 59px;
 }
 
 .text--right {
   left: 141px;
   top: 100px;
   transform: translateY(-50%);
-  width: 59px;
+}
+
+.text--bottom-right,
+.text--bottom-left {
+  top: 158px;
+}
+
+.text--bottom-right {
+  left: 106px;
+}
+
+.text--bottom-left {
+  left: 36px;
 }
