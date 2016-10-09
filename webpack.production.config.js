@@ -32,6 +32,7 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: './src/images', to: 'images' },
       { from: './src/index.html', to: 'index.html' },
+      { from: './src/favicon.ico', to: 'favicon.ico' },
       { from: './src/main.css', to: 'main.css' }
     ]),
   ],
