@@ -220,41 +220,17 @@ export function buildRows(size, tries = 0) {
         ],
       });
 
-      if (s >= 4) {
+      R.range(2, s - 1).forEach(ss => {
         setValueAndStatiks({
-          circle: rows[2][s - 3],
+          circle: rows[ss][s - ss - 1],
           operations,
           sets: [
-            { setCircle: rows[2][s - 4], operationName: 'right' },
-            { setCircle: rows[1][s - 3], operationName: 'bottomRight' },
-            { setCircle: rows[1][s - 2], operationName: 'bottomLeft' },
+            { setCircle: rows[ss][s - ss - 2], operationName: 'right' },
+            { setCircle: rows[ss - 1][s - ss - 1], operationName: 'bottomRight' },
+            { setCircle: rows[ss - 1][s - ss], operationName: 'bottomLeft' },
           ],
         });
-      }
-
-      if (s >= 5) {
-        setValueAndStatiks({
-          circle: rows[3][s - 4],
-          operations,
-          sets: [
-            { setCircle: rows[3][s - 5], operationName: 'right' },
-            { setCircle: rows[2][s - 4], operationName: 'bottomRight' },
-            { setCircle: rows[2][s - 3], operationName: 'bottomLeft' },
-          ],
-        });
-      }
-
-      if (s >= 6) {
-        setValueAndStatiks({
-          circle: rows[4][s - 5],
-          operations,
-          sets: [
-            { setCircle: rows[4][s - 6], operationName: 'right' },
-            { setCircle: rows[3][s - 5], operationName: 'bottomRight' },
-            { setCircle: rows[3][s - 4], operationName: 'bottomLeft' },
-          ],
-        });
-      }
+      });
 
       setValueAndStatiks({
         circle: rows[s - 1][0],
@@ -265,119 +241,6 @@ export function buildRows(size, tries = 0) {
         ],
       });
     });
-
-    // size = 3
-
-    // if (size >= 3) {
-    //   setValueAndStatiks({
-    //     circle: rows[0][2],
-    //     operations,
-    //     sets: [
-    //       { setCircle: rows[0][1], operationName: 'right' },
-    //     ],
-    //   });
-
-    //   setValueAndStatiks({
-    //     circle: rows[1][1],
-    //     operations,
-    //     sets: [
-    //       { setCircle: rows[0][1], operationName: 'bottomRight' },
-    //       { setCircle: rows[0][2], operationName: 'bottomLeft' },
-    //       { setCircle: rows[1][0], operationName: 'right' },
-    //     ],
-    //   });
-
-    //   setValueAndStatiks({
-    //     circle: rows[2][0],
-    //     operations,
-    //     sets: [
-    //       { setCircle: rows[1][0], operationName: 'bottomRight' },
-    //       { setCircle: rows[1][1], operationName: 'bottomLeft' },
-    //     ],
-    //   });
-    // }
-
-    // size = 4
-
-    // if (size >= 4) {
-    //   setValueAndStatiks({
-    //     circle: rows[0][3],
-    //     operations,
-    //     sets: [
-    //       { setCircle: rows[0][2], operationName: 'right' },
-    //     ],
-    //   });
-
-    //   setValueAndStatiks({
-    //     circle: rows[1][2],
-    //     operations,
-    //     sets: [
-    //       { setCircle: rows[0][2], operationName: 'bottomRight' },
-    //       { setCircle: rows[0][3], operationName: 'bottomLeft' },
-    //       { setCircle: rows[1][1], operationName: 'right' },
-    //     ],
-    //   });
-
-    //   setValueAndStatiks({
-    //     circle: rows[2][1],
-    //     operations,
-    //     sets: [
-    //       { setCircle: rows[2][0], operationName: 'right' },
-    //       { setCircle: rows[1][1], operationName: 'bottomRight' },
-    //       { setCircle: rows[1][2], operationName: 'bottomLeft' },
-    //     ],
-    //   });
-
-    //   setValueAndStatiks({
-    //     circle: rows[3][0],
-    //     operations,
-    //     sets: [
-    //       { setCircle: rows[2][0], operationName: 'bottomRight' },
-    //       { setCircle: rows[2][1], operationName: 'bottomLeft' },
-    //     ],
-    //   });
-    // }
-
-    // size = 5
-
-    // if (size >= 5) {
-    //   setValueAndStatiks({
-    //     circle: rows[0][4],
-    //     operations,
-    //     sets: [
-    //       { setCircle: rows[0][3], operationName: 'right' },
-    //     ],
-    //   });
-
-    //   setValueAndStatiks({
-    //     circle: rows[1][3],
-    //     operations,
-    //     sets: [
-    //       { setCircle: rows[0][3], operationName: 'bottomRight' },
-    //       { setCircle: rows[0][4], operationName: 'bottomLeft' },
-    //       { setCircle: rows[1][2], operationName: 'right' },
-    //     ],
-    //   });
-
-    //   setValueAndStatiks({
-    //     circle: rows[3][1],
-    //     operations,
-    //     sets: [
-    //       { setCircle: rows[3][0], operationName: 'right' },
-    //       { setCircle: rows[2][1], operationName: 'bottomRight' },
-    //       { setCircle: rows[2][2], operationName: 'bottomLeft' },
-    //     ],
-    //   });
-
-    //   setValueAndStatiks({
-    //     circle: rows[4][0],
-    //     operations,
-    //     sets: [
-    //       { setCircle: rows[3][0], operationName: 'bottomRight' },
-    //       { setCircle: rows[3][1], operationName: 'bottomLeft' },
-    //     ],
-    //   });
-    // }
   } catch (err) {
     return buildRows(size, tries + 1);
   }

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 import './index.css';
 
-const MAX_SIZE = 5;
+const MAX_SIZE = 8;
 const MIN_SIZE = 2;
 
 function Controls({
