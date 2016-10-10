@@ -17,18 +17,20 @@ function getPetalProps(name, petalProps) {
   } = petalProps;
 
   const neighborValue = neighbors[name];
-  if (!doExist(neighborValue)) return null;
+  if (!doExist(neighborValue, statikData)) return null;
+
+  const finalName = statikData[`${name}Alt`] ? `${name}Alt` : name;
 
   const dynamic = neighborValue ?
-    apply(operations[name], parentValue, neighborValue) : null;
-  const statik = (statikData && statikData[name]) ?
-    statikData[name] : null;
+    apply(operations[finalName], parentValue, neighborValue) : null;
+
+  const statik = statikData[finalName] || null;
   const isStatic = !R.isNil(statik);
 
   return {
     contentValue: isStatic ? statik : '',
     isInvalid: isStatic && Number(dynamic) !== Number(statik),
-    name,
+    name: finalName,
     ...props,
   };
 }
@@ -58,6 +60,7 @@ const selectCircleProps = createSelector(
         return {
           data: circle,
           petals: [
+            getPetalProps('rightAlt', basePetalProps),
             getPetalProps('right', basePetalProps),
             getPetalProps('bottomLeft', basePetalProps),
             getPetalProps('bottomRight', basePetalProps),

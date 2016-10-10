@@ -4,6 +4,7 @@ import { OPERATIONS } from '../constants';
 
 const INITIAL_STATE = {
   right: OPERATIONS.ADD,
+  rightAlt: OPERATIONS.ADD,
   bottomLeft: OPERATIONS.ADD,
   bottomRight: OPERATIONS.ADD,
 };
