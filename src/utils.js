@@ -244,6 +244,18 @@ export function buildRows(size, tries = 0) {
         });
       }
 
+      if (s >= 6) {
+        setValueAndStatiks({
+          circle: rows[4][s - 5],
+          operations,
+          sets: [
+            { setCircle: rows[4][s - 6], operationName: 'right' },
+            { setCircle: rows[3][s - 5], operationName: 'bottomRight' },
+            { setCircle: rows[3][s - 4], operationName: 'bottomLeft' },
+          ],
+        });
+      }
+
       setValueAndStatiks({
         circle: rows[s - 1][0],
         operations,
@@ -367,7 +379,7 @@ export function buildRows(size, tries = 0) {
     //   });
     // }
   } catch (err) {
-    buildRows(size, tries + 1);
+    return buildRows(size, tries + 1);
   }
 
   const shouldDebug = window.location.search.match('debug');
