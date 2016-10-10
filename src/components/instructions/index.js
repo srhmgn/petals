@@ -78,7 +78,9 @@ function Instructions({
     case 4:
       return (
         <div className='instructions__data-group'>
+          <Data className='instructions__data'>5</Data>
           <Data className='instructions__data' showSvg>40</Data>
+          <Data className='instructions__data'>8</Data>
         </div>
       );
     default:
