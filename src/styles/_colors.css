@@ -2,17 +2,19 @@
 
 :root {
   --filter-invalid: tint(50%);
-  --color-blue: #2980B9;
+  --color-messaging: #36C7CC;
   --color-black: #000;
   --color-white: #FFF;
   --color-gray: #7F8C8D;
   --color-gray-dark: #2C3E50;
   --color-gray-light: #ECF0F1;
-  --color-right: #F1C40F;
+  --color-right: #70FF5D;
   --color-right-invalid: color(var(--color-right) var(--filter-invalid));
-  --color-bottom-right: #2ECC71;
+  --color-right-alt: #36C7CC;
+  --color-right-alt-invalid: color(var(--color-right-alt) var(--filter-invalid));
+  --color-bottom-right: #FF5DCA;
   --color-bottom-right-invalid: color(var(--color-bottom-right) var(--filter-invalid));
-  --color-bottom-left: var(--color-blue);
+  --color-bottom-left: #FFEB76;
   --color-bottom-left-invalid: color(var(--color-bottom-left) var(--filter-invalid));
   --color-controls: #95A5A6;
   --color-controls-invalid: var(--color-gray-light);

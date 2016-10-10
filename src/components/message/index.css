@@ -9,7 +9,7 @@
 }
 
 .message--banner {
-  background-color: var(--color-blue);
+  background-color: var(--color-messaging);
   color: var(--color-white);
   position: absolute;
   text-transform: uppercase;
@@ -20,7 +20,7 @@
 }
 
 .message:not(.message--banner) {
-  color: var(--color-blue);
+  color: var(--color-messaging);
 }
 
 .message__title {
