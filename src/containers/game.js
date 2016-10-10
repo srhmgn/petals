@@ -50,9 +50,11 @@ class Game extends PureComponent {
           setStep={ setInstructionStep }
           toggleInstructions={ toggleInstructions }
           { ...instructions } />
+
         <Board key={ gameId }>
           <Controls
             buildRows={ buildRows }
+            isDisabled={ isDisabled }
             reset={ resetGame }
             setSize={ setSize }
             size={ size }

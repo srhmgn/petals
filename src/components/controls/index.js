@@ -2,11 +2,12 @@ import React, { PropTypes } from 'react';
 
 import './index.css';
 
-const MAX_SIZE = 4;
+const MAX_SIZE = 5;
 const MIN_SIZE = 2;
 
 function Controls({
   buildRows,
+  isDisabled,
   reset,
   setSize,
   size,
@@ -39,6 +40,7 @@ function Controls({
 
       <button
         className='controls__btn'
+        disabled={ isDisabled }
         onClick={ reset }>Reset</button>
 
       <button
@@ -50,6 +52,7 @@ function Controls({
 
 Controls.propTypes = {
   buildRows: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
   reset: PropTypes.func.isRequired,
   setSize: PropTypes.func.isRequired,
   size: PropTypes.number.isRequired,
