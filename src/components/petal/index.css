@@ -4,9 +4,15 @@
   pointer-events: all;
 }
 
+/* right petal */
+
+.petal--right,
+.petal--right-alt {
+  transform: translate(140px, 30px);
+}
+
 .petal--right {
   fill: var(--color-right);
-  transform: translate(140px, 30px);
 }
 
 .petal--right.petal--invalid {
@@ -14,6 +20,18 @@
 
   &:not(.petal--disabled):hover {
     fill: color(var(--color-right-invalid) tint(20%));
+  }
+}
+
+.petal--right-alt {
+  fill: var(--color-right-alt);
+}
+
+.petal--right-alt.petal--invalid {
+  fill: var(--color-right-alt-invalid);
+
+  &:not(.petal--disabled):hover {
+    fill: color(var(--color-right-alt-invalid) tint(20%));
   }
 }
 

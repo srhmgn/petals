@@ -165,9 +165,13 @@ export function buildRows(size, tries = 0) {
   console.log('setting up game', tries);
   /* eslint-enable no-console */
 
+  // TODO make this configurable
+  const rightAlt = true ? 'rightAlt' : 'right';
+
   if (tries >= 10) return null;
 
   const operations = {
+    rightAlt: getRandomOperation(),
     right: getRandomOperation(),
     bottomRight: getRandomOperation(),
   };
@@ -206,7 +210,7 @@ export function buildRows(size, tries = 0) {
         circle: rows[0][s - 1],
         operations,
         sets: [
-          { setCircle: rows[0][s - 2], operationName: 'right' },
+          { setCircle: rows[0][s - 2], operationName: s % 2 === 0 ? 'right' : rightAlt },
         ],
       });
 
@@ -216,7 +220,7 @@ export function buildRows(size, tries = 0) {
         sets: [
           { setCircle: rows[0][s - 2], operationName: 'bottomRight' },
           { setCircle: rows[0][s - 1], operationName: 'bottomLeft' },
-          { setCircle: rows[1][s - 3], operationName: 'right' },
+          { setCircle: rows[1][s - 3], operationName: s % 2 === 0 ? 'right' : rightAlt },
         ],
       });
 

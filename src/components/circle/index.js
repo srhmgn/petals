@@ -205,10 +205,18 @@ class Circle extends PureComponent {
         'right',
         rowIndex,
         circleIndex,
+      ) || openSetterAndBlurInput(
+        'rightAlt',
+        rowIndex,
+        circleIndex,
       );
     } else if (R.contains('ArrowLeft', keys)) {
       openSetterAndBlurInput(
         'right',
+        rowIndex,
+        circleIndex - 1,
+      ) || openSetterAndBlurInput(
+        'rightAlt',
         rowIndex,
         circleIndex - 1,
       );

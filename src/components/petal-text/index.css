@@ -5,7 +5,8 @@
   width: 59px;
 }
 
-.text--right {
+.text--right,
+.text--right-alt {
   left: 141px;
   top: 100px;
   transform: translateY(-50%);
