@@ -24,6 +24,17 @@ function Petal({
   const isOpen = setter && setter.petalName === name &&
     setter.parentIndex === parentIndex;
 
+  const handleClick = e => {
+    if (isDisabled) return;
+
+    isOpen ?
+      closeSetter() : openSetter({
+        mousePos: [e.clientX, e.clientY ],
+        parentIndex,
+        petalName: name,
+      });
+  };
+
   return (
     <path
       className={ cx({
@@ -33,14 +44,7 @@ function Petal({
         'petal--invalid': isInvalid,
       }) }
       d={ petalPath }
-      onClick={ (e) =>
-        isOpen ?
-          closeSetter() : openSetter({
-            mousePos: [e.clientX, e.clientY ],
-            parentIndex,
-            petalName: name,
-          })
-      } />
+      onClick={ handleClick } />
   );
 }
 
