@@ -6,15 +6,10 @@ import connector from '../selectors';
 import { DEFAULT_SIZE } from '../constants';
 
 import Board from '../components/board';
-import Circle from '../components/circle';
 import Controls from '../components/controls';
 import GameWrapper from '../components/game-wrapper';
 import Instructions from '../components/instructions';
 import Message from '../components/message';
-import Petal from '../components/petal';
-import PetalText from '../components/petal-text';
-import Row from '../components/row';
-import Setter from '../components/setter';
 
 class Game extends PureComponent {
   componentWillMount() {
@@ -51,59 +46,23 @@ class Game extends PureComponent {
           toggleInstructions={ toggleInstructions }
           { ...instructions } />
 
-        <Board key={ gameId }>
-          <Controls
-            buildRows={ buildRows }
-            isDisabled={ isDisabled }
-            reset={ resetGame }
-            setSize={ setSize }
-            size={ size }
-            toggleInstructions={ toggleInstructions } />
+        <Controls
+          buildRows={ buildRows }
+          isDisabled={ isDisabled }
+          reset={ resetGame }
+          setSize={ setSize }
+          size={ size }
+          toggleInstructions={ toggleInstructions } />
 
-          { circleProps.map((circleRow, rowIndex) =>
-            <Row key={ rowIndex } rowIndex={ rowIndex }>
-
-              { circleRow.map((circle, circleIndex) =>
-                <Circle
-                  circleIndex={ circleIndex }
-                  closeSetter={
-                    () => setterProps.mousePos && closeSetter()
-                  }
-                  isDisabled={ isDisabled }
-                  key={ circleIndex }
-                  openSetter={ openSetter }
-                  rowIndex={ rowIndex }
-                  setValue={ value =>
-                    setRowCircle({
-                      circleIndex,
-                      rowIndex,
-                      value,
-                    }) }
-                  { ...circle }>
-
-                  { circle.petals.map((petal, petalIndex) =>
-                    !!petal && [
-                      <Petal
-                        closeSetter={ closeSetter }
-                        key={ petalIndex }
-                        openSetter={ openSetter }
-                        { ...petal } />,
-                      <PetalText
-                        key={ `${petalIndex}-text` }
-                        { ...petal } />,
-                    ]
-                  ) }
-                </Circle>
-              ) }
-
-            </Row>
-          ) }
-
-          <Setter
-            closeSetter={ closeSetter }
-            setOperation={ setOperation }
-            { ...setterProps } />
-        </Board>
+        <Board
+          circleProps={ circleProps }
+          closeSetter={ closeSetter }
+          isDisabled={ isDisabled }
+          key={ gameId }
+          openSetter={ openSetter }
+          setOperation={ setOperation }
+          setRowCircle={ setRowCircle }
+          setterProps={ setterProps } />
       </GameWrapper>
     );
   }
@@ -117,9 +76,7 @@ Game.propTypes = {
   instructions: PropTypes.object.isRequired,
   isDisabled: PropTypes.bool.isRequired,
   openSetter: PropTypes.func.isRequired,
-  operations: PropTypes.object.isRequired,
   resetGame: PropTypes.func.isRequired,
-  rows: PropTypes.array.isRequired,
   setInstructionStep: PropTypes.func.isRequired,
   setOperation: PropTypes.func.isRequired,
   setRowCircle: PropTypes.func.isRequired,

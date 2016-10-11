@@ -9,12 +9,12 @@ import './index.css';
 class Setter extends PureComponent {
   static propTypes = {
     activeIndex: PropTypes.number,
-    closeSetter: PropTypes.func.isRequired,
+    closeSetter: PropTypes.func,
     mousePos: PropTypes.array,
     opener: PropTypes.object,
     parentIndex: PropTypes.string,
     petalName: PropTypes.string,
-    setOperation: PropTypes.func.isRequired,
+    setOperation: PropTypes.func,
   };
 
   componentDidUpdate() {

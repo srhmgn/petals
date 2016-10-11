@@ -20,7 +20,7 @@ class Circle extends PureComponent {
     closeSetter: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,
     isDisabled: PropTypes.bool.isRequired,
-    openSetter: PropTypes.func.isRequired,
+    openSetter: PropTypes.func,
     rowIndex: PropTypes.number.isRequired,
     setValue: PropTypes.func.isRequired,
     value: PropTypes.string,

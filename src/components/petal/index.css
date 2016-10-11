@@ -12,7 +12,7 @@
 .petal--right.petal--invalid {
   fill: var(--color-right-invalid);
 
-  &:hover {
+  &:not(.petal--disabled):hover {
     fill: color(var(--color-right-invalid) tint(20%));
   }
 }
@@ -27,7 +27,7 @@
 .petal--bottom-right.petal--invalid {
   fill: var(--color-bottom-right-invalid);
 
-  &:hover {
+  &:not(.petal--disabled):hover {
     fill: color(var(--color-bottom-right-invalid) tint(20%));
   }
 }
@@ -42,7 +42,7 @@
 .petal--bottom-left.petal--invalid {
   fill: var(--color-bottom-left-invalid);
 
-  &:hover {
+  &:not(.petal--disabled):hover {
     fill: color(var(--color-bottom-left-invalid) tint(20%));
   }
 }

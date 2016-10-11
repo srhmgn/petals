@@ -14,6 +14,7 @@ export const petalClassMap = {
 
 function Petal({
   closeSetter,
+  isDisabled,
   isInvalid,
   name,
   openSetter,
@@ -28,6 +29,7 @@ function Petal({
       className={ cx({
         'petal': true,
         [`petal--${petalClassMap[name]}`]: true,
+        'petal--disabled': isDisabled,
         'petal--invalid': isInvalid,
       }) }
       d={ petalPath }
@@ -43,11 +45,12 @@ function Petal({
 }
 
 Petal.propTypes = {
-  closeSetter: PropTypes.func.isRequired,
+  closeSetter: PropTypes.func,
+  isDisabled: PropTypes.bool.isRequired,
   isInvalid: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
-  openSetter: PropTypes.func.isRequired,
-  parentIndex: PropTypes.string.isRequired,
+  openSetter: PropTypes.func,
+  parentIndex: PropTypes.string,
   setter: PropTypes.object,
 };
 
