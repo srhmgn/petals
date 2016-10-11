@@ -116,9 +116,10 @@ const selectSetterProps = createSelector(
 export default createStructuredSelector({
   circleProps: selectCircleProps,
   gameId: R.prop('gameId'),
-  operations: selectOperations,
   instructions: selectInstructions,
   isDisabled: selectIsDisabled,
+  operations: selectOperations,
+  petalCount: R.prop('petalCount'),
   rows: selectRows,
   setterProps: selectSetterProps,
   size: R.prop('size'),

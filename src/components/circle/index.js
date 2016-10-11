@@ -8,6 +8,7 @@ import { getValue, isStatic } from '../../utils';
 import './index.css';
 
 const MOUSE_POS_MAP = {
+  rightAlt: [50, 53],
   right: [50, 53],
   bottomLeft: [95, 30],
   bottomRight: [95, 30],

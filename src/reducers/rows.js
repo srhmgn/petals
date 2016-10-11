@@ -5,7 +5,7 @@ import { buildRows } from '../utils';
 export default function(state = [], action) {
   switch (action.type) {
   case 'BUILD_ROWS':
-    return buildRows(action.size);
+    return buildRows(action.size, action.petalCount);
   case 'SET_ROW_CIRCLE':
     return getUpdatedRow(state, action);
   case 'RESET_GAME':

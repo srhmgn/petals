@@ -1,11 +1,22 @@
 @import '../../styles/_colors';
 
 .controls {
-  display: flex;
-  justify-content: space-between;
-  margin: 20px auto 40px;
+  margin: 10px auto 40px;
   padding: 0;
   width: 300px;
+
+  & label {
+    margin-right: 10px;
+  }
+}
+
+.controls__row {
+  display: flex;
+  justify-content: space-between;
+
+  &:not(:last-child) {
+    margin-bottom: 30px;
+  }
 }
 
 .controls__size {

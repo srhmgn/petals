@@ -5,7 +5,7 @@
   --color-messaging: #36C7CC;
   --color-black: #000;
   --color-white: #FFF;
-  --color-gray: #7F8C8D;
+  --color-gray: #B0C0C1;
   --color-gray-dark: #2C3E50;
   --color-gray-light: #ECF0F1;
   --color-right: #70FF5D;
@@ -16,7 +16,7 @@
   --color-bottom-right-invalid: color(var(--color-bottom-right) var(--filter-invalid));
   --color-bottom-left: #FFE448;
   --color-bottom-left-invalid: color(var(--color-bottom-left) var(--filter-invalid));
-  --color-controls: #95A5A6;
+  --color-controls: var(--color-gray);
   --color-controls-invalid: var(--color-gray-light);
 }
 

@@ -18,9 +18,10 @@ export const closeSetter = () => ({
 
 /* rows */
 
-export const buildRows = size => ({
+export const buildRows = (size, petalCount) => ({
   type: 'BUILD_ROWS',
   size,
+  petalCount,
 });
 
 export const setRowCircle = props => ({
@@ -37,6 +38,15 @@ export const resetGame = () => ({
 export const setSize = size => ({
   type: 'SET_SIZE',
   size,
+});
+
+/* petal count */
+
+/* size */
+
+export const setPetalCount = petalCount => ({
+  type: 'SET_PETAL_COUNT',
+  petalCount,
 });
 
 /* instructions */

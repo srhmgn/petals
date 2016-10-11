@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import * as actions from '../actions';
 import connector from '../selectors';
-import { DEFAULT_SIZE } from '../constants';
+import { DEFAULT_SIZE, DEFAULT_PETAL_COUNT } from '../constants';
 
 import Board from '../components/board';
 import Controls from '../components/controls';
@@ -13,7 +13,7 @@ import Message from '../components/message';
 
 class Game extends PureComponent {
   componentWillMount() {
-    this.props.buildRows(DEFAULT_SIZE);
+    this.props.buildRows(DEFAULT_SIZE, DEFAULT_PETAL_COUNT);
   }
 
   render() {
@@ -26,8 +26,10 @@ class Game extends PureComponent {
       instructions,
       isDisabled,
       openSetter,
+      petalCount,
       setInstructionStep,
       setOperation,
+      setPetalCount,
       setRowCircle,
       setSize,
       setterProps,
@@ -49,7 +51,9 @@ class Game extends PureComponent {
         <Controls
           buildRows={ buildRows }
           isDisabled={ isDisabled }
+          petalCount={ petalCount }
           reset={ resetGame }
+          setPetalCount={ setPetalCount }
           setSize={ setSize }
           size={ size }
           toggleInstructions={ toggleInstructions } />
@@ -77,9 +81,11 @@ Game.propTypes = {
   instructions: PropTypes.object.isRequired,
   isDisabled: PropTypes.bool.isRequired,
   openSetter: PropTypes.func.isRequired,
+  petalCount: PropTypes.number.isRequired,
   resetGame: PropTypes.func.isRequired,
   setInstructionStep: PropTypes.func.isRequired,
   setOperation: PropTypes.func.isRequired,
+  setPetalCount: PropTypes.func.isRequired,
   setRowCircle: PropTypes.func.isRequired,
   setSize: PropTypes.func.isRequired,
   setterProps: PropTypes.object.isRequired,
@@ -95,6 +101,7 @@ const mapDispatchToProps = ({
   openSetter: actions.openSetter,
   setInstructionStep: actions.setInstructionStep,
   setOperation: actions.setOperation,
+  setPetalCount: actions.setPetalCount,
   setRowCircle: actions.setRowCircle,
   setSize: actions.setSize,
   toggleInstructions: actions.toggleInstructions,
