@@ -29,6 +29,13 @@ function Instructions({
   const canDecrement = step - 1 >= 0;
 
   function getBoardProps() {
+    const setterCoords = document.querySelectorAll('#instructions .petal--right')[1] ?
+      document.querySelectorAll('#instructions .petal--right')[1].getBoundingClientRect() : {};
+    const coords = {
+      left: setterCoords.left + 40,
+      top: setterCoords.top - 70,
+    };
+
     switch (step) {
     case 0:
       return {
@@ -382,7 +389,7 @@ function Instructions({
         ],
         setterProps: {
           activeIndex: 2,
-          mousePos: [420, 52],
+          mousePos: [coords.left, coords.top],
           petalName: 'right',
         },
       };
@@ -504,7 +511,7 @@ function Instructions({
         ],
         setterProps: {
           activeIndex: 2,
-          mousePos: [420, 52],
+          mousePos: [coords.left, coords.top],
           petalName: 'right',
         },
       };
@@ -631,7 +638,7 @@ function Instructions({
   }
 
   return (
-    <div className={ wrapperClasses }>
+    <div className={ wrapperClasses } id='instructions'>
       <div className='instructions__inner'>
         <Board
           isDisabled
