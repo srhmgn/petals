@@ -160,13 +160,12 @@ function buildRowShape(rows, rowCount) {
   return buildRowShape(rows, rowCount - 1);
 }
 
-export function buildRows(size, tries = 0) {
+export function buildRows(size, petalCount, tries = 0) {
   /* eslint-disable no-console */
   console.log('setting up game', tries);
   /* eslint-enable no-console */
 
-  // TODO make this configurable
-  const rightAlt = true ? 'rightAlt' : 'right';
+  const rightAlt = petalCount > 3 ? 'rightAlt' : 'right';
 
   if (tries >= 10) return null;
 
@@ -229,7 +228,7 @@ export function buildRows(size, tries = 0) {
           circle: rows[ss][s - ss - 1],
           operations,
           sets: [
-            { setCircle: rows[ss][s - ss - 2], operationName: 'right' },
+            { setCircle: rows[ss][s - ss - 2], operationName: s % 2 === 0 ? 'right' : rightAlt },
             { setCircle: rows[ss - 1][s - ss - 1], operationName: 'bottomRight' },
             { setCircle: rows[ss - 1][s - ss], operationName: 'bottomLeft' },
           ],
@@ -246,7 +245,7 @@ export function buildRows(size, tries = 0) {
       });
     });
   } catch (err) {
-    return buildRows(size, tries + 1);
+    return buildRows(size, petalCount, tries + 1);
   }
 
   const shouldDebug = window.location.search.match('debug');
