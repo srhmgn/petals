@@ -11,6 +11,7 @@ import './index.css';
 function Board({
   circleProps,
   closeSetter,
+  gameId,
   isDisabled,
   openSetter,
   setOperation,
@@ -18,7 +19,7 @@ function Board({
   setterProps,
 }) {
   return (
-    <div className='board'>
+    <div className='board' id={ gameId ? 'game' : null }>
       { circleProps.map((circleRow, rowIndex) =>
         <Row key={ rowIndex } rowIndex={ rowIndex }>
 
@@ -70,6 +71,7 @@ function Board({
 Board.propTypes = {
   circleProps: PropTypes.array.isRequired,
   closeSetter: PropTypes.func,
+  gameId: PropTypes.number,
   isDisabled: PropTypes.bool.isRequired,
   openSetter: PropTypes.func,
   setOperation: PropTypes.func,

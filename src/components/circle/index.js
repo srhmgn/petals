@@ -156,7 +156,7 @@ class Circle extends PureComponent {
 
     function openSetterAndBlurInput(petalName, parentRow, parentCircle) {
       const petal = document.querySelector(
-        `#row${parentRow} #circle${parentCircle} .petal--${petalClassMap[petalName]}`
+        `#game #row${parentRow} #circle${parentCircle} .petal--${petalClassMap[petalName]}`
       );
 
       if (!petal) return;
@@ -248,7 +248,7 @@ class Circle extends PureComponent {
     }
 
     selectors.some(selector => {
-      const neighbor = document.querySelector(`${selector} input`);
+      const neighbor = document.querySelector(`#game ${selector} input`);
       if (neighbor) {
         neighbor.focus();
         return true;

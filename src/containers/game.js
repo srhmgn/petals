@@ -57,6 +57,7 @@ class Game extends PureComponent {
         <Board
           circleProps={ circleProps }
           closeSetter={ closeSetter }
+          gameId={ gameId }
           isDisabled={ isDisabled }
           key={ gameId }
           openSetter={ openSetter }
