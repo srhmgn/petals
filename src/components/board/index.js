@@ -21,7 +21,7 @@ function Board({
   return (
     <div className='board' id={ gameId ? 'game' : null }>
       { circleProps.map((circleRow, rowIndex) =>
-        <Row key={ rowIndex } rowIndex={ rowIndex }>
+        <Row key={ rowIndex } rowIndex={ rowIndex } style={ { zIndex: 1000 - rowIndex } }>
 
           { circleRow.map((circle, circleIndex) =>
             <Circle

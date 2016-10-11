@@ -2,9 +2,9 @@ import React, { PropTypes } from 'react';
 
 import './index.css';
 
-function Row({ children, rowIndex }) {
+function Row({ children, rowIndex, ...props }) {
   return (
-    <div className='row' id={ `row${rowIndex}` }>
+    <div className='row' id={ `row${rowIndex}` } { ...props }>
       { children }
     </div>
   );
