@@ -73,7 +73,7 @@ const selectCircleProps = createSelector(
 const selectWon = createSelector(
   selectCircleProps,
   circleProps =>
-    circleProps.every(row =>
+    !!circleProps.length && circleProps.every(row =>
       row.every(({ petals }) =>
         petals.every(petal => !petal || !petal.isInvalid)
       )
