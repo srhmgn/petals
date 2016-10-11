@@ -6,7 +6,7 @@
   position: absolute;
   text-align: center;
   width: 100%;
-  z-index: 20;
+  z-index: 1500;
 }
 
 .instructions:not(.instructions--visible) {
