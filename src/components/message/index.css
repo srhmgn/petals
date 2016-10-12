@@ -1,26 +1,19 @@
 @import '../../styles/_colors';
 
 .message {
+  background-color: var(--color-messaging);
+  color: var(--color-white);
   height: 80px;
   max-height: 80px;
   overflow: hidden;
+  position: fixed;
+  text-transform: uppercase;
   transition: 200ms max-height ease-in;
   width: 100%;
 }
 
-.message--banner {
-  background-color: var(--color-messaging);
-  color: var(--color-white);
-  position: absolute;
-  text-transform: uppercase;
-}
-
 .message:not(.message--visible) {
   max-height: 0;
-}
-
-.message:not(.message--banner) {
-  color: var(--color-messaging);
 }
 
 .message__title {

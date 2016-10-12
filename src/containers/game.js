@@ -40,9 +40,7 @@ class Game extends PureComponent {
 
     return (
       <GameWrapper>
-        <Message isBanner won={ won } />
-        <Message title='petals' />
-
+        <Message won={ won } />
         <Instructions
           setStep={ setInstructionStep }
           toggleInstructions={ toggleInstructions }

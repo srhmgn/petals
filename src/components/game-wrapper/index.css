@@ -1,1 +1,6 @@
-
+.game-wrapper {
+  margin-top: 65px;
+  max-width: 100vw;
+  overflow-x: scroll;
+  padding-left: 200px;
+}

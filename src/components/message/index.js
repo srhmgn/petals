@@ -4,27 +4,22 @@ import cx from 'classnames';
 import './index.css';
 
 function Message({
-  isBanner = false,
-  title,
   won,
 }) {
   const wrapperClasses = cx({
     'message': true,
-    'message--visible': title || won,
-    'message--banner': isBanner,
+    'message--visible': won,
   });
 
   return (
     <div className={ wrapperClasses }>
-      <h2 className='message__title'>{ title || 'You won!' }</h2>
+      <h2 className='message__title'>You won!</h2>
     </div>
   );
 }
 
 Message.propTypes = {
-  isBanner: PropTypes.bool,
-  title: PropTypes.string,
-  won: PropTypes.bool,
+  won: PropTypes.bool.isRequired,
 };
 
 export default Message;
