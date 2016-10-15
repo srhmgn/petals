@@ -114,9 +114,12 @@ export function setValueAndStatiks({ circle, operations, sets }) {
 
   circle.setValue(value);
 
-  sets.forEach(({ setCircle, operationName }, i) =>
-    setCircle.setStatic({ [operationName]: possibleStatiks[i][value - 1] })
-  );
+  sets.forEach(({ setCircle, operationName }, i) => {
+    /* eslint-disable no-debugger */
+    if (!possibleStatiks[i][value - 1]) debugger;
+    /* eslint-enable no-debugger */
+    setCircle.setStatic({ [operationName]: possibleStatiks[i][value - 1] });
+  });
 
   return true;
 }

@@ -82,6 +82,7 @@ class Circle extends PureComponent {
           onFocus={ this.handleEvent }
           onKeyDown={ this.handleEvent }
           readOnly={ isDisabled || this.isStatic() }
+          type='tel'
           value={ displayValue === 'EMPTY' ? '' : displayValue } />
       </span>
     );

@@ -3,6 +3,7 @@ import R from 'ramda';
 import cx from 'classnames';
 
 import { OPERATIONS } from '../../constants';
+import { petalClassMap } from '../petal';
 
 import './index.css';
 
@@ -47,6 +48,7 @@ class Setter extends PureComponent {
         { R.keys(OPERATIONS).map((operationName, i) => {
           const setterClasses = cx({
             'setter__item': true,
+            [`setter__item--${petalClassMap[petalName]}`]: true,
             'setter__item--current': i === activeIndex,
           });
 

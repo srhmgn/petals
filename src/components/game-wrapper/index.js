@@ -1,17 +1,37 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, PureComponent } from 'react';
 
 import './index.css';
 
-function GameWrapper({ children }) {
-  return (
-    <div className='game-wrapper'>
-      { children }
-    </div>
-  );
-}
+class GameWrapper extends PureComponent {
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+  };
 
-GameWrapper.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+  componentDidMount() {
+    this.scrollLeft();
+  }
+
+  render() {
+    const { children } = this.props;
+
+    return (
+      <div className='game-wrapper' ref={ c => { this.component = c; } }>
+        { children }
+      </div>
+    );
+  }
+
+  scrollLeft = () => {
+    window.setTimeout(() => {
+      const bodyWidth = document.querySelector('body').offsetWidth;
+      const componentWidth = this.component.scrollWidth;
+
+      if (bodyWidth < componentWidth) {
+        this.component.style.paddingLeft = '230px';
+        this.component.scrollLeft = 115;
+      }
+    }, 0);
+  }
+}
 
 export default GameWrapper;

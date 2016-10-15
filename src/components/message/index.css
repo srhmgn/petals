@@ -8,8 +8,10 @@
   overflow: hidden;
   position: fixed;
   text-transform: uppercase;
+  top: 0;
   transition: 200ms max-height ease-in;
   width: 100%;
+  z-index: 8000;
 }
 
 .message:not(.message--visible) {

@@ -38,6 +38,18 @@
   padding: 5px;
 }
 
-.setter__item--current button {
-  color: var(--color-gray-light);
+.setter__item--current.setter__item--right button {
+  color: var(--color-right);
+}
+
+.setter__item--current.setter__item--right-alt button {
+  color: var(--color-right-alt);
+}
+
+.setter__item--current.setter__item--bottom-right button {
+  color: var(--color-bottom-right);
+}
+
+.setter__item--current.setter__item--bottom-left button {
+  color: var(--color-bottom-left);
 }
