@@ -9,15 +9,15 @@ export const OPERATIONS = {
     label: '+',
     inverse: 'SUBTRACT',
   },
-  SUBTRACT: {
-    func: R.subtract,
-    label: '-',
-    inverse: 'ADD',
-  },
   MULTIPLY: {
     func: R.multiply,
     label: 'x',
     inverse: 'DIVIDE',
+  },
+  SUBTRACT: {
+    func: R.subtract,
+    label: '–',
+    inverse: 'ADD',
   },
   DIVIDE: {
     func: R.divide,

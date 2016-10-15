@@ -28,10 +28,25 @@
   display: block;
   font-size: 20px;
   height: 100%;
-  line-height: 200px;
   position: absolute;
   text-align: center;
   width: 100%;
+
+  &:focus .circle__number-inner {
+    background-color: var(--color-gray-light);
+  }
+}
+
+.circle__number-inner {
+  border-radius: 50%;
+  display: block;
+  height: 60px;
+  left: 50%;
+  line-height: 60px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
 }
 
 .circle__number,

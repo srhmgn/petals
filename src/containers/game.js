@@ -9,7 +9,6 @@ import Board from '../components/board';
 import Controls from '../components/controls';
 import GameWrapper from '../components/game-wrapper';
 import Instructions from '../components/instructions';
-import Message from '../components/message';
 
 class Game extends PureComponent {
   componentWillMount() {
@@ -43,7 +42,6 @@ class Game extends PureComponent {
 
     return (
       <GameWrapper key={ gameId } preventScroll={ instructions.isVisible }>
-        <Message won={ won } />
         <Instructions
           setStep={ setInstructionStep }
           toggleInstructions={ toggleInstructions }
@@ -57,7 +55,8 @@ class Game extends PureComponent {
           setPetalCount={ setPetalCount }
           setSize={ setSize }
           size={ size }
-          toggleInstructions={ toggleInstructions } />
+          toggleInstructions={ toggleInstructions }
+          won={ won } />
 
         <Board
           circleProps={ circleProps }

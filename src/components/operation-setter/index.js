@@ -35,12 +35,12 @@ class OperationSetter extends PureComponent {
     if (!petalName) return null;
     const [left, top] = mousePos;
 
-    const finalLeft = document.body.clientWidth - left > 98 ?
-      left : left - 98;
+    const finalLeft = document.body.clientWidth - left > 70 ?
+      left : left - 70;
 
     return (
       <ul
-        className='operation-setter'
+        className='operation-setter u-btn__wrapper'
         onKeyDown={ this.onKeyDown }
         ref={ c => { this.component = c; } }
         style={ { left: finalLeft, top } }
@@ -55,7 +55,7 @@ class OperationSetter extends PureComponent {
           return (
             <li className={ operationSetterClasses } key={ i }>
               <button
-                className='u-reset-button'
+                className='u-btn u-btn--small u-btn--dark'
                 onClick={ () =>
                   setOperation({
                     [petalName]: OPERATIONS[operationName],

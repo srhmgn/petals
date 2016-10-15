@@ -2,7 +2,7 @@
 @import './styles/_utils';
 
 body {
-  color: var(--color-gray-dark);
+  color: var(--color-black);
   font-size: 16px;
   margin: 0;
   padding: 0;
@@ -10,7 +10,7 @@ body {
 
 input,
 button {
-  color: var(--color-gray-dark);
+  color: var(--color-black);
 }
 
 *,

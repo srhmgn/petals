@@ -3,10 +3,10 @@
 :root {
   --filter-invalid: tint(50%);
   --color-messaging: #36C7CC;
-  --color-black: #000;
+  --color-black: #2C3E50;
   --color-white: #FFF;
   --color-gray: #B0C0C1;
-  --color-gray-dark: #2C3E50;
+  --color-gray-dark: rgba(44, 62, 80, 0.9);
   --color-gray-light: #ECF0F1;
   --color-right: #70FF5D;
   --color-right-invalid: color(var(--color-right) var(--filter-invalid));
@@ -17,7 +17,6 @@
   --color-bottom-left: #FFE448;
   --color-bottom-left-invalid: color(var(--color-bottom-left) var(--filter-invalid));
   --color-controls: var(--color-gray-light);
-  --color-controls-hover: var(--color-gray);
   --color-controls-invalid: var(--color-gray);
 }
 

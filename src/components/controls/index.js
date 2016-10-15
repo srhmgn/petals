@@ -1,4 +1,5 @@
 import React, { PureComponent, PropTypes } from 'react';
+import cx from 'classnames';
 
 import './index.css';
 
@@ -18,6 +19,7 @@ class Controls extends PureComponent {
     setSize: PropTypes.func.isRequired,
     size: PropTypes.number.isRequired,
     toggleInstructions: PropTypes.func.isRequired,
+    won: PropTypes.bool.isRequired,
   };
 
   state = {
@@ -34,6 +36,7 @@ class Controls extends PureComponent {
       setSize,
       size,
       toggleInstructions,
+      won,
     } = this.props;
     const { settings } = this.state;
 
@@ -42,27 +45,33 @@ class Controls extends PureComponent {
     const canIncrementPetals = petalCount + 1 <= MAX_PETALS;
     const canDecrementPetals = petalCount - 1 >= MIN_PETALS;
 
+    const wrapperClasses = cx({
+      'controls': true,
+      'controls--won': won,
+    });
+
     return (
-      <div className='controls'>
+      <div className={ wrapperClasses }>
         <div className='controls__row'>
           <button
             className='u-btn'
-            disabled={ isDisabled }
-            onClick={ () => this.setState({ settings: !settings }) }>#</button>
-
-          <button
-            className='u-btn'
-            disabled={ isDisabled }
             onClick={ () => buildRows(size, petalCount) }>New</button>
 
-          <button
+          { won && 'YOU WON!' }
+
+          { !won && <button
             className='u-btn'
             disabled={ isDisabled }
-            onClick={ reset }>Reset</button>
+            onClick={ reset }>Reset</button> }
 
-          <button
-            className='u-btn'
-            onClick={ toggleInstructions }>?</button>
+          { !won && <button
+            className='u-btn u-btn--small'
+            disabled={ isDisabled }
+            onClick={ () => this.setState({ settings: !settings }) }>#</button> }
+
+          { !won && <button
+            className='u-btn u-btn--small'
+            onClick={ toggleInstructions }>?</button> }
         </div>
         { settings &&
           <div className='controls__row'>

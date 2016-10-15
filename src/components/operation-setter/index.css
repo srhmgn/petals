@@ -8,48 +8,33 @@
 
 .operation-setter {
   animation: fade-in 100ms ease-out;
-  background-color: var(--color-gray-dark);
   display: flex;
+  flex-wrap: wrap;
+  height: 70px;
   list-style-type: none;
   margin: 0;
   padding: 0;
   position: absolute;
+  width: 70px;
   z-index: 2000;
+
+  & .u-btn {
+    font-size: 24px;
+  }
 }
 
-.u-reset-button {
-  background-color: transparent;
-  border: none;
-  font-size: 24px;
-  margin: 0;
-  padding: 0;
-}
-
-.operation-setter__item:first-child button {
-  padding-left: 10px;
-}
-
-.operation-setter__item:last-child button {
-  padding-right: 10px;
-}
-
-.operation-setter__item button {
-  color: var(--color-controls);
-  padding: 5px;
-}
-
-.operation-setter__item--current.operation-setter__item--right button {
+.operation-setter__item--current.operation-setter__item--right .u-btn.u-btn--dark {
   color: var(--color-right);
 }
 
-.operation-setter__item--current.operation-setter__item--right-alt button {
+.operation-setter__item--current.operation-setter__item--right-alt .u-btn.u-btn--dark {
   color: var(--color-right-alt);
 }
 
-.operation-setter__item--current.operation-setter__item--bottom-right button {
+.operation-setter__item--current.operation-setter__item--bottom-right .u-btn.u-btn--dark {
   color: var(--color-bottom-right);
 }
 
-.operation-setter__item--current.operation-setter__item--bottom-left button {
+.operation-setter__item--current.operation-setter__item--bottom-left .u-btn.u-btn--dark {
   color: var(--color-bottom-left);
 }

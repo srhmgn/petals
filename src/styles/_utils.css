@@ -8,9 +8,17 @@
   padding-top: 0;
 
   &:hover {
-    background-color: var(--color-controls-hover);
     cursor: pointer;
   }
+}
+
+.u-btn__wrapper {
+  border: 5px solid var(--color-gray-dark);
+}
+
+.u-btn.u-btn--dark {
+  background-color: var(--color-gray-dark);
+  color: var(--color-controls);
 }
 
 .u-btn[disabled] {

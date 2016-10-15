@@ -34,15 +34,6 @@ class Circle extends PureComponent {
 
   componentDidMount() {
     this._keyInterval = window.setInterval(this.checkKeyEvents, 150);
-
-    // const {
-    //   circleIndex,
-    //   rowIndex,
-    // } = this.props;
-
-    // if (circleIndex === 0 && rowIndex === 0) {
-    //   this.focusInput();
-    // }
   }
 
   componentWillReceiveProps(newProps) {
@@ -86,8 +77,12 @@ class Circle extends PureComponent {
         </svg>
         <span
           className={ numberClassNames }
-          onClick={ this.handleEvent }>
-          { value }
+          onClick={ this.handleEvent }
+          onKeyDown={ this.handleEvent }
+          tabIndex='-1'>
+          <span className='circle__number-inner'>
+            { value }
+          </span>
         </span>
       </span>
     );
@@ -113,7 +108,6 @@ class Circle extends PureComponent {
     const {
       circleIndex,
       closeValueSetter,
-      data: { dynamic },
       isDisabled,
       isValueSetterOption,
       openValueSetter,
@@ -124,9 +118,6 @@ class Circle extends PureComponent {
     if (isDisabled || this.isStatic()) return;
 
     switch (e.type) {
-    case 'focus':
-      e.preventDefault();
-      break;
     case 'click':
       isValueSetterOption ? closeValueSetter() : openValueSetter({
         circleIndex,
@@ -135,15 +126,12 @@ class Circle extends PureComponent {
       });
       e.preventDefault();
       break;
-    case 'blur':
-      this.setState({ displayValue: dynamic.value || '' });
-      break;
-    case 'change':
-      if (!e.target.value.match(/^[1-9]?$/)) return;
-      this.setState({ displayValue: e.target.value });
-      if (e.target.value) setValue(e.target.value);
-      break;
     case 'keydown':
+      closeValueSetter();
+      if (e.key.match(/[1-9]/)) {
+        setValue(e.key);
+        return;
+      }
       this.keys.push(e.key);
       this.shiftKey = e.shiftKey;
       break;
@@ -191,8 +179,6 @@ class Circle extends PureComponent {
           dimensions.top + MOUSE_POS_MAP[petalName][1],
         ],
       });
-
-      input.blur();
     }
 
     if (R.contains('ArrowUp', keys) && R.contains('ArrowRight', keys)) {
@@ -275,7 +261,7 @@ class Circle extends PureComponent {
     }
 
     selectors.some(selector => {
-      const neighbor = document.querySelector(`#game ${selector} input`);
+      const neighbor = document.querySelector(`#game ${selector} .circle__number`);
       if (neighbor) {
         neighbor.focus();
         return true;
