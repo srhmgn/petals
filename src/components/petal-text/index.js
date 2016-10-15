@@ -6,13 +6,11 @@ import './index.css';
 
 function PetalText({ contentValue, name }) {
   return (
-    <g>
-      <foreignObject>
-        <span className={ `text text--${petalClassMap[name]}` }>
-          { contentValue }
-        </span>
-      </foreignObject>
-    </g>
+    <foreignObject height='200' width='200'>
+      <span className={ `text text--${petalClassMap[name]}` }>
+        { contentValue }
+      </span>
+    </foreignObject>
   );
 }
 
