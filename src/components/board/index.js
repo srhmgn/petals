@@ -5,24 +5,33 @@ import Row from '../row';
 import Petal from '../petal';
 import PetalText from '../petal-text';
 import OperationSetter from '../operation-setter';
+import ValueSetter from '../value-setter';
 
 import './index.css';
 
 function Board({
   circleProps,
   closeOperationSetter,
+  closeValueSetter,
   gameId,
   isDisabled,
+  valueSetterProps,
   openOperationSetter,
+  openValueSetter,
   setOperation,
   setRowCircle,
-  setterOperationProps,
+  operationSetterProps,
 }) {
   const currentSize = circleProps && circleProps[0] ?
     circleProps[0].length : 0;
 
   return (
     <div className='board' id={ gameId ? 'game' : null }>
+      <ValueSetter
+        closeValueSetter={ closeValueSetter }
+        setRowCircle={ setRowCircle }
+        { ...valueSetterProps } />
+
       { circleProps.map((circleRow, rowIndex) =>
         <Row
           key={ rowIndex }
@@ -36,11 +45,13 @@ function Board({
             <Circle
               circleIndex={ circleIndex }
               closeOperationSetter={
-                () => setterOperationProps.mousePos && closeOperationSetter()
+                () => operationSetterProps.mousePos && closeOperationSetter()
               }
+              closeValueSetter={ closeValueSetter }
               isDisabled={ isDisabled }
               key={ circleIndex }
               openOperationSetter={ openOperationSetter }
+              openValueSetter={ openValueSetter }
               rowIndex={ rowIndex }
               setValue={ value =>
                 setRowCircle({
@@ -72,7 +83,7 @@ function Board({
       <OperationSetter
         closeOperationSetter={ closeOperationSetter }
         setOperation={ setOperation }
-        { ...setterOperationProps } />
+        { ...operationSetterProps } />
     </div>
   );
 }
@@ -80,12 +91,15 @@ function Board({
 Board.propTypes = {
   circleProps: PropTypes.array.isRequired,
   closeOperationSetter: PropTypes.func,
+  closeValueSetter: PropTypes.func,
   gameId: PropTypes.number,
   isDisabled: PropTypes.bool.isRequired,
   openOperationSetter: PropTypes.func,
+  openValueSetter: PropTypes.func,
+  operationSetterProps: PropTypes.object,
   setOperation: PropTypes.func,
   setRowCircle: PropTypes.func,
-  setterOperationProps: PropTypes.object,
+  valueSetterProps: PropTypes.object,
 };
 
 export default Board;

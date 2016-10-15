@@ -22,9 +22,9 @@ class Circle extends PureComponent {
     data: PropTypes.object.isRequired,
     isDisabled: PropTypes.bool.isRequired,
     openOperationSetter: PropTypes.func,
+    openValueSetter: PropTypes.func,
     rowIndex: PropTypes.number.isRequired,
     setValue: PropTypes.func.isRequired,
-    value: PropTypes.string,
   };
 
   state = {
@@ -55,8 +55,12 @@ class Circle extends PureComponent {
   }
 
   render() {
-    const { children, circleIndex, isDisabled } = this.props;
-    const { displayValue } = this.state;
+    const {
+      children,
+      circleIndex,
+      data: { dynamic: { value } },
+      isDisabled,
+     } = this.props;
 
     const numberClassNames = cx({
       'circle__number': true,
@@ -79,15 +83,11 @@ class Circle extends PureComponent {
           xmlns='http://www.w3.org/2000/svg'>
           { children }
         </svg>
-        <input
+        <span
           className={ numberClassNames }
-          onBlur={ this.handleEvent }
-          onChange={ this.handleEvent }
-          onFocus={ this.handleEvent }
-          onKeyDown={ this.handleEvent }
-          readOnly={ isDisabled || this.isStatic() }
-          type='text'
-          value={ displayValue === 'EMPTY' ? '' : displayValue } />
+          onClick={ this.handleEvent }>
+          { value }
+        </span>
       </span>
     );
   }
@@ -110,18 +110,28 @@ class Circle extends PureComponent {
 
   handleEvent = (e) => {
     const {
+      circleIndex,
       closeOperationSetter,
       data: { dynamic },
-      setValue,
       isDisabled,
+      openValueSetter,
+      rowIndex,
+      setValue,
     } = this.props;
 
     if (isDisabled || this.isStatic()) return;
 
     switch (e.type) {
     case 'focus':
-      closeOperationSetter();
-      this.setState({ displayValue: '' });
+      e.preventDefault();
+      break;
+    case 'click':
+      openValueSetter({
+        circleIndex,
+        mousePos: [e.clientX, e.clientY],
+        rowIndex,
+      });
+      e.preventDefault();
       break;
     case 'blur':
       this.setState({ displayValue: dynamic.value || '' });
@@ -135,6 +145,7 @@ class Circle extends PureComponent {
       this.keys.push(e.key);
       this.shiftKey = e.shiftKey;
       break;
+
     default:
       return;
     }

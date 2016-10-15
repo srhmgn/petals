@@ -387,7 +387,7 @@ function Instructions({
             },
           ],
         ],
-        setterOperationProps: {
+        operationSetterProps: {
           activeIndex: 2,
           mousePos: [coords.left, coords.top],
           petalName: 'right',
@@ -509,7 +509,7 @@ function Instructions({
             },
           ],
         ],
-        setterOperationProps: {
+        operationSetterProps: {
           activeIndex: 2,
           mousePos: [coords.left, coords.top],
           petalName: 'right',

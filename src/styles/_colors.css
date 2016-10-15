@@ -16,8 +16,9 @@
   --color-bottom-right-invalid: color(var(--color-bottom-right) var(--filter-invalid));
   --color-bottom-left: #FFE448;
   --color-bottom-left-invalid: color(var(--color-bottom-left) var(--filter-invalid));
-  --color-controls-invalid: var(--color-gray);
   --color-controls: var(--color-gray-light);
+  --color-controls-hover: var(--color-gray);
+  --color-controls-invalid: var(--color-gray);
 }
 
 /* stylelint-enable color-no-hex */

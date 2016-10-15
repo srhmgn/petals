@@ -1,6 +1,11 @@
-.row {
+.value-setter {
+  height: 90px;
+  position: absolute;
+  width: 90px;
+  z-index: 5000;
+}
+
+.value-setter__row {
   display: flex;
-  justify-content: center;
-  margin: 0 auto;
-  position: relative;
+  flex-wrap: wrap;
 }

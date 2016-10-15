@@ -22,15 +22,13 @@
   z-index: 10;
 }
 
-input {
-  font-size: 20px;
-}
-
 .circle__number {
   background-color: transparent;
   border: none;
   display: block;
+  font-size: 20px;
   height: 100%;
+  line-height: 200px;
   position: absolute;
   text-align: center;
   width: 100%;

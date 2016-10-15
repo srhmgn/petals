@@ -29,7 +29,7 @@ function Petal({
 
     isOpen ?
       closeOperationSetter() : openOperationSetter({
-        mousePos: [e.clientX, e.clientY ],
+        mousePos: [e.clientX, e.clientY],
         parentIndex,
         petalName: name,
       });

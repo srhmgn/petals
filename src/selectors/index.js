@@ -90,14 +90,14 @@ const selectIsDisabled = createSelector(
 
 const selectOperationSetterProps = createSelector(
   selectOperations,
-  R.prop('setter'),
+  R.prop('operationSetter'),
   selectIsDisabled,
-  (operations, setterOperationProps, isDisabled) => {
+  (operations, operationSetterProps, isDisabled) => {
     let activeIndex;
 
-    const { petalName, ...otherOperationSetterProps } = setterOperationProps || {};
+    const { petalName, ...otherOperationSetterProps } = operationSetterProps || {};
 
-    if (setterOperationProps) {
+    if (operationSetterProps) {
       const currentLabel = operations[petalName].label;
       activeIndex = R.findIndex(
         R.propEq('label', currentLabel),
@@ -119,9 +119,10 @@ export default createStructuredSelector({
   instructions: selectInstructions,
   isDisabled: selectIsDisabled,
   operations: selectOperations,
+  operationSetterProps: selectOperationSetterProps,
   petalCount: R.prop('petalCount'),
   rows: selectRows,
-  setterOperationProps: selectOperationSetterProps,
   size: R.prop('size'),
+  valueSetterProps: R.prop('valueSetter'),
   won: selectWon,
 });

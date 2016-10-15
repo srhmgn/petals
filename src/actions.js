@@ -5,15 +5,26 @@ export const setOperation = props => ({
   ...props,
 });
 
-/* setter */
+/* operation setter */
 
 export const openOperationSetter = props => ({
-  type: 'OPEN_SETTER',
+  type: 'OPEN_OPERATION_SETTER',
   ...props,
 });
 
 export const closeOperationSetter = () => ({
-  type: 'CLOSE_SETTER',
+  type: 'CLOSE_OPERATION_SETTER',
+});
+
+/* value setter */
+
+export const openValueSetter = props => ({
+  type: 'OPEN_VALUE_SETTER',
+  ...props,
+});
+
+export const closeValueSetter = () => ({
+  type: 'CLOSE_VALUE_SETTER',
 });
 
 /* rows */
@@ -41,8 +52,6 @@ export const setSize = size => ({
 });
 
 /* petal count */
-
-/* size */
 
 export const setPetalCount = petalCount => ({
   type: 'SET_PETAL_COUNT',

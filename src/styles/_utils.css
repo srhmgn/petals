@@ -6,6 +6,11 @@
   line-height: 30px;
   padding-bottom: 0;
   padding-top: 0;
+
+  &:hover {
+    background-color: var(--color-controls-hover);
+    cursor: pointer;
+  }
 }
 
 .u-btn[disabled] {
@@ -15,5 +20,5 @@
 .u-btn--small {
   height: 30px;
   padding: 0;
-  width: 24px;
+  width: 30px;
 }
