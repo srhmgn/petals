@@ -40,6 +40,7 @@
   width: 24px;
 }
 
+.controls__btn[disabled],
 .controls__size-btn[disabled] {
   background-color: var(--color-controls-invalid);
 }

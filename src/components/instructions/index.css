@@ -12,10 +12,7 @@
 }
 
 .instructions .board {
-  left: 50%;
-  overflow: hidden;
-  position: absolute;
-  transform: translateX(-50%);
+  margin: 0 -80px;
 }
 
 .instructions:not(.instructions--visible) {

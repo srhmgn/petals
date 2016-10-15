@@ -47,10 +47,12 @@ class Controls extends PureComponent {
         <div className='controls__row'>
           <button
             className='controls__btn'
+            disabled={ isDisabled }
             onClick={ () => this.setState({ settings: !settings }) }>#</button>
 
           <button
             className='controls__btn'
+            disabled={ isDisabled }
             onClick={ () => buildRows(size, petalCount) }>New</button>
 
           <button

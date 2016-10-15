@@ -18,6 +18,10 @@ export default function(state = INITIAL_STATE, action) {
       state
     );
   default:
-    return state;
+    return R.assoc(
+      'isVisible',
+      false,
+      state
+    );
   }
 }
