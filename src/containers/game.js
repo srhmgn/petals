@@ -39,7 +39,7 @@ class Game extends PureComponent {
     } = this.props;
 
     return (
-      <GameWrapper key={ gameId }>
+      <GameWrapper key={ gameId } preventScroll={ instructions.isVisible }>
         <Message won={ won } />
         <Instructions
           setStep={ setInstructionStep }

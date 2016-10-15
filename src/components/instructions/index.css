@@ -2,19 +2,24 @@
 
 .instructions {
   background-color: var(--color-white);
-  height: 700px;
+  height: calc(100% - 65px);
+  left: 0;
+  overflow: hidden;
   position: absolute;
   text-align: center;
   width: 100%;
   z-index: 1500;
 }
 
-.instructions:not(.instructions--visible) {
-  display: none;
+.instructions .board {
+  left: 50%;
+  overflow: hidden;
+  position: absolute;
+  transform: translateX(-50%);
 }
 
-.instructions__inner {
-  padding: 40px;
+.instructions:not(.instructions--visible) {
+  display: none;
 }
 
 .instructions__close-btn {
@@ -22,6 +27,17 @@
 }
 
 .instructions__text {
-  margin: -20px auto 20px;
-  width: 350px;
+  margin: 0 auto 20px;
+  max-width: 350px;
+  width: 100%;
+}
+
+.instructions__footer {
+  background: var(--color-white);
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+  position: absolute;
+  width: 100%;
+  z-index: 4000;
 }

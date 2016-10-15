@@ -644,26 +644,28 @@ function Instructions({
           isDisabled
           key={ step }
           { ...getBoardProps() } />
-        <p className='instructions__text'>
-          { stepsText[step] }
-        </p>
-        <button
-          className='controls__size-btn'
-          disabled={ !canDecrement }
-          onClick={ () => setStep(step - 1) }>
-          «
-        </button>
-        <button
-          className='controls__size-btn'
-          disabled={ !canIncrement }
-          onClick={ () => setStep(step + 1) }>
-          »
-        </button>
-        <button
-          className='controls__btn instructions__close-btn'
-          onClick={ toggleInstructions }>
-          Close
-        </button>
+        <div className='instructions__footer'>
+          <p className='instructions__text'>
+            { stepsText[step] }
+          </p>
+          <button
+            className='controls__size-btn'
+            disabled={ !canDecrement }
+            onClick={ () => setStep(step - 1) }>
+            «
+          </button>
+          <button
+            className='controls__size-btn'
+            disabled={ !canIncrement }
+            onClick={ () => setStep(step + 1) }>
+            »
+          </button>
+          <button
+            className='controls__btn instructions__close-btn'
+            onClick={ toggleInstructions }>
+            Close
+          </button>
+        </div>
       </div>
     </div>
   );
