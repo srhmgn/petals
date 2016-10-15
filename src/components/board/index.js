@@ -18,10 +18,19 @@ function Board({
   setRowCircle,
   setterProps,
 }) {
+  const currentSize = circleProps && circleProps[0] ?
+    circleProps[0].length : 0;
+
   return (
     <div className='board' id={ gameId ? 'game' : null }>
       { circleProps.map((circleRow, rowIndex) =>
-        <Row key={ rowIndex } rowIndex={ rowIndex } style={ { zIndex: 1000 - rowIndex } }>
+        <Row
+          key={ rowIndex }
+          rowIndex={ rowIndex }
+          style={ {
+            width: 160 * currentSize,
+            zIndex: 1000 - rowIndex,
+          } }>
 
           { circleRow.map((circle, circleIndex) =>
             <Circle

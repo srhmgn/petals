@@ -3,7 +3,7 @@ import React, { PureComponent, PropTypes } from 'react';
 import './index.css';
 
 const MAX_SIZE = 8;
-const MIN_SIZE = 2;
+const MIN_SIZE = 3;
 
 const MAX_PETALS = 4;
 const MIN_PETALS = 3;
@@ -51,7 +51,7 @@ class Controls extends PureComponent {
 
           <button
             className='controls__btn'
-            onClick={ () => buildRows(size, petalCount) }>New game</button>
+            onClick={ () => buildRows(size, petalCount) }>New</button>
 
           <button
             className='controls__btn'

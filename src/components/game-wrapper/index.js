@@ -23,12 +23,13 @@ class GameWrapper extends PureComponent {
 
   scrollLeft = () => {
     window.setTimeout(() => {
+      if (!this.component) return;
+
       const bodyWidth = document.querySelector('body').offsetWidth;
       const componentWidth = this.component.scrollWidth;
 
       if (bodyWidth < componentWidth) {
-        this.component.style.paddingLeft = '230px';
-        this.component.scrollLeft = 115;
+        this.component.scrollLeft = (componentWidth - bodyWidth) / 2;
       }
     }, 0);
   }
