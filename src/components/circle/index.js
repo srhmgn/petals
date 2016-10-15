@@ -18,10 +18,10 @@ class Circle extends PureComponent {
   static propTypes = {
     children: PropTypes.node,
     circleIndex: PropTypes.number.isRequired,
-    closeSetter: PropTypes.func.isRequired,
+    closeOperationSetter: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,
     isDisabled: PropTypes.bool.isRequired,
-    openSetter: PropTypes.func,
+    openOperationSetter: PropTypes.func,
     rowIndex: PropTypes.number.isRequired,
     setValue: PropTypes.func.isRequired,
     value: PropTypes.string,
@@ -32,22 +32,26 @@ class Circle extends PureComponent {
   };
 
   componentDidMount() {
-    window.setInterval(this.checkKeyEvents, 150);
+    this._keyInterval = window.setInterval(this.checkKeyEvents, 150);
 
-    const {
-      circleIndex,
-      rowIndex,
-    } = this.props;
+    // const {
+    //   circleIndex,
+    //   rowIndex,
+    // } = this.props;
 
-    if (circleIndex === 0 && rowIndex === 0) {
-      this.focusInput();
-    }
+    // if (circleIndex === 0 && rowIndex === 0) {
+    //   this.focusInput();
+    // }
   }
 
   componentWillReceiveProps(newProps) {
     if (R.equals(newProps.data.dynamic, {})) {
       this.setState({ displayValue: 'EMPTY' });
     }
+  }
+
+  componentWillUnmount() {
+    window.clearInterval(this._keyInterval);
   }
 
   render() {
@@ -82,7 +86,7 @@ class Circle extends PureComponent {
           onFocus={ this.handleEvent }
           onKeyDown={ this.handleEvent }
           readOnly={ isDisabled || this.isStatic() }
-          type='tel'
+          type='text'
           value={ displayValue === 'EMPTY' ? '' : displayValue } />
       </span>
     );
@@ -106,7 +110,7 @@ class Circle extends PureComponent {
 
   handleEvent = (e) => {
     const {
-      closeSetter,
+      closeOperationSetter,
       data: { dynamic },
       setValue,
       isDisabled,
@@ -116,7 +120,7 @@ class Circle extends PureComponent {
 
     switch (e.type) {
     case 'focus':
-      closeSetter();
+      closeOperationSetter();
       this.setState({ displayValue: '' });
       break;
     case 'blur':
@@ -140,23 +144,23 @@ class Circle extends PureComponent {
     if (!this.keys.length) return;
     const firstTwoKeys = this.keys.slice(0, 2);
 
-    this.shiftKey ? this.openSetterForPetal(firstTwoKeys) :
+    this.shiftKey ? this.openOperationSetterForPetal(firstTwoKeys) :
         this.focusOnNeighboringField(firstTwoKeys);
 
     this.keys = [];
     this.shiftKey = false;
   }
 
-  openSetterForPetal = (keys) => {
+  openOperationSetterForPetal = (keys) => {
     const {
       circleIndex,
-      openSetter,
+      openOperationSetter,
       rowIndex,
     } = this.props;
 
     const input = this.getInput();
 
-    function openSetterAndBlurInput(petalName, parentRow, parentCircle) {
+    function openOperationSetterAndBlurInput(petalName, parentRow, parentCircle) {
       const petal = document.querySelector(
         `#game #row${parentRow} #circle${parentCircle} .petal--${petalClassMap[petalName]}`
       );
@@ -165,7 +169,7 @@ class Circle extends PureComponent {
 
       const dimensions = petal.getBoundingClientRect();
 
-      openSetter({
+      openOperationSetter({
         petalName,
         parentIndex: `row${parentRow}-circle${parentCircle}`,
         opener: input,
@@ -179,45 +183,45 @@ class Circle extends PureComponent {
     }
 
     if (R.contains('ArrowUp', keys) && R.contains('ArrowRight', keys)) {
-      openSetterAndBlurInput(
+      openOperationSetterAndBlurInput(
         'bottomLeft',
         rowIndex - 1,
         circleIndex + 1,
       );
     } else if (R.contains('ArrowDown', keys) && R.contains('ArrowLeft', keys)) {
-      openSetterAndBlurInput(
+      openOperationSetterAndBlurInput(
         'bottomLeft',
         rowIndex,
         circleIndex,
       );
     } else if (R.contains('ArrowUp', keys) && R.contains('ArrowLeft', keys)) {
-      openSetterAndBlurInput(
+      openOperationSetterAndBlurInput(
         'bottomRight',
         rowIndex - 1,
         circleIndex,
       );
     } else if (R.contains('ArrowDown', keys) && R.contains('ArrowRight', keys)) {
-      openSetterAndBlurInput(
+      openOperationSetterAndBlurInput(
         'bottomRight',
         rowIndex,
         circleIndex,
       );
     } else if (R.contains('ArrowRight', keys)) {
-      openSetterAndBlurInput(
+      openOperationSetterAndBlurInput(
         'right',
         rowIndex,
         circleIndex,
-      ) || openSetterAndBlurInput(
+      ) || openOperationSetterAndBlurInput(
         'rightAlt',
         rowIndex,
         circleIndex,
       );
     } else if (R.contains('ArrowLeft', keys)) {
-      openSetterAndBlurInput(
+      openOperationSetterAndBlurInput(
         'right',
         rowIndex,
         circleIndex - 1,
-      ) || openSetterAndBlurInput(
+      ) || openOperationSetterAndBlurInput(
         'rightAlt',
         rowIndex,
         circleIndex - 1,

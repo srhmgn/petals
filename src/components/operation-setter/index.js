@@ -7,10 +7,10 @@ import { petalClassMap } from '../petal';
 
 import './index.css';
 
-class Setter extends PureComponent {
+class OperationSetter extends PureComponent {
   static propTypes = {
     activeIndex: PropTypes.number,
-    closeSetter: PropTypes.func,
+    closeOperationSetter: PropTypes.func,
     mousePos: PropTypes.array,
     opener: PropTypes.object,
     parentIndex: PropTypes.string,
@@ -73,7 +73,7 @@ class Setter extends PureComponent {
   onKeyDown = (e) => {
     const {
       activeIndex,
-      closeSetter,
+      closeOperationSetter,
       opener,
       petalName,
       setOperation,
@@ -90,7 +90,7 @@ class Setter extends PureComponent {
       break;
     case 'Escape':
       opener && opener.focus();
-      closeSetter();
+      closeOperationSetter();
       break;
     default:
       break;
@@ -105,4 +105,4 @@ class Setter extends PureComponent {
   }
 }
 
-export default Setter;
+export default OperationSetter;

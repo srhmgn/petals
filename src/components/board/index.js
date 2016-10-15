@@ -4,19 +4,19 @@ import Circle from '../circle';
 import Row from '../row';
 import Petal from '../petal';
 import PetalText from '../petal-text';
-import Setter from '../setter';
+import OperationSetter from '../operation-setter';
 
 import './index.css';
 
 function Board({
   circleProps,
-  closeSetter,
+  closeOperationSetter,
   gameId,
   isDisabled,
-  openSetter,
+  openOperationSetter,
   setOperation,
   setRowCircle,
-  setterProps,
+  setterOperationProps,
 }) {
   const currentSize = circleProps && circleProps[0] ?
     circleProps[0].length : 0;
@@ -35,12 +35,12 @@ function Board({
           { circleRow.map((circle, circleIndex) =>
             <Circle
               circleIndex={ circleIndex }
-              closeSetter={
-                () => setterProps.mousePos && closeSetter()
+              closeOperationSetter={
+                () => setterOperationProps.mousePos && closeOperationSetter()
               }
               isDisabled={ isDisabled }
               key={ circleIndex }
-              openSetter={ openSetter }
+              openOperationSetter={ openOperationSetter }
               rowIndex={ rowIndex }
               setValue={ value =>
                 setRowCircle({
@@ -53,10 +53,10 @@ function Board({
               { circle.petals.map((petal, petalIndex) =>
                 !!petal && [
                   <Petal
-                    closeSetter={ closeSetter }
+                    closeOperationSetter={ closeOperationSetter }
                     isDisabled={ isDisabled }
                     key={ petalIndex }
-                    openSetter={ openSetter }
+                    openOperationSetter={ openOperationSetter }
                     { ...petal } />,
                   <PetalText
                     key={ `${petalIndex}-text` }
@@ -69,23 +69,23 @@ function Board({
         </Row>
       ) }
 
-      <Setter
-        closeSetter={ closeSetter }
+      <OperationSetter
+        closeOperationSetter={ closeOperationSetter }
         setOperation={ setOperation }
-        { ...setterProps } />
+        { ...setterOperationProps } />
     </div>
   );
 }
 
 Board.propTypes = {
   circleProps: PropTypes.array.isRequired,
-  closeSetter: PropTypes.func,
+  closeOperationSetter: PropTypes.func,
   gameId: PropTypes.number,
   isDisabled: PropTypes.bool.isRequired,
-  openSetter: PropTypes.func,
+  openOperationSetter: PropTypes.func,
   setOperation: PropTypes.func,
   setRowCircle: PropTypes.func,
-  setterProps: PropTypes.object,
+  setterOperationProps: PropTypes.object,
 };
 
 export default Board;

@@ -5,7 +5,7 @@ import instructions from './instructions';
 import operations from './operations';
 import petalCount from './petal-count';
 import rows from './rows';
-import setter from './setter';
+import setter from './operation-setter';
 import size from './size';
 
 const petals = combineReducers({

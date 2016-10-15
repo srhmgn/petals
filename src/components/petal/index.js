@@ -13,11 +13,11 @@ export const petalClassMap = {
 };
 
 function Petal({
-  closeSetter,
+  closeOperationSetter,
   isDisabled,
   isInvalid,
   name,
-  openSetter,
+  openOperationSetter,
   parentIndex,
   setter,
 }) {
@@ -28,7 +28,7 @@ function Petal({
     if (isDisabled) return;
 
     isOpen ?
-      closeSetter() : openSetter({
+      closeOperationSetter() : openOperationSetter({
         mousePos: [e.clientX, e.clientY ],
         parentIndex,
         petalName: name,
@@ -49,11 +49,11 @@ function Petal({
 }
 
 Petal.propTypes = {
-  closeSetter: PropTypes.func,
+  closeOperationSetter: PropTypes.func,
   isDisabled: PropTypes.bool.isRequired,
   isInvalid: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
-  openSetter: PropTypes.func,
+  openOperationSetter: PropTypes.func,
   parentIndex: PropTypes.string,
   setter: PropTypes.object,
 };

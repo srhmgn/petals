@@ -7,12 +7,12 @@ export const setOperation = props => ({
 
 /* setter */
 
-export const openSetter = props => ({
+export const openOperationSetter = props => ({
   type: 'OPEN_SETTER',
   ...props,
 });
 
-export const closeSetter = () => ({
+export const closeOperationSetter = () => ({
   type: 'CLOSE_SETTER',
 });
 
