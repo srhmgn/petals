@@ -28,7 +28,6 @@ function Board({
   return (
     <div className='board' id={ gameId ? 'game' : null }>
       <ValueSetter
-        closeValueSetter={ closeValueSetter }
         setRowCircle={ setRowCircle }
         { ...valueSetterProps } />
 
@@ -44,9 +43,6 @@ function Board({
           { circleRow.map((circle, circleIndex) =>
             <Circle
               circleIndex={ circleIndex }
-              closeOperationSetter={
-                () => operationSetterProps.mousePos && closeOperationSetter()
-              }
               closeValueSetter={ closeValueSetter }
               isDisabled={ isDisabled }
               key={ circleIndex }

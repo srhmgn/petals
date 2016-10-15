@@ -18,11 +18,12 @@ function Petal({
   isInvalid,
   name,
   openOperationSetter,
+  operationSetter,
   parentIndex,
-  setter,
 }) {
-  const isOpen = setter && setter.petalName === name &&
-    setter.parentIndex === parentIndex;
+  const isOpen = operationSetter
+    && operationSetter.petalName === name
+    && operationSetter.parentIndex === parentIndex;
 
   const handleClick = e => {
     if (isDisabled) return;
@@ -54,8 +55,8 @@ Petal.propTypes = {
   isInvalid: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   openOperationSetter: PropTypes.func,
+  operationSetter: PropTypes.object,
   parentIndex: PropTypes.string,
-  setter: PropTypes.object,
 };
 
 export default Petal;

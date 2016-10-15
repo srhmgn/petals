@@ -18,9 +18,10 @@ class Circle extends PureComponent {
   static propTypes = {
     children: PropTypes.node,
     circleIndex: PropTypes.number.isRequired,
-    closeOperationSetter: PropTypes.func.isRequired,
+    closeValueSetter: PropTypes.func,
     data: PropTypes.object.isRequired,
     isDisabled: PropTypes.bool.isRequired,
+    isValueSetterOption: PropTypes.bool,
     openOperationSetter: PropTypes.func,
     openValueSetter: PropTypes.func,
     rowIndex: PropTypes.number.isRequired,
@@ -111,9 +112,10 @@ class Circle extends PureComponent {
   handleEvent = (e) => {
     const {
       circleIndex,
-      closeOperationSetter,
+      closeValueSetter,
       data: { dynamic },
       isDisabled,
+      isValueSetterOption,
       openValueSetter,
       rowIndex,
       setValue,
@@ -126,7 +128,7 @@ class Circle extends PureComponent {
       e.preventDefault();
       break;
     case 'click':
-      openValueSetter({
+      isValueSetterOption ? closeValueSetter() : openValueSetter({
         circleIndex,
         mousePos: [e.clientX, e.clientY],
         rowIndex,

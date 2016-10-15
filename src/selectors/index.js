@@ -35,11 +35,15 @@ function getPetalProps(name, petalProps) {
   };
 }
 
+const selectValueSetterProps = R.prop('valueSetter');
+const selectOperationSetterProps = R.prop('operationSetter');
+
 const selectCircleProps = createSelector(
   selectOperations,
   selectRows,
-  R.prop('setter'),
-  (operations, rows, setter) =>
+  selectOperationSetterProps,
+  selectValueSetterProps,
+  (operations, rows, operationSetter, valueSetter) =>
     rows.map((row, rowIndex) => {
       const nextRow = rows[rowIndex + 1];
       return row.map((circle, circleIndex) => {
@@ -51,14 +55,17 @@ const selectCircleProps = createSelector(
             right: getValue(row[circleIndex + 1]),
           },
           operations,
+          operationSetter,
           parentIndex: `row${rowIndex}-circle${circleIndex}`,
           parentValue: getValue(circle),
-          setter,
           statikData: circle.statik,
         };
 
         return {
           data: circle,
+          isValueSetterOption: valueSetter
+            && rowIndex === valueSetter.rowIndex
+            && circleIndex === valueSetter.circleIndex,
           petals: [
             getPetalProps('rightAlt', basePetalProps),
             getPetalProps('right', basePetalProps),
@@ -88,9 +95,9 @@ const selectIsDisabled = createSelector(
   ({ isVisible }, won) => isVisible || won
 );
 
-const selectOperationSetterProps = createSelector(
+const selectFinalOperationSetterProps = createSelector(
   selectOperations,
-  R.prop('operationSetter'),
+  selectOperationSetterProps,
   selectIsDisabled,
   (operations, operationSetterProps, isDisabled) => {
     let activeIndex;
@@ -119,10 +126,10 @@ export default createStructuredSelector({
   instructions: selectInstructions,
   isDisabled: selectIsDisabled,
   operations: selectOperations,
-  operationSetterProps: selectOperationSetterProps,
+  operationSetterProps: selectFinalOperationSetterProps,
   petalCount: R.prop('petalCount'),
   rows: selectRows,
   size: R.prop('size'),
-  valueSetterProps: R.prop('valueSetter'),
+  valueSetterProps: selectValueSetterProps,
   won: selectWon,
 });
