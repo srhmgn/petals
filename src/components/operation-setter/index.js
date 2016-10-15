@@ -40,20 +40,20 @@ class OperationSetter extends PureComponent {
 
     return (
       <ul
-        className='setter'
+        className='operation-setter'
         onKeyDown={ this.onKeyDown }
         ref={ c => { this.component = c; } }
         style={ { left: finalLeft, top } }
         tabIndex='-1'>
         { R.keys(OPERATIONS).map((operationName, i) => {
-          const setterClasses = cx({
-            'setter__item': true,
-            [`setter__item--${petalClassMap[petalName]}`]: true,
-            'setter__item--current': i === activeIndex,
+          const operationSetterClasses = cx({
+            'operation-setter__item': true,
+            [`operation-setter__item--${petalClassMap[petalName]}`]: true,
+            'operation-setter__item--current': i === activeIndex,
           });
 
           return (
-            <li className={ setterClasses } key={ i }>
+            <li className={ operationSetterClasses } key={ i }>
               <button
                 className='u-reset-button'
                 onClick={ () =>

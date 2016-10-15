@@ -13,12 +13,6 @@
   & label {
     margin-right: 10px;
   }
-
-  & button {
-    line-height: 30px;
-    padding-bottom: 0;
-    padding-top: 0;
-  }
 }
 
 .controls__row {
@@ -34,26 +28,4 @@
 
 .controls__size {
   padding: 0 7px;
-}
-
-.controls__size-btn {
-  background-color: var(--color-controls);
-  border: none;
-  color: var(--color-black);
-  font-size: 16px;
-  height: 30px;
-  padding: 0;
-  width: 24px;
-}
-
-.controls__btn[disabled],
-.controls__size-btn[disabled] {
-  background-color: var(--color-controls-invalid);
-}
-
-.controls__btn {
-  background-color: var(--color-controls);
-  border: none;
-  font-size: 16px;
-  height: 30px;
 }

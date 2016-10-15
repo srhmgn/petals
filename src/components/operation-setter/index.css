@@ -6,7 +6,7 @@
   }
 }
 
-.setter {
+.operation-setter {
   animation: fade-in 100ms ease-out;
   background-color: var(--color-gray-dark);
   display: flex;
@@ -25,31 +25,31 @@
   padding: 0;
 }
 
-.setter__item:first-child button {
+.operation-setter__item:first-child button {
   padding-left: 10px;
 }
 
-.setter__item:last-child button {
+.operation-setter__item:last-child button {
   padding-right: 10px;
 }
 
-.setter__item button {
+.operation-setter__item button {
   color: var(--color-controls);
   padding: 5px;
 }
 
-.setter__item--current.setter__item--right button {
+.operation-setter__item--current.operation-setter__item--right button {
   color: var(--color-right);
 }
 
-.setter__item--current.setter__item--right-alt button {
+.operation-setter__item--current.operation-setter__item--right-alt button {
   color: var(--color-right-alt);
 }
 
-.setter__item--current.setter__item--bottom-right button {
+.operation-setter__item--current.operation-setter__item--bottom-right button {
   color: var(--color-bottom-right);
 }
 
-.setter__item--current.setter__item--bottom-left button {
+.operation-setter__item--current.operation-setter__item--bottom-left button {
   color: var(--color-bottom-left);
 }

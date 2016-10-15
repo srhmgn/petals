@@ -46,22 +46,22 @@ class Controls extends PureComponent {
       <div className='controls'>
         <div className='controls__row'>
           <button
-            className='controls__btn'
+            className='u-btn'
             disabled={ isDisabled }
             onClick={ () => this.setState({ settings: !settings }) }>#</button>
 
           <button
-            className='controls__btn'
+            className='u-btn'
             disabled={ isDisabled }
             onClick={ () => buildRows(size, petalCount) }>New</button>
 
           <button
-            className='controls__btn'
+            className='u-btn'
             disabled={ isDisabled }
             onClick={ reset }>Reset</button>
 
           <button
-            className='controls__btn'
+            className='u-btn'
             onClick={ toggleInstructions }>?</button>
         </div>
         { settings &&
@@ -69,14 +69,14 @@ class Controls extends PureComponent {
             <div className='controls__size-controls'>
               <label>Size</label>
               <button
-                className='controls__size-btn'
+                className='u-btn u-btn--small'
                 disabled={ !canDecrementSize }
                 onClick={ () => setSize(size - 1) }>
                 -
               </button>
               <span className='controls__size'>{ size }</span>
               <button
-                className='controls__size-btn'
+                className='u-btn u-btn--small'
                 disabled={ !canIncrementSize }
                 onClick={ () => setSize(size + 1) }>
                 +
@@ -86,14 +86,14 @@ class Controls extends PureComponent {
             <div className='controls__size-controls'>
               <label>Petals</label>
               <button
-                className='controls__size-btn'
+                className='u-btn u-btn--small'
                 disabled={ !canDecrementPetals }
                 onClick={ () => setPetalCount(petalCount - 1) }>
                 -
               </button>
               <span className='controls__size'>{ petalCount }</span>
               <button
-                className='controls__size-btn'
+                className='u-btn u-btn--small'
                 disabled={ !canIncrementPetals }
                 onClick={ () => setPetalCount(petalCount + 1) }>
                 +

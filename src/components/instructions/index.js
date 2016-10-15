@@ -649,19 +649,19 @@ function Instructions({
             { stepsText[step] }
           </p>
           <button
-            className='controls__size-btn'
+            className='u-btn u-btn--small'
             disabled={ !canDecrement }
             onClick={ () => setStep(step - 1) }>
             «
           </button>
           <button
-            className='controls__size-btn'
+            className='u-btn u-btn--small'
             disabled={ !canIncrement }
             onClick={ () => setStep(step + 1) }>
             »
           </button>
           <button
-            className='controls__btn instructions__close-btn'
+            className='u-btn instructions__close-btn'
             onClick={ toggleInstructions }>
             Close
           </button>
