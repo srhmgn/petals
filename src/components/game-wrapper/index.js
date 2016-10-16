@@ -10,7 +10,7 @@ class GameWrapper extends PureComponent {
   };
 
   componentDidMount() {
-    this.scrollLeft();
+    // this.scrollLeft();
   }
 
   render() {

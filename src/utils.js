@@ -108,29 +108,15 @@ export function setValueAndStatiks({ circle, operations, sets }) {
     )
   );
 
-  if (valuesWithValidStatiks.length === 0) return false;
+  if (valuesWithValidStatiks.length === 0) throw new Error('no statiks');
 
   const value = getRandomFromList(valuesWithValidStatiks);
 
   circle.setValue(value);
 
   sets.forEach(({ setCircle, operationName }, i) => {
-    /* eslint-disable no-debugger */
-    /* eslint-disable no-console */
-    if (!possibleStatiks[i][value - 1]) debugger;
-    console.log('---');
-    console.log(operationName);
-    console.log(possibleStatiks[i][value - 1]);
-    console.log('index', i);
-    console.log('selected index', value - 1);
-    console.log('all statiks', possibleStatiks);
-    console.log('---');
-    /* eslint-enable no-debugger */
-    /* eslint-enable no-console */
     setCircle.setStatic({ [operationName]: possibleStatiks[i][value - 1] });
   });
-
-  return true;
 }
 
 class Circle {

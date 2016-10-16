@@ -25,8 +25,15 @@ function Board({
   const currentSize = circleProps && circleProps[0] ?
     circleProps[0].length : 0;
 
+  const scale = document.querySelector('body').offsetWidth / (120 * currentSize);
+
   return (
-    <div className='board' id={ gameId ? 'game' : null }>
+    <div
+      className='board'
+      id={ gameId ? 'game' : null }
+      style={ {
+        transform: scale < 1 ? `scale(${scale})` : 'none',
+      } }>
       <ValueSetter
         setRowCircle={ setRowCircle }
         { ...valueSetterProps } />
@@ -36,7 +43,7 @@ function Board({
           key={ rowIndex }
           rowIndex={ rowIndex }
           style={ {
-            width: 160 * currentSize,
+            width: scale < 1 ? 'auto' : 120 * currentSize,
             zIndex: 1000 - rowIndex,
           } }>
 
