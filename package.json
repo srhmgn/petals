@@ -19,6 +19,7 @@
     "ramda": "^0.22.1",
     "react": "15.x",
     "react-dom": "15.x",
+    "react-hammerjs": "^0.5.0",
     "react-redux": "^4.4.5",
     "redux": "^3.6.0",
     "redux-logger": "^2.6.1",
