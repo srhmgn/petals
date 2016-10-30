@@ -1,13 +1,21 @@
 import React, { PureComponent, PropTypes } from 'react';
 import cx from 'classnames';
+import R from 'ramda';
 
 import './index.css';
+
+import { OPERATIONS } from '../../constants';
 
 const MAX_SIZE = 8;
 const MIN_SIZE = 3;
 
 const MAX_PETALS = 4;
 const MIN_PETALS = 3;
+
+const rowMap = {
+  GAME_OPTIONS: 0,
+  GAME_CONTROLS: 1,
+};
 
 class Controls extends PureComponent {
   static propTypes = {
@@ -23,7 +31,7 @@ class Controls extends PureComponent {
   };
 
   state = {
-    settings: false,
+    currentRow: rowMap.GAME_CONTROLS,
   };
 
   render() {
@@ -38,7 +46,7 @@ class Controls extends PureComponent {
       toggleInstructions,
       won,
     } = this.props;
-    const { settings } = this.state;
+    const { currentRow } = this.state;
 
     const canIncrementSize = size + 1 <= MAX_SIZE;
     const canDecrementSize = size - 1 >= MIN_SIZE;
@@ -50,31 +58,50 @@ class Controls extends PureComponent {
       'controls--won': won,
     });
 
+    const rowButtons = (
+      <span className='controls__row-btns'>
+        <button
+          className='u-btn u-btn--small'
+          disabled={
+            isDisabled || !R.contains(currentRow + 1, R.values(rowMap))
+          }
+          onClick={ () => this.setState({ currentRow: currentRow + 1 }) }>
+          <span className='u-90'>{ '>' }</span>
+        </button>
+
+        <button
+          className='u-btn u-btn--small'
+          disabled={
+            isDisabled || !R.contains(currentRow - 1, R.values(rowMap))
+          }
+          onClick={ () => this.setState({ currentRow: currentRow - 1 }) }>
+          <span className='u-90'>{ '<' }</span>
+        </button>
+      </span>
+    );
+
     return (
       <div className={ wrapperClasses }>
-        <div className='controls__row'>
-          <button
-            className='u-btn'
-            onClick={ () => buildRows(size, petalCount) }>New</button>
+        <div className='controls__inner'>
+          <div className={ `controls__row controls__row--off-${currentRow}` }>
+            { rowButtons }
 
-          { won && 'YOU WON!' }
+            <button
+              className='u-btn'
+              onClick={ () => buildRows(size, petalCount) }>New</button>
 
-          { !won && <button
-            className='u-btn'
-            disabled={ isDisabled }
-            onClick={ reset }>Reset</button> }
+            <button
+              className='u-btn'
+              disabled={ isDisabled }
+              onClick={ reset }>Reset</button>
 
-          { !won && <button
-            className='u-btn u-btn--small'
-            disabled={ isDisabled }
-            onClick={ () => this.setState({ settings: !settings }) }>#</button> }
+            <button
+              className='u-btn u-btn--small'
+              onClick={ toggleInstructions }>?</button>
+          </div>
+          <div className={ `controls__row controls__row--off-${currentRow}` }>
+            { rowButtons }
 
-          { !won && <button
-            className='u-btn u-btn--small'
-            onClick={ toggleInstructions }>?</button> }
-        </div>
-        { settings &&
-          <div className='controls__row'>
             <div className='controls__size-controls'>
               <label>Size</label>
               <button
@@ -108,7 +135,8 @@ class Controls extends PureComponent {
                 +
               </button>
             </div>
-          </div> }
+          </div>
+        </div>
       </div>
     );
   }

@@ -28,5 +28,10 @@
 .u-btn--small {
   height: 30px;
   padding: 0;
-  width: 30px;
+  width: 24px;
+}
+
+.u-90 {
+  display: inline-block;
+  transform: rotate(90deg);
 }

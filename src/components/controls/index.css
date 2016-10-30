@@ -12,7 +12,7 @@
   z-index: 5000;
 
   & label {
-    margin-right: 10px;
+    margin-right: 7px;
   }
 }
 
@@ -20,17 +20,36 @@
   background-color: var(--color-right-alt);
 }
 
+.controls__inner {
+  height: 30px;
+  margin: 0 auto;
+  overflow: hidden;
+  width: 300px;
+}
+
 .controls__row {
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
-  width: 300px;
 
-  &:not(:last-child) {
+  & > *:not(.controls__row-btns) {
     margin-bottom: 10px;
+    transition: transform 400ms ease-in;
   }
+}
+
+.controls__row--off-1 > *:not(.controls__row-btns) {
+  transform: translateY(-40px);
+}
+
+.controls__row--off-2 > *:not(.controls__row-btns) {
+  transform: translateY(-80px);
 }
 
 .controls__size {
   padding: 0 7px;
+}
+
+.controls__row-btns button + button {
+  margin-left: 2px;
 }
