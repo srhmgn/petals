@@ -26,8 +26,8 @@ class Controls extends PureComponent {
     petalCount: PropTypes.number,
     petalName: PropTypes.string,
     reset: PropTypes.func,
-    setPetalCount: PropTypes.func,
     setOperation: PropTypes.func,
+    setPetalCount: PropTypes.func,
     setSize: PropTypes.func,
     size: PropTypes.number,
     toggleInstructions: PropTypes.func,
@@ -164,12 +164,12 @@ class Controls extends PureComponent {
               <button
                 className={ buttonClasses }
                 disabled={ isDisabled }
+                key={ i }
                 onClick={ () =>
                   setOperation({
                     [petalName]: OPERATIONS[operationName],
                   })
-                }
-                key={ i }>
+                }>
                 { OPERATIONS[operationName].label }
               </button>
             );

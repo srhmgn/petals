@@ -2,7 +2,6 @@ import R from 'ramda';
 import { createSelector, createStructuredSelector } from 'reselect';
 
 import { apply, doExist, getValue } from '../utils';
-import { OPERATIONS } from '../constants';
 
 const selectOperations = R.prop('operations');
 const selectRows = R.prop('rows');
@@ -35,13 +34,10 @@ function getPetalProps(name, petalProps) {
   };
 }
 
-const selectValueSetterProps = R.prop('valueSetter');
-
 const selectCircleProps = createSelector(
   selectOperations,
   selectRows,
-  selectValueSetterProps,
-  (operations, rows, valueSetter) =>
+  (operations, rows) =>
     rows.map((row, rowIndex) => {
       const nextRow = rows[rowIndex + 1];
       return row.map((circle, circleIndex) => {
@@ -60,9 +56,6 @@ const selectCircleProps = createSelector(
 
         return {
           data: circle,
-          isValueSetterOption: valueSetter
-            && rowIndex === valueSetter.rowIndex
-            && circleIndex === valueSetter.circleIndex,
           petals: [
             getPetalProps('rightAlt', basePetalProps),
             getPetalProps('right', basePetalProps),
@@ -102,6 +95,5 @@ export default createStructuredSelector({
   petalCount: R.prop('petalCount'),
   rows: selectRows,
   size: R.prop('size'),
-  valueSetterProps: selectValueSetterProps,
   won: selectWon,
 });

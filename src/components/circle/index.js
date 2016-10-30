@@ -11,11 +11,8 @@ class Circle extends PureComponent {
   static propTypes = {
     children: PropTypes.node,
     circleIndex: PropTypes.number.isRequired,
-    closeValueSetter: PropTypes.func,
     data: PropTypes.object.isRequired,
     isDisabled: PropTypes.bool.isRequired,
-    isValueSetterOption: PropTypes.bool,
-    openValueSetter: PropTypes.func,
     rowIndex: PropTypes.number.isRequired,
     setPetalName: PropTypes.func,
     setValue: PropTypes.func.isRequired,
@@ -70,7 +67,6 @@ class Circle extends PureComponent {
         </svg>
         <span
           className={ numberClassNames }
-          onClick={ this.handleEvent }
           onKeyDown={ this.handleEvent }
           tabIndex='-1'>
           <span className='circle__number-inner'>
@@ -100,10 +96,7 @@ class Circle extends PureComponent {
   handleEvent = (e) => {
     const {
       circleIndex,
-      closeValueSetter,
       isDisabled,
-      isValueSetterOption,
-      openValueSetter,
       rowIndex,
       setValue,
     } = this.props;
@@ -111,16 +104,7 @@ class Circle extends PureComponent {
     if (isDisabled || this.isStatic()) return;
 
     switch (e.type) {
-    case 'click':
-      isValueSetterOption ? closeValueSetter() : openValueSetter({
-        circleIndex,
-        mousePos: [e.clientX, e.clientY],
-        rowIndex,
-      });
-      e.preventDefault();
-      break;
     case 'keydown':
-      closeValueSetter();
       if (e.key.match(/[1-9]/)) {
         setValue(e.key);
         return;
@@ -152,17 +136,12 @@ class Circle extends PureComponent {
       setPetalName,
     } = this.props;
 
-    const input = this.getInput();
-
     function openOperationSetterAndBlurInput(petalName, parentRow, parentCircle) {
       const petal = document.querySelector(
         `#game #row${parentRow} #circle${parentCircle} .petal--${petalClassMap[petalName]}`
       );
 
       if (!petal) return;
-
-      const dimensions = petal.getBoundingClientRect();
-
       setPetalName(petalName);
     }
 

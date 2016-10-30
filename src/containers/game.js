@@ -19,12 +19,9 @@ class Game extends PureComponent {
     const {
       buildRows,
       circleProps,
-      closeValueSetter,
       gameId,
       instructions,
       isDisabled,
-      valueSetterProps,
-      openValueSetter,
       operations,
       petalCount,
       petalName,
@@ -49,21 +46,18 @@ class Game extends PureComponent {
 
         <Controls
           isDisabled={ isDisabled }
-          petalName={ petalName }
           operations={ operations }
+          petalName={ petalName }
           setOperation={ setOperation } />
 
         <Board
           circleProps={ circleProps }
-          closeValueSetter={ closeValueSetter }
           gameId={ gameId }
           isDisabled={ isDisabled }
           key={ gameId }
-          openValueSetter={ openValueSetter }
           setOperation={ setOperation }
           setPetalName={ setPetalName }
-          setRowCircle={ setRowCircle }
-          valueSetterProps={ valueSetterProps } />
+          setRowCircle={ setRowCircle } />
 
         <Controls
           buildRows={ buildRows }
@@ -84,14 +78,12 @@ class Game extends PureComponent {
 Game.propTypes = {
   buildRows: PropTypes.func.isRequired,
   circleProps: PropTypes.array.isRequired,
-  closeValueSetter: PropTypes.func.isRequired,
   gameId: PropTypes.number.isRequired,
   instructions: PropTypes.object.isRequired,
   isDisabled: PropTypes.bool.isRequired,
-  openValueSetter: PropTypes.func.isRequired,
   operations: PropTypes.object,
-  petalName: PropTypes.string.isRequired,
   petalCount: PropTypes.number.isRequired,
+  petalName: PropTypes.string.isRequired,
   resetGame: PropTypes.func.isRequired,
   setInstructionStep: PropTypes.func.isRequired,
   setOperation: PropTypes.func.isRequired,
@@ -101,15 +93,12 @@ Game.propTypes = {
   setSize: PropTypes.func.isRequired,
   size: PropTypes.number.isRequired,
   toggleInstructions: PropTypes.func.isRequired,
-  valueSetterProps: PropTypes.object,
   won: PropTypes.bool.isRequired,
 };
 
 const mapDispatchToProps = ({
   buildRows: actions.buildRows,
   resetGame: actions.resetGame,
-  closeValueSetter: actions.closeValueSetter,
-  openValueSetter: actions.openValueSetter,
   setInstructionStep: actions.setInstructionStep,
   setOperation: actions.setOperation,
   setPetalCount: actions.setPetalCount,

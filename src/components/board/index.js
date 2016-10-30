@@ -11,14 +11,10 @@ import './index.css';
 class Board extends PureComponent {
   static propTypes = {
     circleProps: PropTypes.array.isRequired,
-    closeValueSetter: PropTypes.func,
     gameId: PropTypes.number,
     isDisabled: PropTypes.bool.isRequired,
-    openValueSetter: PropTypes.func,
-    setOperation: PropTypes.func,
     setPetalName: PropTypes.func,
     setRowCircle: PropTypes.func,
-    valueSetterProps: PropTypes.object,
   };
 
   constructor(props) {
@@ -42,12 +38,8 @@ class Board extends PureComponent {
   render() {
     const {
       circleProps,
-      closeValueSetter,
       gameId,
       isDisabled,
-      valueSetterProps,
-      openValueSetter,
-      setOperation,
       setRowCircle,
       setPetalName,
     } = this.props;
@@ -93,10 +85,8 @@ class Board extends PureComponent {
                 { circleRow.map((circle, circleIndex) =>
                   <Circle
                     circleIndex={ circleIndex }
-                    closeValueSetter={ closeValueSetter }
                     isDisabled={ isDisabled }
                     key={ circleIndex }
-                    openValueSetter={ openValueSetter }
                     rowIndex={ rowIndex }
                     setPetalName={ setPetalName }
                     setValue={ value =>
