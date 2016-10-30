@@ -1,7 +1,6 @@
 .game-wrapper {
   max-width: 100vw;
   overflow: hidden;
-  padding-top: 65px;
 }
 
 .game-wrapper.game-wrapper--prevent-scroll {

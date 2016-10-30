@@ -19,24 +19,26 @@ const rowMap = {
 
 class Controls extends PureComponent {
   static propTypes = {
-    buildRows: PropTypes.func.isRequired,
+    buildRows: PropTypes.func,
+    isBottom: PropTypes.bool,
     isDisabled: PropTypes.bool.isRequired,
-    petalCount: PropTypes.number.isRequired,
-    reset: PropTypes.func.isRequired,
-    setPetalCount: PropTypes.func.isRequired,
-    setSize: PropTypes.func.isRequired,
-    size: PropTypes.number.isRequired,
-    toggleInstructions: PropTypes.func.isRequired,
-    won: PropTypes.bool.isRequired,
+    petalCount: PropTypes.number,
+    reset: PropTypes.func,
+    setPetalCount: PropTypes.func,
+    setSize: PropTypes.func,
+    size: PropTypes.number,
+    toggleInstructions: PropTypes.func,
+    won: PropTypes.bool,
   };
 
   state = {
-    currentRow: rowMap.GAME_CONTROLS,
+    currentRow: rowMap.GAME_OPTIONS,
   };
 
   render() {
     const {
       buildRows,
+      isBottom,
       isDisabled,
       petalCount,
       reset,
@@ -56,6 +58,7 @@ class Controls extends PureComponent {
     const wrapperClasses = cx({
       'controls': true,
       'controls--won': won,
+      'controls--bottom': isBottom,
     });
 
     const rowButtons = (
@@ -80,62 +83,94 @@ class Controls extends PureComponent {
       </span>
     );
 
+    const innerContent = isBottom ? [
+      <div
+        className={ `controls__row controls__row--off-${currentRow}` }
+        key='0'>
+        { rowButtons }
+
+        <button
+          className='u-btn'
+          onClick={ () => buildRows(size, petalCount) }>New</button>
+
+        { won && 'YOU WON!' }
+
+        { !won && <button
+          className='u-btn'
+          disabled={ isDisabled }
+          onClick={ reset }>Reset</button> }
+
+        { !won && <button
+          className='u-btn u-btn--small'
+          onClick={ toggleInstructions }>?</button> }
+      </div>,
+      <div
+        className={ `controls__row controls__row--off-${currentRow}` }
+        key='1'>
+        { rowButtons }
+
+        <div className='controls__size-controls'>
+          <label>Size</label>
+          <button
+            className='u-btn u-btn--small'
+            disabled={ !canDecrementSize }
+            onClick={ () => setSize(size - 1) }>
+            -
+          </button>
+          <span className='controls__size'>{ size }</span>
+          <button
+            className='u-btn u-btn--small'
+            disabled={ !canIncrementSize }
+            onClick={ () => setSize(size + 1) }>
+            +
+          </button>
+        </div>
+
+        <div className='controls__size-controls'>
+          <label>Petals</label>
+          <button
+            className='u-btn u-btn--small'
+            disabled={ !canDecrementPetals }
+            onClick={ () => setPetalCount(petalCount - 1) }>
+            -
+          </button>
+          <span className='controls__size'>{ petalCount }</span>
+          <button
+            className='u-btn u-btn--small'
+            disabled={ !canIncrementPetals }
+            onClick={ () => setPetalCount(petalCount + 1) }>
+            +
+          </button>
+        </div>
+      </div>,
+    ] : (
+      <div className='controls__row'>
+        <span className='controls__row-btns'>
+          { R.keys(OPERATIONS).map((operationName, i) =>
+            <button
+              className='u-btn u-btn--small'
+              key={ i }>
+              { OPERATIONS[operationName].label }
+            </button>
+          ) }
+        </span>
+
+        <span className='controls__row-btns'>
+          { R.range(1, 10).map(n =>
+            <button
+              className='u-btn u-btn--small u-btn--dark'
+              key={ n }>
+              { n }
+            </button>
+          ) }
+        </span>
+      </div>
+    );
+
     return (
       <div className={ wrapperClasses }>
         <div className='controls__inner'>
-          <div className={ `controls__row controls__row--off-${currentRow}` }>
-            { rowButtons }
-
-            <button
-              className='u-btn'
-              onClick={ () => buildRows(size, petalCount) }>New</button>
-
-            <button
-              className='u-btn'
-              disabled={ isDisabled }
-              onClick={ reset }>Reset</button>
-
-            <button
-              className='u-btn u-btn--small'
-              onClick={ toggleInstructions }>?</button>
-          </div>
-          <div className={ `controls__row controls__row--off-${currentRow}` }>
-            { rowButtons }
-
-            <div className='controls__size-controls'>
-              <label>Size</label>
-              <button
-                className='u-btn u-btn--small'
-                disabled={ !canDecrementSize }
-                onClick={ () => setSize(size - 1) }>
-                -
-              </button>
-              <span className='controls__size'>{ size }</span>
-              <button
-                className='u-btn u-btn--small'
-                disabled={ !canIncrementSize }
-                onClick={ () => setSize(size + 1) }>
-                +
-              </button>
-            </div>
-
-            <div className='controls__size-controls'>
-              <label>Petals</label>
-              <button
-                className='u-btn u-btn--small'
-                disabled={ !canDecrementPetals }
-                onClick={ () => setPetalCount(petalCount - 1) }>
-                -
-              </button>
-              <span className='controls__size'>{ petalCount }</span>
-              <button
-                className='u-btn u-btn--small'
-                disabled={ !canIncrementPetals }
-                onClick={ () => setPetalCount(petalCount + 1) }>
-                +
-              </button>
-            </div>
-          </div>
+          { innerContent }
         </div>
       </div>
     );

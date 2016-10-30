@@ -1,4 +1,15 @@
 .board {
+  bottom: 60px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 60px;
+}
+
+.board__inner {
+  left: 0;
+  position: absolute;
   text-align: left;
-  transform-origin: 50% 0;
+  top: 0;
+  transform-origin: 0 0;
 }

@@ -47,16 +47,7 @@ class Game extends PureComponent {
           toggleInstructions={ toggleInstructions }
           { ...instructions } />
 
-        <Controls
-          buildRows={ buildRows }
-          isDisabled={ isDisabled }
-          petalCount={ petalCount }
-          reset={ resetGame }
-          setPetalCount={ setPetalCount }
-          setSize={ setSize }
-          size={ size }
-          toggleInstructions={ toggleInstructions }
-          won={ won } />
+        <Controls isDisabled={ isDisabled } />
 
         <Board
           circleProps={ circleProps }
@@ -71,6 +62,18 @@ class Game extends PureComponent {
           setOperation={ setOperation }
           setRowCircle={ setRowCircle }
           valueSetterProps={ valueSetterProps } />
+
+        <Controls
+          buildRows={ buildRows }
+          isBottom
+          isDisabled={ isDisabled }
+          petalCount={ petalCount }
+          reset={ resetGame }
+          setPetalCount={ setPetalCount }
+          setSize={ setSize }
+          size={ size }
+          toggleInstructions={ toggleInstructions }
+          won={ won } />
       </GameWrapper>
     );
   }
