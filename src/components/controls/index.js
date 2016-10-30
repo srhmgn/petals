@@ -22,6 +22,7 @@ class Controls extends PureComponent {
     buildRows: PropTypes.func,
     isBottom: PropTypes.bool,
     isDisabled: PropTypes.bool.isRequired,
+    operations: PropTypes.object,
     petalCount: PropTypes.number,
     petalName: PropTypes.string,
     reset: PropTypes.func,
@@ -42,6 +43,7 @@ class Controls extends PureComponent {
       buildRows,
       isBottom,
       isDisabled,
+      operations,
       petalCount,
       petalName,
       reset,
@@ -151,19 +153,27 @@ class Controls extends PureComponent {
     ] : (
       <div className='controls__row'>
         <span className='controls__row-btns'>
-          { R.keys(OPERATIONS).map((operationName, i) =>
-            <button
-              className='u-btn u-btn--small u-btn--dark'
-              disabled={ isDisabled }
-              onClick={ () =>
-                setOperation({
-                  [petalName]: OPERATIONS[operationName],
-                })
-              }
-              key={ i }>
-              { OPERATIONS[operationName].label }
-            </button>
-          ) }
+          { R.keys(OPERATIONS).map((operationName, i) => {
+            const buttonClasses = cx({
+              'u-btn u-btn--small u-btn--dark': true,
+              'is-active': operations[petalName].label ===
+                OPERATIONS[operationName].label,
+            });
+
+            return (
+              <button
+                className={ buttonClasses }
+                disabled={ isDisabled }
+                onClick={ () =>
+                  setOperation({
+                    [petalName]: OPERATIONS[operationName],
+                  })
+                }
+                key={ i }>
+                { OPERATIONS[operationName].label }
+              </button>
+            );
+          }) }
         </span>
 
         <span className='controls__row-btns'>

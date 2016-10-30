@@ -30,7 +30,7 @@
 
 .controls--rightAlt {
   background-color: var(--color-right-alt-invalid);
-  border-bottom: 1px solid var(--color-bottom-right-alt-invalid);
+  border-bottom: 1px solid var(--color-right-alt-invalid);
 }
 
 .controls--bottomRight {
@@ -80,4 +80,9 @@
 
 .controls__row-btns button + button {
   margin-left: 1px;
+}
+
+.controls__row-btns button.is-active {
+  background-color: var(--color-white);
+  color: var(--color-gray-dark);
 }

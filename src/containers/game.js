@@ -25,6 +25,7 @@ class Game extends PureComponent {
       isDisabled,
       valueSetterProps,
       openValueSetter,
+      operations,
       petalCount,
       petalName,
       resetGame,
@@ -49,6 +50,7 @@ class Game extends PureComponent {
         <Controls
           isDisabled={ isDisabled }
           petalName={ petalName }
+          operations={ operations }
           setOperation={ setOperation } />
 
         <Board
@@ -87,6 +89,7 @@ Game.propTypes = {
   instructions: PropTypes.object.isRequired,
   isDisabled: PropTypes.bool.isRequired,
   openValueSetter: PropTypes.func.isRequired,
+  operations: PropTypes.object,
   petalName: PropTypes.string.isRequired,
   petalCount: PropTypes.number.isRequired,
   resetGame: PropTypes.func.isRequired,

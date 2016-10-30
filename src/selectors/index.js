@@ -36,14 +36,12 @@ function getPetalProps(name, petalProps) {
 }
 
 const selectValueSetterProps = R.prop('valueSetter');
-const selectOperationSetterProps = R.prop('operationSetter');
 
 const selectCircleProps = createSelector(
   selectOperations,
   selectRows,
-  selectOperationSetterProps,
   selectValueSetterProps,
-  (operations, rows, operationSetter, valueSetter) =>
+  (operations, rows, valueSetter) =>
     rows.map((row, rowIndex) => {
       const nextRow = rows[rowIndex + 1];
       return row.map((circle, circleIndex) => {
@@ -55,7 +53,6 @@ const selectCircleProps = createSelector(
             right: getValue(row[circleIndex + 1]),
           },
           operations,
-          operationSetter,
           parentIndex: `row${rowIndex}-circle${circleIndex}`,
           parentValue: getValue(circle),
           statikData: circle.statik,
@@ -93,31 +90,6 @@ const selectIsDisabled = createSelector(
   selectInstructions,
   selectWon,
   ({ isVisible }, won) => isVisible || won
-);
-
-const selectFinalOperationSetterProps = createSelector(
-  selectOperations,
-  selectOperationSetterProps,
-  selectIsDisabled,
-  (operations, operationSetterProps, isDisabled) => {
-    let activeIndex;
-
-    const { petalName, ...otherOperationSetterProps } = operationSetterProps || {};
-
-    if (operationSetterProps) {
-      const currentLabel = operations[petalName].label;
-      activeIndex = R.findIndex(
-        R.propEq('label', currentLabel),
-        R.values(OPERATIONS),
-      );
-    }
-
-    return {
-      activeIndex,
-      petalName: isDisabled ? null : petalName,
-      ...otherOperationSetterProps,
-    };
-  }
 );
 
 export default createStructuredSelector({

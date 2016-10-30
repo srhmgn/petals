@@ -16,7 +16,6 @@ function Petal({
   isDisabled,
   isInvalid,
   name,
-  operationSetter,
   setPetalName,
 }) {
   const handleClick = () => {
@@ -41,7 +40,6 @@ Petal.propTypes = {
   isDisabled: PropTypes.bool.isRequired,
   isInvalid: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
-  operationSetter: PropTypes.object,
   setPetalName: PropTypes.func,
 };
 
