@@ -18,6 +18,10 @@ button {
 *::after {
   box-sizing: border-box;
   font-family: 'Lato', sans-serif;
+  transition:
+    background-color 200ms ease-in,
+    border-color 200ms ease-in,
+    fill 200ms ease-in;
 }
 
 *:focus {

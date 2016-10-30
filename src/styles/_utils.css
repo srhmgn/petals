@@ -21,7 +21,7 @@
   color: var(--color-controls);
 }
 
-.u-btn[disabled] {
+.u-btn:not(.u-btn--dark)[disabled] {
   background-color: var(--color-controls-invalid);
 }
 

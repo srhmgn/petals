@@ -7,10 +7,11 @@ class GameWrapper extends PureComponent {
   static propTypes = {
     children: PropTypes.node.isRequired,
     preventScroll: PropTypes.bool.isRequired,
+    setPos: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
-    // this.scrollLeft();
+    this.component.focus();
   }
 
   render() {
@@ -24,7 +25,9 @@ class GameWrapper extends PureComponent {
     return (
       <div
         className={ wrapperClasses }
-        ref={ c => { this.component = c; } }>
+        onKeyDown={ () => { console.log('hi'); } }
+        ref={ c => { this.component = c; } }
+        tabIndex='-1'>
         { children }
       </div>
     );

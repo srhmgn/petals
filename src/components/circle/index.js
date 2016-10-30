@@ -14,6 +14,7 @@ class Circle extends PureComponent {
     data: PropTypes.object.isRequired,
     isDisabled: PropTypes.bool.isRequired,
     rowIndex: PropTypes.number.isRequired,
+    pos: PropTypes.object,
     setPetalName: PropTypes.func,
     setValue: PropTypes.func.isRequired,
   };
@@ -42,12 +43,16 @@ class Circle extends PureComponent {
       circleIndex,
       data: { dynamic: { value } },
       isDisabled,
-     } = this.props;
+      pos = {},
+      rowIndex,
+    } = this.props;
 
     const numberClassNames = cx({
       'circle__number': true,
       'circle__number--static': this.isStatic(),
       'circle__number--disabled': isDisabled,
+      'circle__number--active': pos.circleIndex === circleIndex &&
+        pos.rowIndex === rowIndex,
     });
 
     return (

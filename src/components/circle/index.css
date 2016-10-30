@@ -32,7 +32,7 @@
   text-align: center;
   width: 100%;
 
-  &:focus .circle__number-inner {
+  &.circle__number--active .circle__number-inner {
     background-color: var(--color-gray-light);
   }
 }

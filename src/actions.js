@@ -64,3 +64,11 @@ export const setInstructionStep = step => ({
   type: 'SET_INSTRUCTIONS_STEP',
   step,
 });
+
+/* pos */
+
+export const setPos = (rowIndex, circleIndex) => ({
+  type: 'SET_POS',
+  circleIndex,
+  rowIndex,
+});

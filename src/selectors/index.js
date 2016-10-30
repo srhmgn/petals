@@ -37,7 +37,8 @@ function getPetalProps(name, petalProps) {
 const selectCircleProps = createSelector(
   selectOperations,
   selectRows,
-  (operations, rows) =>
+  R.prop('pos'),
+  (operations, rows, pos) =>
     rows.map((row, rowIndex) => {
       const nextRow = rows[rowIndex + 1];
       return row.map((circle, circleIndex) => {
@@ -62,6 +63,7 @@ const selectCircleProps = createSelector(
             getPetalProps('bottomLeft', basePetalProps),
             getPetalProps('bottomRight', basePetalProps),
           ],
+          pos,
         };
       });
     })

@@ -30,6 +30,7 @@ class Game extends PureComponent {
       setOperation,
       setPetalCount,
       setPetalName,
+      setPos,
       setRowCircle,
       setSize,
       size,
@@ -38,17 +39,20 @@ class Game extends PureComponent {
     } = this.props;
 
     return (
-      <GameWrapper key={ gameId } preventScroll={ instructions.isVisible }>
+      <GameWrapper
+        key={ gameId }
+        preventScroll={ instructions.isVisible }
+        setPos={ setPos }>
         <Instructions
           setStep={ setInstructionStep }
           toggleInstructions={ toggleInstructions }
           { ...instructions } />
 
-        <Controls
+        { !instructions.isVisible && <Controls
           isDisabled={ isDisabled }
           operations={ operations }
           petalName={ petalName }
-          setOperation={ setOperation } />
+          setOperation={ setOperation } /> }
 
         <Board
           circleProps={ circleProps }
@@ -89,6 +93,7 @@ Game.propTypes = {
   setOperation: PropTypes.func.isRequired,
   setPetalCount: PropTypes.func.isRequired,
   setPetalName: PropTypes.func.isRequired,
+  setPos: PropTypes.func.isRequired,
   setRowCircle: PropTypes.func.isRequired,
   setSize: PropTypes.func.isRequired,
   size: PropTypes.number.isRequired,
@@ -103,6 +108,7 @@ const mapDispatchToProps = ({
   setOperation: actions.setOperation,
   setPetalCount: actions.setPetalCount,
   setPetalName: actions.setPetalName,
+  setPos: actions.setPos,
   setRowCircle: actions.setRowCircle,
   setSize: actions.setSize,
   toggleInstructions: actions.toggleInstructions,
