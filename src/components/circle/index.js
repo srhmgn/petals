@@ -95,9 +95,7 @@ class Circle extends PureComponent {
 
   handleEvent = (e) => {
     const {
-      circleIndex,
       isDisabled,
-      rowIndex,
       setValue,
     } = this.props;
 
