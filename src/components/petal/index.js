@@ -13,27 +13,15 @@ export const petalClassMap = {
 };
 
 function Petal({
-  closeOperationSetter,
   isDisabled,
   isInvalid,
   name,
-  openOperationSetter,
   operationSetter,
-  parentIndex,
+  setPetalName,
 }) {
-  const isOpen = operationSetter
-    && operationSetter.petalName === name
-    && operationSetter.parentIndex === parentIndex;
-
-  const handleClick = e => {
+  const handleClick = () => {
     if (isDisabled) return;
-
-    isOpen ?
-      closeOperationSetter() : openOperationSetter({
-        mousePos: [e.clientX, e.clientY],
-        parentIndex,
-        petalName: name,
-      });
+    setPetalName(name);
   };
 
   return (
@@ -50,13 +38,11 @@ function Petal({
 }
 
 Petal.propTypes = {
-  closeOperationSetter: PropTypes.func,
   isDisabled: PropTypes.bool.isRequired,
   isInvalid: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
-  openOperationSetter: PropTypes.func,
   operationSetter: PropTypes.object,
-  parentIndex: PropTypes.string,
+  setPetalName: PropTypes.func,
 };
 
 export default Petal;

@@ -5,15 +5,11 @@ export const setOperation = props => ({
   ...props,
 });
 
-/* operation setter */
+/* petals */
 
-export const openOperationSetter = props => ({
-  type: 'OPEN_OPERATION_SETTER',
-  ...props,
-});
-
-export const closeOperationSetter = () => ({
-  type: 'CLOSE_OPERATION_SETTER',
+export const setPetalName = petalName => ({
+  type: 'SET_PETAL_NAME',
+  petalName,
 });
 
 /* value setter */

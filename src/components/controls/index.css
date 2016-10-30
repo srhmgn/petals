@@ -13,14 +13,34 @@
   }
 }
 
-.controls:not(.controls--bottom) {
+.controls--top {
   border-bottom: 1px solid var(--color-controls);
   top: 0;
 }
 
-.controls--bottom {
+.controls:not(.controls--top) {
   border-top: 1px solid var(--color-controls);
   bottom: 0;
+}
+
+.controls--right {
+  background-color: var(--color-right-invalid);
+  border-bottom: 1px solid var(--color-right-invalid);
+}
+
+.controls--rightAlt {
+  background-color: var(--color-right-alt-invalid);
+  border-bottom: 1px solid var(--color-bottom-right-alt-invalid);
+}
+
+.controls--bottomRight {
+  background-color: var(--color-bottom-right-invalid);
+  border-bottom: 1px solid var(--color-bottom-right-invalid);
+}
+
+.controls--bottomLeft {
+  background-color: var(--color-bottom-left-invalid);
+  border-bottom: 1px solid var(--color-bottom-left-invalid);
 }
 
 .controls.controls--won {
@@ -28,10 +48,10 @@
 }
 
 .controls__inner {
-  height: 40px;
+  height: 50px;
   margin: 0 auto;
   overflow: hidden;
-  padding: 5px;
+  padding: 10px 5px;
   width: 320px;
 }
 

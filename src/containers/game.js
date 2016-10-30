@@ -19,20 +19,19 @@ class Game extends PureComponent {
     const {
       buildRows,
       circleProps,
-      closeOperationSetter,
       closeValueSetter,
       gameId,
       instructions,
       isDisabled,
       valueSetterProps,
-      openOperationSetter,
       openValueSetter,
-      operationSetterProps,
       petalCount,
+      petalName,
       resetGame,
       setInstructionStep,
       setOperation,
       setPetalCount,
+      setPetalName,
       setRowCircle,
       setSize,
       size,
@@ -47,19 +46,20 @@ class Game extends PureComponent {
           toggleInstructions={ toggleInstructions }
           { ...instructions } />
 
-        <Controls isDisabled={ isDisabled } />
+        <Controls
+          isDisabled={ isDisabled }
+          petalName={ petalName }
+          setOperation={ setOperation } />
 
         <Board
           circleProps={ circleProps }
-          closeOperationSetter={ closeOperationSetter }
           closeValueSetter={ closeValueSetter }
           gameId={ gameId }
           isDisabled={ isDisabled }
           key={ gameId }
-          openOperationSetter={ openOperationSetter }
           openValueSetter={ openValueSetter }
-          operationSetterProps={ operationSetterProps }
           setOperation={ setOperation }
+          setPetalName={ setPetalName }
           setRowCircle={ setRowCircle }
           valueSetterProps={ valueSetterProps } />
 
@@ -82,19 +82,18 @@ class Game extends PureComponent {
 Game.propTypes = {
   buildRows: PropTypes.func.isRequired,
   circleProps: PropTypes.array.isRequired,
-  closeOperationSetter: PropTypes.func.isRequired,
   closeValueSetter: PropTypes.func.isRequired,
   gameId: PropTypes.number.isRequired,
   instructions: PropTypes.object.isRequired,
   isDisabled: PropTypes.bool.isRequired,
-  openOperationSetter: PropTypes.func.isRequired,
   openValueSetter: PropTypes.func.isRequired,
-  operationSetterProps: PropTypes.object.isRequired,
+  petalName: PropTypes.string.isRequired,
   petalCount: PropTypes.number.isRequired,
   resetGame: PropTypes.func.isRequired,
   setInstructionStep: PropTypes.func.isRequired,
   setOperation: PropTypes.func.isRequired,
   setPetalCount: PropTypes.func.isRequired,
+  setPetalName: PropTypes.func.isRequired,
   setRowCircle: PropTypes.func.isRequired,
   setSize: PropTypes.func.isRequired,
   size: PropTypes.number.isRequired,
@@ -106,13 +105,12 @@ Game.propTypes = {
 const mapDispatchToProps = ({
   buildRows: actions.buildRows,
   resetGame: actions.resetGame,
-  closeOperationSetter: actions.closeOperationSetter,
   closeValueSetter: actions.closeValueSetter,
-  openOperationSetter: actions.openOperationSetter,
   openValueSetter: actions.openValueSetter,
   setInstructionStep: actions.setInstructionStep,
   setOperation: actions.setOperation,
   setPetalCount: actions.setPetalCount,
+  setPetalName: actions.setPetalName,
   setRowCircle: actions.setRowCircle,
   setSize: actions.setSize,
   toggleInstructions: actions.toggleInstructions,

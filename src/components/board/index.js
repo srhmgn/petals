@@ -11,14 +11,12 @@ import './index.css';
 class Board extends PureComponent {
   static propTypes = {
     circleProps: PropTypes.array.isRequired,
-    closeOperationSetter: PropTypes.func,
     closeValueSetter: PropTypes.func,
     gameId: PropTypes.number,
     isDisabled: PropTypes.bool.isRequired,
-    openOperationSetter: PropTypes.func,
     openValueSetter: PropTypes.func,
-    operationSetterProps: PropTypes.object,
     setOperation: PropTypes.func,
+    setPetalName: PropTypes.func,
     setRowCircle: PropTypes.func,
     valueSetterProps: PropTypes.object,
   };
@@ -44,16 +42,14 @@ class Board extends PureComponent {
   render() {
     const {
       circleProps,
-      closeOperationSetter,
       closeValueSetter,
       gameId,
       isDisabled,
       valueSetterProps,
-      openOperationSetter,
       openValueSetter,
       setOperation,
       setRowCircle,
-      operationSetterProps,
+      setPetalName,
     } = this.props;
 
     let transform;
@@ -100,9 +96,9 @@ class Board extends PureComponent {
                     closeValueSetter={ closeValueSetter }
                     isDisabled={ isDisabled }
                     key={ circleIndex }
-                    openOperationSetter={ openOperationSetter }
                     openValueSetter={ openValueSetter }
                     rowIndex={ rowIndex }
+                    setPetalName={ setPetalName }
                     setValue={ value =>
                       setRowCircle({
                         circleIndex,
@@ -114,10 +110,9 @@ class Board extends PureComponent {
                     { circle.petals.map((petal, petalIndex) =>
                       !!petal && [
                         <Petal
-                          closeOperationSetter={ closeOperationSetter }
                           isDisabled={ isDisabled }
                           key={ petalIndex }
-                          openOperationSetter={ openOperationSetter }
+                          setPetalName={ setPetalName }
                           { ...petal } />,
                         <PetalText
                           key={ `${petalIndex}-text` }

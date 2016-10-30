@@ -22,9 +22,9 @@ class Circle extends PureComponent {
     data: PropTypes.object.isRequired,
     isDisabled: PropTypes.bool.isRequired,
     isValueSetterOption: PropTypes.bool,
-    openOperationSetter: PropTypes.func,
     openValueSetter: PropTypes.func,
     rowIndex: PropTypes.number.isRequired,
+    setPetalName: PropTypes.func,
     setValue: PropTypes.func.isRequired,
   };
 
@@ -155,8 +155,8 @@ class Circle extends PureComponent {
   openOperationSetterForPetal = (keys) => {
     const {
       circleIndex,
-      openOperationSetter,
       rowIndex,
+      setPetalName,
     } = this.props;
 
     const input = this.getInput();
@@ -170,15 +170,7 @@ class Circle extends PureComponent {
 
       const dimensions = petal.getBoundingClientRect();
 
-      openOperationSetter({
-        petalName,
-        parentIndex: `row${parentRow}-circle${parentCircle}`,
-        opener: input,
-        mousePos: [
-          dimensions.left + MOUSE_POS_MAP[petalName][0],
-          dimensions.top + MOUSE_POS_MAP[petalName][1],
-        ],
-      });
+      setPetalName(petalName);
     }
 
     if (R.contains('ArrowUp', keys) && R.contains('ArrowRight', keys)) {

@@ -23,8 +23,10 @@ class Controls extends PureComponent {
     isBottom: PropTypes.bool,
     isDisabled: PropTypes.bool.isRequired,
     petalCount: PropTypes.number,
+    petalName: PropTypes.string,
     reset: PropTypes.func,
     setPetalCount: PropTypes.func,
+    setOperation: PropTypes.func,
     setSize: PropTypes.func,
     size: PropTypes.number,
     toggleInstructions: PropTypes.func,
@@ -41,7 +43,9 @@ class Controls extends PureComponent {
       isBottom,
       isDisabled,
       petalCount,
+      petalName,
       reset,
+      setOperation,
       setPetalCount,
       setSize,
       size,
@@ -58,7 +62,8 @@ class Controls extends PureComponent {
     const wrapperClasses = cx({
       'controls': true,
       'controls--won': won,
-      'controls--bottom': isBottom,
+      'controls--top': !isBottom,
+      [`controls--${petalName}`]: petalName,
     });
 
     const rowButtons = (
@@ -148,7 +153,13 @@ class Controls extends PureComponent {
         <span className='controls__row-btns'>
           { R.keys(OPERATIONS).map((operationName, i) =>
             <button
-              className='u-btn u-btn--small'
+              className='u-btn u-btn--small u-btn--dark'
+              disabled={ isDisabled }
+              onClick={ () =>
+                setOperation({
+                  [petalName]: OPERATIONS[operationName],
+                })
+              }
               key={ i }>
               { OPERATIONS[operationName].label }
             </button>
@@ -159,6 +170,7 @@ class Controls extends PureComponent {
           { R.range(1, 10).map(n =>
             <button
               className='u-btn u-btn--small u-btn--dark'
+              disabled={ isDisabled }
               key={ n }>
               { n }
             </button>

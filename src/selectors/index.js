@@ -126,7 +126,7 @@ export default createStructuredSelector({
   instructions: selectInstructions,
   isDisabled: selectIsDisabled,
   operations: selectOperations,
-  operationSetterProps: selectFinalOperationSetterProps,
+  petalName: R.prop('petalName'),
   petalCount: R.prop('petalCount'),
   rows: selectRows,
   size: R.prop('size'),
