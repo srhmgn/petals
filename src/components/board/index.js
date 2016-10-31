@@ -58,7 +58,7 @@ class Board extends PureComponent {
       style = { transform, left: '50%', top: '50%' };
     } else {
       transform = 'translate(-50%, 0)';
-      style = { transform, left: '50%' };
+      style = { transform, left: '50%', top: 76 };
     }
 
     return (
