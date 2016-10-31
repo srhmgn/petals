@@ -209,9 +209,9 @@ class GameWrapper extends PureComponent {
       });
     }
 
-    coords.some(({ circleIdx, rowIdx }) => {
+    coords.some(({ circleIndex: circleIdx, rowIndex: rowIdx }) => {
       if (rows[rowIdx] && rows[rowIdx][circleIdx]) {
-        setPos({ circleIdx, rowIdx });
+        setPos({ circleIndex: circleIdx, rowIndex: rowIdx });
         return true;
       }
 
