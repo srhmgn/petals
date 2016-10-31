@@ -25,8 +25,9 @@ class Board extends PureComponent {
       props.circleProps[0].length : 0;
 
     this.originalScale = body.offsetWidth / (120 * this.currentSize);
-    this.isTallerThanContainer = (body.offsetHeight - 120) <=
-      (140 * this.currentSize);
+
+    this.isTallerThanContainer = (body.offsetHeight - 160) <=
+      (130 * this.currentSize);
 
     this.startingScale = this.originalScale;
 
