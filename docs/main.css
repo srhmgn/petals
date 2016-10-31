@@ -5,12 +5,7 @@ body {
   color: var(--color-black);
   font-size: 16px;
   margin: 0;
-  overflow: hidden;
   padding: 0;
-}
-
-* {
-  transition: background-color 200ms ease-in;
 }
 
 input,
@@ -21,9 +16,12 @@ button {
 *,
 *::before,
 *::after {
-  background-color: red !important;
   box-sizing: border-box;
-  /*font-family: 'Lato', sans-serif;*/
+  font-family: 'Lato', sans-serif;
+  transition:
+    background-color 200ms ease-in,
+    border-color 200ms ease-in,
+    fill 200ms ease-in;
 }
 
 *:focus {
