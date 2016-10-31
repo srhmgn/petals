@@ -25,7 +25,9 @@ class Game extends PureComponent {
       operations,
       petalCount,
       petalName,
+      pos,
       resetGame,
+      rows,
       setInstructionStep,
       setOperation,
       setPetalCount,
@@ -40,9 +42,16 @@ class Game extends PureComponent {
 
     return (
       <GameWrapper
+        isDisabled={ isDisabled }
         key={ gameId }
-        preventScroll={ instructions.isVisible }
-        setPos={ setPos }>
+        operations={ operations }
+        petalName={ petalName }
+        pos={ pos }
+        rows={ rows }
+        setOperation={ setOperation }
+        setPetalName={ setPetalName }
+        setPos={ setPos }
+        setRowCircle={ setRowCircle }>
         <Instructions
           setStep={ setInstructionStep }
           toggleInstructions={ toggleInstructions }
@@ -52,7 +61,10 @@ class Game extends PureComponent {
           isDisabled={ isDisabled }
           operations={ operations }
           petalName={ petalName }
-          setOperation={ setOperation } /> }
+          pos={ pos }
+          rows={ rows }
+          setOperation={ setOperation }
+          setRowCircle={ setRowCircle } /> }
 
         <Board
           circleProps={ circleProps }
@@ -61,6 +73,7 @@ class Game extends PureComponent {
           key={ gameId }
           setOperation={ setOperation }
           setPetalName={ setPetalName }
+          setPos={ setPos }
           setRowCircle={ setRowCircle } />
 
         <Controls
@@ -88,7 +101,9 @@ Game.propTypes = {
   operations: PropTypes.object,
   petalCount: PropTypes.number.isRequired,
   petalName: PropTypes.string.isRequired,
+  pos: PropTypes.object,
   resetGame: PropTypes.func.isRequired,
+  rows: PropTypes.array.isRequired,
   setInstructionStep: PropTypes.func.isRequired,
   setOperation: PropTypes.func.isRequired,
   setPetalCount: PropTypes.func.isRequired,

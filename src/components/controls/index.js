@@ -5,6 +5,7 @@ import R from 'ramda';
 import './index.css';
 
 import { OPERATIONS } from '../../constants';
+import { getValue } from '../../utils';
 
 const MAX_SIZE = 8;
 const MIN_SIZE = 3;
@@ -25,9 +26,12 @@ class Controls extends PureComponent {
     operations: PropTypes.object,
     petalCount: PropTypes.number,
     petalName: PropTypes.string,
+    pos: PropTypes.object,
     reset: PropTypes.func,
+    rows: PropTypes.array,
     setOperation: PropTypes.func,
     setPetalCount: PropTypes.func,
+    setRowCircle: PropTypes.func,
     setSize: PropTypes.func,
     size: PropTypes.number,
     toggleInstructions: PropTypes.func,
@@ -46,9 +50,12 @@ class Controls extends PureComponent {
       operations,
       petalCount,
       petalName,
+      pos,
       reset,
+      rows,
       setOperation,
       setPetalCount,
+      setRowCircle,
       setSize,
       size,
       toggleInstructions,
@@ -177,14 +184,30 @@ class Controls extends PureComponent {
         </span>
 
         <span className='controls__row-btns'>
-          { R.range(1, 10).map(n =>
-            <button
-              className='u-btn u-btn--small u-btn--dark'
-              disabled={ isDisabled }
-              key={ n }>
-              { n }
-            </button>
-          ) }
+          { R.range(1, 10).map(n => {
+            const { rowIndex, circleIndex } = pos;
+
+            const buttonClasses = cx({
+              'u-btn u-btn--small u-btn--dark': true,
+              'is-active': rows[rowIndex]
+                && Number(getValue(rows[rowIndex][circleIndex])) === n,
+            });
+
+            return (
+              <button
+                className={ buttonClasses }
+                disabled={ isDisabled }
+                key={ n }
+                onClick={ () =>
+                  setRowCircle({
+                    value: n,
+                    ...pos,
+                  })
+                }>
+                { n }
+              </button>
+            );
+          }) }
         </span>
       </div>
     );

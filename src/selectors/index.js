@@ -96,6 +96,7 @@ export default createStructuredSelector({
   petalName: R.prop('petalName'),
   petalCount: R.prop('petalCount'),
   rows: selectRows,
+  pos: R.prop('pos'),
   size: R.prop('size'),
   won: selectWon,
 });

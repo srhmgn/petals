@@ -7,6 +7,9 @@ export default function(state = INITIAL_STATE, action) {
       circleIndex: action.circleIndex,
       rowIndex: action.rowIndex,
     };
+  case 'BUILD_ROWS':
+  case 'RESET_GAME':
+    return INITIAL_STATE;
   default:
     return state;
   }

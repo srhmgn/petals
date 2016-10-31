@@ -14,7 +14,7 @@ class Board extends PureComponent {
     gameId: PropTypes.number,
     isDisabled: PropTypes.bool.isRequired,
     setPetalName: PropTypes.func,
-    setRowCircle: PropTypes.func,
+    setPos: PropTypes.func,
   };
 
   constructor(props) {
@@ -40,8 +40,8 @@ class Board extends PureComponent {
       circleProps,
       gameId,
       isDisabled,
-      setRowCircle,
       setPetalName,
+      setPos,
     } = this.props;
 
     let transform;
@@ -88,13 +88,7 @@ class Board extends PureComponent {
                     isDisabled={ isDisabled }
                     key={ circleIndex }
                     rowIndex={ rowIndex }
-                    setPetalName={ setPetalName }
-                    setValue={ value =>
-                      setRowCircle({
-                        circleIndex,
-                        rowIndex,
-                        value,
-                      }) }
+                    setPos={ setPos }
                     { ...circle }>
 
                     { circle.petals.map((petal, petalIndex) =>
