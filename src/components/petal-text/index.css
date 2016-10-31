@@ -12,11 +12,13 @@
   transform: translateY(-50%);
 }
 
+.text--bottom-right-alt,
 .text--bottom-right,
 .text--bottom-left {
   top: 158px;
 }
 
+.text--bottom-right-alt,
 .text--bottom-right {
   left: 106px;
 }

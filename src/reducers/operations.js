@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   rightAlt: OPERATIONS.ADD,
   bottomLeft: OPERATIONS.ADD,
   bottomRight: OPERATIONS.ADD,
+  bottomRightAlt: OPERATIONS.ADD,
 };
 
 export default function(state = INITIAL_STATE, { type, ...newOp }) {

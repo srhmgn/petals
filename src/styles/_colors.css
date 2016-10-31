@@ -14,6 +14,8 @@
   --color-right-alt-invalid: color(var(--color-right-alt) var(--filter-invalid));
   --color-bottom-right: #FF5DCA;
   --color-bottom-right-invalid: color(var(--color-bottom-right) var(--filter-invalid));
+  --color-bottom-right-alt: #8E5CB2;
+  --color-bottom-right-alt-invalid: color(var(--color-bottom-right-alt) var(--filter-invalid));
   --color-bottom-left: #FFE448;
   --color-bottom-left-invalid: color(var(--color-bottom-left) var(--filter-invalid));
   --color-controls: var(--color-gray-light);

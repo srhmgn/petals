@@ -39,6 +39,14 @@
 
 .petal--bottom-right {
   fill: var(--color-bottom-right);
+}
+
+.petal--bottom-right-alt {
+  fill: var(--color-bottom-right-alt);
+}
+
+.petal--bottom-right,
+.petal--bottom-right-alt {
   transform: translate(180px, 120px) rotate(60deg);
 }
 
@@ -47,6 +55,14 @@
 
   &:not(.petal--disabled):hover {
     fill: color(var(--color-bottom-right-invalid) tint(20%));
+  }
+}
+
+.petal--bottom-right-alt.petal--invalid {
+  fill: var(--color-bottom-right-alt-invalid);
+
+  &:not(.petal--disabled):hover {
+    fill: color(var(--color-bottom-right-alt-invalid) tint(20%));
   }
 }
 

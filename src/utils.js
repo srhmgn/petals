@@ -164,6 +164,7 @@ export function buildRows(size, petalCount, tries = 0) {
   /* eslint-enable no-console */
 
   const rightAlt = petalCount > 3 ? 'rightAlt' : 'right';
+  const bottomRightAlt = petalCount > 4 ? 'bottomRightAlt' : 'bottomRight';
 
   if (tries >= 10) return null;
 
@@ -171,6 +172,7 @@ export function buildRows(size, petalCount, tries = 0) {
     rightAlt: getRandomOperation(),
     right: getRandomOperation(),
     bottomRight: getRandomOperation(),
+    bottomRightAlt: getRandomOperation(),
   };
 
   const rows = buildRowShape([], size);
@@ -215,7 +217,7 @@ export function buildRows(size, petalCount, tries = 0) {
         circle: rows[1][s - 2],
         operations,
         sets: [
-          { setCircle: rows[0][s - 2], operationName: 'bottomRight' },
+          { setCircle: rows[0][s - 2], operationName: s % 2 === 0 ? 'bottomRight' : bottomRightAlt },
           { setCircle: rows[0][s - 1], operationName: 'bottomLeft' },
           { setCircle: rows[1][s - 3], operationName: s % 2 === 0 ? 'right' : rightAlt },
         ],
@@ -227,7 +229,7 @@ export function buildRows(size, petalCount, tries = 0) {
           operations,
           sets: [
             { setCircle: rows[ss][s - ss - 2], operationName: s % 2 === 0 ? 'right' : rightAlt },
-            { setCircle: rows[ss - 1][s - ss - 1], operationName: 'bottomRight' },
+            { setCircle: rows[ss - 1][s - ss - 1], operationName: s % 2 === 0 ? 'bottomRight' : bottomRightAlt },
             { setCircle: rows[ss - 1][s - ss], operationName: 'bottomLeft' },
           ],
         });
@@ -237,7 +239,7 @@ export function buildRows(size, petalCount, tries = 0) {
         circle: rows[s - 1][0],
         operations,
         sets: [
-          { setCircle: rows[s - 2][0], operationName: 'bottomRight' },
+          { setCircle: rows[s - 2][0], operationName: s % 2 === 0 ? 'bottomRight' : bottomRightAlt },
           { setCircle: rows[s - 2][1], operationName: 'bottomLeft' },
         ],
       });
