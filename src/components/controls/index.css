@@ -67,29 +67,17 @@
   margin: 0 auto;
 
   & > *:not(.controls__row-btns) {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     transition: transform 400ms ease-in;
-
-    @media (width >= 500px) {
-      margin-bottom: 10px;
-    }
   }
 }
 
 .controls__row--off-1 > *:not(.controls__row-btns) {
   transform: translateY(-40px);
-
-  @media (width >= 500px) {
-    transform: translateY(-50px);
-  }
 }
 
 .controls__row--off-2 > *:not(.controls__row-btns) {
   transform: translateY(-80px);
-
-  @media (width >= 500px) {
-    transform: translateY(-100px);
-  }
 }
 
 .controls__size {
