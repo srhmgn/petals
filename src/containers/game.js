@@ -81,7 +81,7 @@ class Game extends PureComponent {
           isBottom
           isDisabled={ isDisabled }
           petalCount={ petalCount }
-          petalName={ won && petalName }
+          petalName={ petalName }
           reset={ resetGame }
           setPetalCount={ setPetalCount }
           setSize={ setSize }

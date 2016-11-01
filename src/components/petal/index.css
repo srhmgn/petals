@@ -88,3 +88,11 @@
     fill: color(var(--color-bottom-left-invalid) tint(20%));
   }
 }
+
+.petal--bottom-left-alt.petal--invalid {
+  fill: var(--color-bottom-left-alt-invalid);
+
+  &:not(.petal--disabled):hover {
+    fill: color(var(--color-bottom-left-alt-invalid) tint(20%));
+  }
+}
