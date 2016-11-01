@@ -58,9 +58,10 @@ const selectCircleProps = createSelector(
         return {
           data: circle,
           petals: [
-            getPetalProps('rightAlt', basePetalProps),
             getPetalProps('right', basePetalProps),
+            getPetalProps('rightAlt', basePetalProps),
             getPetalProps('bottomLeft', basePetalProps),
+            getPetalProps('bottomLeftAlt', basePetalProps),
             getPetalProps('bottomRight', basePetalProps),
             getPetalProps('bottomRightAlt', basePetalProps),
           ],

@@ -70,6 +70,14 @@
 
 .petal--bottom-left {
   fill: var(--color-bottom-left);
+}
+
+.petal--bottom-left-alt {
+  fill: var(--color-bottom-left-alt);
+}
+
+.petal--bottom-left,
+.petal--bottom-left-alt {
   transform: translate(142px, 190px) rotate(120deg);
 }
 

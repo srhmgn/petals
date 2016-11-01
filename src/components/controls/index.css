@@ -38,13 +38,19 @@
   border-bottom: 1px solid var(--color-bottom-right-invalid);
 }
 
+.controls--bottomRightAlt {
+  background-color: var(--color-bottom-right-alt-invalid);
+  border-bottom: 1px solid var(--color-bottom-right-alt-invalid);
+}
+
 .controls--bottomLeft {
   background-color: var(--color-bottom-left-invalid);
   border-bottom: 1px solid var(--color-bottom-left-invalid);
 }
 
-.controls.controls--won {
-  background-color: var(--color-right-alt);
+.controls--bottomLeftAlt {
+  background-color: var(--color-bottom-left-alt-invalid);
+  border-bottom: 1px solid var(--color-bottom-left-alt-invalid);
 }
 
 .controls__inner {

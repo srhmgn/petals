@@ -10,7 +10,7 @@ import { getValue } from '../../utils';
 const MAX_SIZE = 8;
 const MIN_SIZE = 3;
 
-const MAX_PETALS = 4;
+const MAX_PETALS = 6;
 const MIN_PETALS = 3;
 
 const rowMap = {
@@ -70,7 +70,6 @@ class Controls extends PureComponent {
 
     const wrapperClasses = cx({
       'controls': true,
-      'controls--won': won,
       'controls--top': !isBottom,
       [`controls--${petalName}`]: petalName,
     });

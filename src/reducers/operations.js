@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   right: OPERATIONS.ADD,
   rightAlt: OPERATIONS.ADD,
   bottomLeft: OPERATIONS.ADD,
+  bottomLeftAlt: OPERATIONS.ADD,
   bottomRight: OPERATIONS.ADD,
   bottomRightAlt: OPERATIONS.ADD,
 };

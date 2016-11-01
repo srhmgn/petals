@@ -7,6 +7,7 @@ const petalPath = 'M0,69.17C0.64,44,9.55,21.33,27,2c2.33-2.59,3.71-2.71,6.21-.07
 
 export const petalClassMap = {
   bottomLeft: 'bottom-left',
+  bottomLeftAlt: 'bottom-left-alt',
   bottomRight: 'bottom-right',
   bottomRightAlt: 'bottom-right-alt',
   right: 'right',

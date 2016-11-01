@@ -14,6 +14,7 @@
 
 .text--bottom-right-alt,
 .text--bottom-right,
+.text--bottom-left-alt,
 .text--bottom-left {
   top: 158px;
 }
@@ -23,6 +24,7 @@
   left: 106px;
 }
 
+.text--bottom-left-alt,
 .text--bottom-left {
   left: 36px;
 }

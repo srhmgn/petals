@@ -95,10 +95,18 @@ class GameWrapper extends PureComponent {
         'bottomLeft',
         rowIndex - 1,
         circleIndex + 1,
+      ) || updatePetalName(
+        'bottomLeftAlt',
+        rowIndex - 1,
+        circleIndex + 1,
       );
     } else if (R.contains('ArrowDown', keys) && R.contains('ArrowLeft', keys)) {
       updatePetalName(
         'bottomLeft',
+        rowIndex,
+        circleIndex,
+      ) || updatePetalName(
+        'bottomLeftAlt',
         rowIndex,
         circleIndex,
       );

@@ -165,6 +165,7 @@ export function buildRows(size, petalCount, tries = 0) {
 
   const rightAlt = petalCount > 3 ? 'rightAlt' : 'right';
   const bottomRightAlt = petalCount > 4 ? 'bottomRightAlt' : 'bottomRight';
+  const bottomLeftAlt = petalCount > 5 ? 'bottomLeftAlt' : 'bottomLeft';
 
   if (tries >= 10) return null;
 
@@ -173,6 +174,7 @@ export function buildRows(size, petalCount, tries = 0) {
     right: getRandomOperation(),
     bottomRight: getRandomOperation(),
     bottomRightAlt: getRandomOperation(),
+    bottomLeftAlt: getRandomOperation(),
   };
 
   const rows = buildRowShape([], size);
@@ -218,7 +220,7 @@ export function buildRows(size, petalCount, tries = 0) {
         operations,
         sets: [
           { setCircle: rows[0][s - 2], operationName: s % 2 === 0 ? 'bottomRight' : bottomRightAlt },
-          { setCircle: rows[0][s - 1], operationName: 'bottomLeft' },
+          { setCircle: rows[0][s - 1], operationName: s % 2 === 0 ? 'bottomLeft' : bottomLeftAlt },
           { setCircle: rows[1][s - 3], operationName: s % 2 === 0 ? 'right' : rightAlt },
         ],
       });
@@ -230,7 +232,7 @@ export function buildRows(size, petalCount, tries = 0) {
           sets: [
             { setCircle: rows[ss][s - ss - 2], operationName: s % 2 === 0 ? 'right' : rightAlt },
             { setCircle: rows[ss - 1][s - ss - 1], operationName: s % 2 === 0 ? 'bottomRight' : bottomRightAlt },
-            { setCircle: rows[ss - 1][s - ss], operationName: 'bottomLeft' },
+            { setCircle: rows[ss - 1][s - ss], operationName: s % 2 === 0 ? 'bottomLeft' : bottomLeftAlt },
           ],
         });
       });
@@ -240,7 +242,7 @@ export function buildRows(size, petalCount, tries = 0) {
         operations,
         sets: [
           { setCircle: rows[s - 2][0], operationName: s % 2 === 0 ? 'bottomRight' : bottomRightAlt },
-          { setCircle: rows[s - 2][1], operationName: 'bottomLeft' },
+          { setCircle: rows[s - 2][1], operationName: s % 2 === 0 ? 'bottomLeft' : bottomLeftAlt },
         ],
       });
     });
