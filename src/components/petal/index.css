@@ -4,18 +4,34 @@
   pointer-events: all;
 }
 
+.petal + foreignObject span {
+  background-image: url('/images/cross-stripes.png');
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.petal + foreignObject {
+  clip-path: url('#petalPath');
+}
+
 /* right petal */
 
 .petal--right,
 .petal--right-alt {
-  transform: translate(140px, 30px);
+  &,
+  & + foreignObject {
+    transform: translate(140px, 30px);
+  }
 }
 
-.petal--right {
+.petal--right,
+.petal--right-alt {
   fill: var(--color-right);
 }
 
-.petal--right.petal--invalid {
+.petal--right.petal--invalid,
+.petal--right-alt.petal--invalid {
   fill: var(--color-right-invalid);
 
   &:not(.petal--disabled):hover {
@@ -23,34 +39,23 @@
   }
 }
 
-.petal--right-alt {
-  fill: var(--color-right-alt);
-}
-
-.petal--right-alt.petal--invalid {
-  fill: var(--color-right-alt-invalid);
-
-  &:not(.petal--disabled):hover {
-    fill: color(var(--color-right-alt-invalid) tint(20%));
-  }
-}
-
 /* bottom right petal */
 
-.petal--bottom-right {
-  fill: var(--color-bottom-right);
-}
-
+.petal--bottom-right,
 .petal--bottom-right-alt {
-  fill: var(--color-bottom-right-alt);
+  fill: var(--color-bottom-right);
 }
 
 .petal--bottom-right,
 .petal--bottom-right-alt {
-  transform: translate(180px, 120px) rotate(60deg);
+  &,
+  & + foreignObject {
+    transform: translate(180px, 120px) rotate(60deg);
+  }
 }
 
-.petal--bottom-right.petal--invalid {
+.petal--bottom-right.petal--invalid,
+.petal--bottom-right-alt.petal--invalid {
   fill: var(--color-bottom-right-invalid);
 
   &:not(.petal--disabled):hover {
@@ -58,41 +63,26 @@
   }
 }
 
-.petal--bottom-right-alt.petal--invalid {
-  fill: var(--color-bottom-right-alt-invalid);
-
-  &:not(.petal--disabled):hover {
-    fill: color(var(--color-bottom-right-alt-invalid) tint(20%));
-  }
-}
-
 /* bottom left petal */
 
-.petal--bottom-left {
-  fill: var(--color-bottom-left);
-}
-
+.petal--bottom-left,
 .petal--bottom-left-alt {
-  fill: var(--color-bottom-left-alt);
+  fill: var(--color-bottom-left);
 }
 
 .petal--bottom-left,
 .petal--bottom-left-alt {
-  transform: translate(142px, 190px) rotate(120deg);
+  &,
+  & + foreignObject {
+    transform: translate(142px, 190px) rotate(120deg);
+  }
 }
 
-.petal--bottom-left.petal--invalid {
+.petal--bottom-left.petal--invalid,
+.petal--bottom-left-alt.petal--invalid {
   fill: var(--color-bottom-left-invalid);
 
   &:not(.petal--disabled):hover {
     fill: color(var(--color-bottom-left-invalid) tint(20%));
-  }
-}
-
-.petal--bottom-left-alt.petal--invalid {
-  fill: var(--color-bottom-left-alt-invalid);
-
-  &:not(.petal--disabled):hover {
-    fill: color(var(--color-bottom-left-alt-invalid) tint(20%));
   }
 }

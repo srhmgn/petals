@@ -3,6 +3,7 @@ import cx from 'classnames';
 import R from 'ramda';
 
 import { getValue, isStatic } from '../../utils';
+import { petalPath } from '../petal';
 
 import './index.css';
 
@@ -55,6 +56,15 @@ class Circle extends PureComponent {
           className='circle__svg'
           viewBox='0 0 200 200'
           xmlns='http://www.w3.org/2000/svg'>
+          <defs>
+            <clipPath id='petalPath'>
+              <path d={ petalPath } />
+            </clipPath>
+            <clipPath id="clipping">
+              <polygon id="Star-1" points="98.4999978 153.75 38.2520165 185.424245 49.7583542 118.337123 1.01670635 70.8257603 68.3760155 61.037872 98.5000012 1.1379786e-14 128.624005 61.0378871 195.98331 70.8258091 147.241642 118.337136 158.747982 185.424247"/>
+              <text x="0" y="3.2em">Text</text>
+            </clipPath>
+          </defs>
           { children }
         </svg>
         <span className={ numberClassNames }>
