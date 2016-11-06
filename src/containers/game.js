@@ -58,13 +58,17 @@ class Game extends PureComponent {
           { ...instructions } />
 
         { !instructions.isVisible && <Controls
+          buildRows={ buildRows }
           isDisabled={ isDisabled }
-          operations={ operations }
+          isSettings
+          petalCount={ petalCount }
           petalName={ petalName }
-          pos={ pos }
-          rows={ rows }
-          setOperation={ setOperation }
-          setRowCircle={ setRowCircle } /> }
+          reset={ resetGame }
+          setPetalCount={ setPetalCount }
+          setSize={ setSize }
+          size={ size }
+          toggleInstructions={ toggleInstructions }
+          won={ won } /> }
 
         <Board
           circleProps={ circleProps }
@@ -76,18 +80,14 @@ class Game extends PureComponent {
           setPos={ setPos }
           setRowCircle={ setRowCircle } />
 
-        <Controls
-          buildRows={ buildRows }
-          isBottom
+        { !instructions.isVisible && <Controls
           isDisabled={ isDisabled }
-          petalCount={ petalCount }
+          operations={ operations }
           petalName={ petalName }
-          reset={ resetGame }
-          setPetalCount={ setPetalCount }
-          setSize={ setSize }
-          size={ size }
-          toggleInstructions={ toggleInstructions }
-          won={ won } />
+          pos={ pos }
+          rows={ rows }
+          setOperation={ setOperation }
+          setRowCircle={ setRowCircle } /> }
       </GameWrapper>
     );
   }

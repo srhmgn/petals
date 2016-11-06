@@ -13,12 +13,12 @@
   }
 }
 
-.controls--top {
-  top: 0;
+.controls--settings {
+  bottom: 0;
 }
 
-.controls:not(.controls--top) {
-  bottom: 0;
+.controls:not(.controls--settings) {
+  top: 0;
 }
 
 .controls--right {

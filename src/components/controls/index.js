@@ -21,8 +21,8 @@ const rowMap = {
 class Controls extends PureComponent {
   static propTypes = {
     buildRows: PropTypes.func,
-    isBottom: PropTypes.bool,
     isDisabled: PropTypes.bool.isRequired,
+    isSettings: PropTypes.bool,
     operations: PropTypes.object,
     petalCount: PropTypes.number,
     petalName: PropTypes.string,
@@ -45,8 +45,8 @@ class Controls extends PureComponent {
   render() {
     const {
       buildRows,
-      isBottom,
       isDisabled,
+      isSettings,
       operations,
       petalCount,
       petalName,
@@ -70,7 +70,7 @@ class Controls extends PureComponent {
 
     const wrapperClasses = cx({
       'controls': true,
-      'controls--top': !isBottom,
+      'controls--settings': !isSettings,
       [`controls--${petalName}`]: petalName,
     });
 
@@ -96,7 +96,7 @@ class Controls extends PureComponent {
       </span>
     );
 
-    const innerContent = isBottom ? [
+    const innerContent = isSettings ? [
       <div
         className={ `controls__row controls__row--off-${currentRow}` }
         key='0'>
