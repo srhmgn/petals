@@ -10,6 +10,14 @@ const nonPrimes = R.range(19, 82).filter(n =>
 
 const PETAL_LIST = R.concat(R.range(1, 19), nonPrimes);
 
+// number of petals required to allow alt version of petal
+
+const minCountForAltMap = {
+  right: 4,
+  bottomRight: 5,
+  bottomLeft: 6,
+};
+
 export function getRandom(max = 10) {
   const list = R.range(1, max);
   return getRandomFromList(list);
@@ -146,6 +154,12 @@ class Circle {
   }
 }
 
+function getAltPetal(petalName, petalCount, index) {
+  if (petalCount < minCountForAltMap[petalName]) return petalName;
+
+  return index % 2 === 0 ? petalName : `${petalName}Alt`;
+}
+
 function buildRowShape(rows, rowCount) {
   if (rowCount === 0) return rows;
 
@@ -162,10 +176,6 @@ export function buildRows(size, petalCount, tries = 0) {
   /* eslint-disable no-console */
   console.log('setting up game', tries);
   /* eslint-enable no-console */
-
-  const rightAlt = petalCount > 3 ? 'rightAlt' : 'right';
-  const bottomRightAlt = petalCount > 4 ? 'bottomRightAlt' : 'bottomRight';
-  const bottomLeftAlt = petalCount > 5 ? 'bottomLeftAlt' : 'bottomLeft';
 
   if (tries >= 10) return null;
 
@@ -211,7 +221,10 @@ export function buildRows(size, petalCount, tries = 0) {
         circle: rows[0][s - 1],
         operations,
         sets: [
-          { setCircle: rows[0][s - 2], operationName: s % 2 === 0 ? 'right' : rightAlt },
+          {
+            setCircle: rows[0][s - 2],
+            operationName: getAltPetal('right', petalCount, s),
+          },
         ],
       });
 
@@ -219,9 +232,18 @@ export function buildRows(size, petalCount, tries = 0) {
         circle: rows[1][s - 2],
         operations,
         sets: [
-          { setCircle: rows[0][s - 2], operationName: s % 2 === 0 ? 'bottomRight' : bottomRightAlt },
-          { setCircle: rows[0][s - 1], operationName: s % 2 === 0 ? 'bottomLeft' : bottomLeftAlt },
-          { setCircle: rows[1][s - 3], operationName: s % 2 === 0 ? 'right' : rightAlt },
+          {
+            setCircle: rows[0][s - 2],
+            operationName: getAltPetal('bottomRight', petalCount, s),
+          },
+          {
+            setCircle: rows[0][s - 1],
+            operationName: getAltPetal('bottomLeft', petalCount, s),
+          },
+          {
+            setCircle: rows[1][s - 3],
+            operationName: getAltPetal('right', petalCount, s),
+          },
         ],
       });
 
@@ -230,9 +252,18 @@ export function buildRows(size, petalCount, tries = 0) {
           circle: rows[ss][s - ss - 1],
           operations,
           sets: [
-            { setCircle: rows[ss][s - ss - 2], operationName: s % 2 === 0 ? 'right' : rightAlt },
-            { setCircle: rows[ss - 1][s - ss - 1], operationName: s % 2 === 0 ? 'bottomRight' : bottomRightAlt },
-            { setCircle: rows[ss - 1][s - ss], operationName: s % 2 === 0 ? 'bottomLeft' : bottomLeftAlt },
+            {
+              setCircle: rows[ss][s - ss - 2],
+              operationName: getAltPetal('right', petalCount, s),
+            },
+            {
+              setCircle: rows[ss - 1][s - ss - 1],
+              operationName: getAltPetal('bottomRight', petalCount, s),
+            },
+            {
+              setCircle: rows[ss - 1][s - ss],
+              operationName: getAltPetal('bottomLeft', petalCount, s),
+            },
           ],
         });
       });
@@ -241,8 +272,14 @@ export function buildRows(size, petalCount, tries = 0) {
         circle: rows[s - 1][0],
         operations,
         sets: [
-          { setCircle: rows[s - 2][0], operationName: s % 2 === 0 ? 'bottomRight' : bottomRightAlt },
-          { setCircle: rows[s - 2][1], operationName: s % 2 === 0 ? 'bottomLeft' : bottomLeftAlt },
+          {
+            setCircle: rows[s - 2][0],
+            operationName: getAltPetal('bottomRight', petalCount, s),
+          },
+          {
+            setCircle: rows[s - 2][1],
+            operationName: getAltPetal('bottomLeft', petalCount, s),
+          },
         ],
       });
     });
