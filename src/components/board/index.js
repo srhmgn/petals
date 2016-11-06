@@ -1,5 +1,6 @@
 import React, { PropTypes, PureComponent } from 'react';
 import Hammer from 'react-hammerjs';
+import throttle from 'lodash.throttle';
 
 import Circle from '../circle';
 import Row from '../row';
@@ -17,23 +18,25 @@ class Board extends PureComponent {
     setPos: PropTypes.func,
   };
 
-  constructor(props) {
-    super(props);
+  _isMounted = true;
 
-    const body = document.querySelector('body');
-    this.currentSize = props.circleProps && props.circleProps[0] ?
-      props.circleProps[0].length : 0;
+  state = {
+    scale: 1,
+  }
 
-    this.originalScale = body.offsetWidth / (120 * this.currentSize);
+  componentWillMount() {
+    this.scaleBoard();
+    this._isMounted = true;
 
-    this.isTallerThanContainer = (body.offsetHeight - 160) <=
-      (130 * this.currentSize);
+    this.listener = window.addEventListener(
+      'resize',
+      throttle(this.scaleBoard, 200)
+    );
+  }
 
-    this.startingScale = this.originalScale;
-
-    this.state = {
-      scale: this.originalScale,
-    };
+  componentWillUnmount() {
+    this._isMounted = false;
+    window.removeEventListener('resize', this.listener);
   }
 
   render() {
@@ -44,22 +47,6 @@ class Board extends PureComponent {
       setPetalName,
       setPos,
     } = this.props;
-
-    let transform;
-    let style;
-
-    if (this.state.scale < 1) {
-      const translateAmount = `-${this.state.scale * 50}%`;
-      const translate = `translate(${translateAmount}, ${translateAmount})`;
-      transform = `${translate} scale(${this.state.scale})`;
-      style = { transform, left: '50%', top: '50%' };
-    } else if (!this.isTallerThanContainer) {
-      transform = 'translate(-50%, -50%)';
-      style = { transform, left: '50%', top: '50%' };
-    } else {
-      transform = 'translate(-50%, 0)';
-      style = { transform, left: '50%', top: 76 };
-    }
 
     return (
       <Hammer
@@ -73,13 +60,13 @@ class Board extends PureComponent {
           <div
             className='board__inner'
             id={ gameId ? 'game' : null }
-            style={ style }>
+            style={ this.state.style }>
             { circleProps.map((circleRow, rowIndex) =>
               <Row
                 key={ rowIndex }
                 rowIndex={ rowIndex }
                 style={ {
-                  width: this.state.scale < 1 ? 'auto' : 120 * this.currentSize,
+                  width: this.state.scale <= 1 ? 'auto' : 120 * this.currentSize,
                   zIndex: 1000 - rowIndex,
                 } }>
 
@@ -125,6 +112,40 @@ class Board extends PureComponent {
 
     this.setState({
       scale: newScale,
+    });
+  }
+
+  scaleBoard = () => {
+    if (!this._isMounted) return;
+
+    const { circleProps } = this.props;
+
+    const body = document.querySelector('body');
+    this.currentSize = circleProps && circleProps[0] ?
+      circleProps[0].length : 0;
+
+    this.originalScale = (body.offsetWidth / (120 * this.currentSize));
+
+    this.isTallerThanContainer = (body.offsetHeight - 160) <=
+      (130 * this.currentSize * this.originalScale);
+
+    this.startingScale = this.originalScale;
+
+    const top = this.isTallerThanContainer ? 62 : '50%';
+    const left = '50%';
+    const translateAmount = this.originalScale < 1 ?
+      `-${this.originalScale * 50}%` : '-50%';
+    const leftTransform = translateAmount;
+    const topTransform = this.isTallerThanContainer ? 0 : translateAmount;
+
+    let transform = `translate3d(${leftTransform}, ${topTransform}, 0)`;
+    if (this.originalScale < 1) {
+      transform += ` scale(${this.originalScale})`;
+    }
+
+    this.setState({
+      scale: this.originalScale,
+      style: { transform, left, top },
     });
   }
 }
